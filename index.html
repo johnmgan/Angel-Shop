@@ -364,5 +364,10 @@ if(imeunganishwa){ sikilizaFirebase(); } else {
 }
 render(); ripotiLeo(); show('uza'); sasishaStatusAuto();
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
 </body>
 </html>
