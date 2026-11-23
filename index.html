@@ -99,6 +99,60 @@ small{color:#666}
 .faidaBox{text-align:center;font-weight:bold;font-size:17px;padding:10px;border-radius:8px;margin-top:6px;background:#E8F5E9;color:#1A7A3A;border:2px solid #1A7A3A}
 #orodhaMuhimu{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:8px !important;overflow:visible !important;padding-bottom:0 !important}
 #orodhaMuhimu>div{min-width:0 !important;width:auto !important;flex:none !important;text-align:center;padding:8px 4px !important}
+/* ===== BUTTON ZA FUTA / BADILI KWENYE PENDING - NDOGO KULIA - MPYA ===== */
+.pendingRow{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:6px !important;
+  flex-direction:row !important;
+  padding:6px 8px !important;
+  background:#FFF8E1 !important;
+  border-radius:8px !important;
+  margin:4px 0 !important;
+  border:1px solid #FFE0B2 !important;
+}
+.pendingRowInfo{
+  flex:1;
+  min-width:0;
+  line-height:1.2;
+}
+.pendingRowJina{
+  font-weight:bold;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:block;
+}
+.pendingRowIdadi{
+  font-size:11px;
+  color:#666;
+  display:block;
+}
+.pendingRowJumla{
+  font-weight:bold;
+  font-size:13px;
+  white-space:nowrap;
+  margin-right:4px;
+  color:#1A7A3A;
+}
+.pendingBtnWrap{
+  display:flex !important;
+  gap:4px !important;
+  flex-shrink:0 !important;
+}
+.btnPendingMini{
+  width:auto !important;
+  padding:5px 8px !important;
+  font-size:11px !important;
+  border-radius:6px !important;
+  margin:0 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+.btnPendingBadili{ background:#EF6C00 !important; color:white !important; }
+.btnPendingFuta{ background:#d32f2f !important; color:white !important; }
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff4081">
@@ -131,7 +185,68 @@ small{color:#666}
 <button id="btnHela" onclick="funguaPanel('hela')">💵<br>CHENJI</button>
 <button id="btnPunguza" onclick="funguaPanel('punguza')">🔥<br>PUNGUZA</button>
 <button id="btnKikapu" onclick="funguaPanel('kikapu')">🧺<br>KIKAPU (<span id="idadiKikapuBar">0</span>)</button>
+<button onclick="document.getElementById('pendingJinaBox').style.display='block'" style="background:#EF6C00">⏳<br>PENDING</button>
 <button id="btnUza" class="btnUzaMoja" onclick="uzaPapohapo()">🛒<br>UZA</button>
+</div>
+
+<!-- ===== PENDING - OPEN - ADD BIDHAA NYINGI KABLA YA WEKA PENDING ===== -->
+<!-- ===== PENDING - MFUPI - WEKA PENDING MOJA KWA MOJA ===== -->
+<div id="pendingJinaBox" style="display:none;background:#FFF3E0;border:2px solid #EF6C00;border-radius:10px;padding:8px;margin-top:6px">
+  <b>⏳ PENDING - WEKA MOJA KWA MOJA</b>
+  <input id="jinaPending" placeholder="Jina la Mteja - SI LAZIMA - mfano JUMA" style="margin-top:6px">
+  <div style="display:flex;gap:4px;margin-top:6px">
+    <button onclick="wekaPendingMojaKwaMoja()" style="background:#EF6C00;flex:1">⏳ WEKA PENDING</button>
+    <button onclick="document.getElementById('pendingJinaBox').style.display='none'" style="background:#d32f2f;flex:1">❌ GHAIRI</button>
+  </div>
+  <small>Chagua bidhaa hapo juu, bonyeza WEKA PENDING - inaenda moja kwa moja. Chagua nyingine, WEKA PENDING tena.</small>
+  <button onclick="funguaPending()" style="background:#222;margin-top:4px">👁️ ONA WATEJA WA PENDING</button>
+</div>
+
+<!-- Orodha ya PENDING -->
+<div id="pendingBox" style="display:none;background:white;border:2px solid #EF6C00;border-radius:10px;padding:8px;margin-top:6px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <b>⏳ WATEJA WA PENDING</b>
+    <button onclick="document.getElementById('pendingBox').style.display='none'" style="width:auto;padding:5px;background:#d32f2f">X FUNGA</button>
+  </div>
+  <div id="orodhaPending"></div>
+</div>
+
+<!-- Kufungua Mteja Mmoja wa PENDING - Kama KIKAPU -->
+<div id="pendingMtejaBox" style="display:none;background:#E3F2FD;border:2px solid #1565C0;border-radius:10px;padding:8px;margin-top:6px">
+  <b>⏳ PENDING: <span id="pendingMtejaJina">-</span></b>
+  <div id="pendingMtejaBidhaa"></div>
+  <div id="pendingMtejaJumla" style="font-weight:bold;text-align:center;background:white;padding:8px;border-radius:8px;margin:6px 0"></div>
+
+  <!-- ===== OPTION 3 ZA KILA JINA - ONGEZA / BADILI / FUTA ===== -->
+  <div style="display:flex;gap:4px;margin-bottom:6px">
+    <button onclick="ongezaKwaPendingIliyopo()" style="background:#1565C0;flex:1">➕ ONGEZA<br><small>Bidhaa Nyingine</small></button>
+    <button onclick="badiliJinaPending()" style="background:#EF6C00;flex:1">✏️ BADILI<br><small>Jina / Bidhaa</small></button>
+    <button onclick="futaPendingMteja()" style="background:#d32f2f;flex:1">🗑️ FUTA<br><small>Mteja Yote</small></button>
+  </div>
+
+  <!-- PUNGUZA / CHENJI / UZA kama kawaida -->
+  <div class="kikapuMiniBar">
+    <button onclick="funguaMiniPending('punguza')">🔥<br>PUNGUZA</button>
+    <button onclick="funguaMiniPending('chenji')">💵<br>CHENJI</button>
+    <button class="btnUzaKikapu" onclick="uzaPendingSasa()">🛒<br>UZA SASA</button>
+  </div>
+  <div id="miniPendingPunguza" class="miniPanel"><div class="punguzoBox"><b>🔥 PUNGUZA PENDING:</b><input id="punguzoPendingInput" type="number" value="0" oninput="hesabuPendingPunguza()"><div id="matokeoPendingPunguza" style="font-weight:bold"></div></div></div>
+  <div id="miniPendingChenji" class="miniPanel"><div class="chenchiBox"><b>💵 CHENJI YA PENDING:</b><div id="chenjiPendingDisplay" style="background:white;padding:10px;border-radius:8px;text-align:center;font-weight:bold">Jumla: 0/=</div><input id="helaPendingInput" type="number" placeholder="Mteja ametoa" oninput="hesabuChenjiPending()"><div class="helaGrid"><button onclick="wekaHelaPending(5000)">5000</button><button onclick="wekaHelaPending(10000)">10000</button><button onclick="wekaHelaPending(20000)">20000</button><button onclick="wekaHelaPending(50000)">50000</button></div></div></div>
+
+  <!-- ===== BOX LA BADILI - Linafunguka ukibonyeza BADILI ===== -->
+  <div id="badiliPendingBox" style="display:none;background:#FFF3E0;border:2px solid #EF6C00;border-radius:8px;padding:8px;margin-top:6px">
+    <b>✏️ BADILI - <span id="badiliPendingTitle">-</span></b>
+    <label style="font-size:12px">Jina Jipya (ukiwa unabadili jina):</label>
+    <input id="jinaJipyaPending" placeholder="Jina jipya - mfano JOHN MPYA">
+    <button onclick="hifadhiJinaJipyaPending()" style="background:#EF6C00">✏️ BADILI JINA</button>
+    <label style="font-size:12px;margin-top:6px">Idadi Mpya (ukiwa unabadili bidhaa):</label>
+    <input id="idadiMpyaPending" type="number" placeholder="Idadi mpya - mfano 3">
+    <button onclick="hifadhiIdadiMpyaPending()" style="background:#1565C0">✏️ BADILI IDADI</button>
+    <button onclick="document.getElementById('badiliPendingBox').style.display='none'" style="background:#222">GHAIRI</button>
+    <small>Badili jina tu, au badili idadi ya bidhaa uliyochagua - jumla na faida zinajihesabu zenyewe</small>
+  </div>
+
+  <button onclick="fungaPendingMteja()" style="background:#222;margin-top:6px">← RUDI KWENYE ORODHA YA PENDING</button>
 </div>
 
 <div id="panelHela" class="panelVitendo"><div class="chenchiBox"><b>💵 CHENJI:</b><div id="chenchiDisplay" style="font-weight:bold;font-size:20px;margin:6px 0;background:white;padding:10px;border-radius:8px;text-align:center">Jumla: 0/=</div><div id="chaguoHela" style="text-align:center;font-weight:bold">Hujachagua</div><input id="helaAliyotoaInput" type="number" placeholder="Andika - mfano 12500" oninput="andikaHelaAliyotoa()" onclick="this.select()"><div class="helaGrid"><button onclick="wekaHelaAliyotoa(2000,this)">2000</button><button onclick="wekaHelaAliyotoa(3000,this)">3000</button><button onclick="wekaHelaAliyotoa(5000,this)">5000</button><button onclick="wekaHelaAliyotoa(10000,this)">10000</button><button onclick="wekaHelaAliyotoa(20000,this)">20000</button><button onclick="wekaHelaAliyotoa(50000,this)">50000</button></div><input id="helaAliyotoa" type="hidden"><input id="helaMafuta" type="hidden"></div></div>
@@ -180,7 +295,14 @@ small{color:#666}
 
 <div id="beiInfo" class="deniBox">Tafuta bidhaa hapo juu</div>
 <div id="sehemuRobo" style="display:none"><div class="roboBox"><button class="minus" onclick="punguzaRobo()">-</button><input id="idadiUza" class="roboInput" type="number" step="0.25" min="0.25" value="0.25" oninput="badiliRobo()" onclick="this.select()"><button onclick="ongezaRobo()">+</button><div id="jumlaHaraka" class="jumlaHaraka">= 0/=</div></div><div id="roboDisplay" style="text-align:center;font-weight:bold;color:#1A7A3A;background:#E8F5E9;padding:5px;border-radius:6px">ROBO</div></div>
-<button id="btnRudiChini" onclick="rudiKwenyeBidhaa()" style="background:#222;margin-top:8px;display:none">← RUDI KWENYE BIDHAA</button>
+<!-- ===== PENDING - MPYA - BADALA YA RUDI KWENYE BIDHAA ===== -->
+<div style="display:flex;gap:4px;margin-top:8px">
+  <button onclick="rudiKwenyeBidhaa()" style="background:#222;flex:1">← RUDI KWENYE BIDHAA</button>
+  <button onclick="funguaPending()" style="background:#EF6C00;flex:1">⏳ PENDING (<span id="idadiPending">0</span>)</button>
+</div>
+
+<!-- Kuwekea Jina la Mteja wa PENDING -->
+
 <p id="msgUza"></p>
 </div>
 
@@ -438,6 +560,484 @@ render(); ripotiLeo(); show('uza'); sasishaStatusAuto(); hesabuGuniaFomu(); hesa
 </script>
 <script>
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+// ===== PENDING - MPYA - KAMA KIKAPU - HAPA TU =====
+let pendingList = [];
+try{ pendingList = JSON.parse(localStorage.getItem('mangi_v4_pending')||'[]'); }catch(e){ pendingList=[]; }
+let pendingIliyofunguliwa = -1; // Ni mteja gani tumemfungua sasa
+
+function hifadhiPending(){
+  try{ localStorage.setItem('mangi_v4_pending', JSON.stringify(pendingList)); }catch(e){}
+  var el = document.getElementById('idadiPending');
+  if(el) el.innerText = pendingList.length;
+  // Kama unataka iwe LIVE kwa wawili pia, hifadhi Firebase hapa tu - usiguse save() ya original
+  try{ if(typeof db!=='undefined' && db) db.ref('mangi_v9_pending').set(pendingList); }catch(e){}
+}
+
+function funguaPending(){
+  // Funga zingine, fungua orodha ya pending
+  document.getElementById('pendingMtejaBox').style.display='none';
+  var box = document.getElementById('pendingBox');
+  box.style.display = (box.style.display=='block' ? 'none' : 'block');
+  onyeshaPending();
+}
+
+function onyeshaPending(){
+  var div = document.getElementById('orodhaPending');
+  if(!div) return;
+  hifadhiPending();
+  if(pendingList.length==0){
+    div.innerHTML = "<div style='text-align:center;padding:10px;color:#999'>Hakuna PENDING - Wateja wote wamelipa</div>";
+    return;
+  }
+  div.innerHTML = pendingList.map(function(p,i){
+    var jumla = p.bidhaa.reduce(function(s,x){return s+x.jumla},0);
+    var bidhaaText = p.bidhaa.map(function(b){return b.jina+" ("+b.jinaIdadi+")"}).join(", ");
+    return "<div class='item' style='background:#FFF8E1;border-radius:8px;margin:4px 0'>"
+      + "<span><b>⏳ "+p.jina+"</b><br><small>"+bidhaaText+"<br>"+p.tarehe+" | "+(p.muuzaji||"-")+"</small></span>"
+      + "<span style='text-align:right'><b>"+jumla.toLocaleString()+"/=</b><br>"
+      + "<button onclick='funguaPendingMteja("+i+")' style='width:auto;padding:6px;background:#1A7A3A'>👁️ FUNGUA / UZA</button></span></div>";
+  }).join("");
+}
+
+// --- Mteja amenunua, hajalipa - Tunaweka PENDING ---
+function wekaPending(){
+  // 1. Hakikisha kachagua bidhaa
+  if(typeof hakunaBidhaa==='function' && hakunaBidhaa()) return alert('Chagua bidhaa kwanza!');
+  var jina = document.getElementById('jinaPending').value.trim().toUpperCase();
+// ===== MPYA - JINA SI LAZIMA =====
+// Kama hana jina, tunampa jina la muda tu ili tuanze ku-add - baadae akitaja tutabadilisha
+if(!jina){
+  jina = "MTEJA " + (pendingList.length + 1);
+  document.getElementById('jinaPending').value = jina;
+}
+
+  // 2. Pata hesabu ya bidhaa aliyochagua sasa - tunatumia function zako za original, hatubadili
+  var calc = null;
+  if(typeof niMafutaIliyochaguliwa==='function' && niMafutaIliyochaguliwa()){
+    calc = hesabuMafuta();
+  } else {
+    calc = hesabuPunguzo();
+  }
+  if(!calc) return alert('Bonyeza BEI kwanza!');
+
+  var b = bidhaaIliyochaguliwa();
+  // 3. Tafuta kama huyu mteja tayari yupo kwenye PENDING - tukimkuta, tunaongeza bidhaa zake humo humo, hatumuumbi mpya
+  var idxMteja = -1;
+  for(var i=0;i<pendingList.length;i++){ if(pendingList[i].jina===jina) idxMteja=i; }
+  var itemMpya = {jina:b.jina, jinaIdadi:calc.jinaIdadi, idadi:calc.idadi, jumla:calc.jumlaMpya, faida:calc.faidaMpya, bei:calc.beiMpya, category:pataCategoryYaBidhaa(b), idxBidhaa:bidhaaIliyochaguliwaIdx};
+
+  if(idxMteja>=0){
+    pendingList[idxMteja].bidhaa.push(itemMpya);
+    alert('✅ Imeongezwa kwenye PENDING ya '+jina+'! Sasa ana bidhaa '+pendingList[idxMteja].bidhaa.length);
+  } else {
+    pendingList.push({jina:jina, tarehe:new Date().toDateString(), muuzaji:jinaMuuzaji||"?", bidhaa:[itemMpya]});
+    alert('✅ '+jina+' amewekwa PENDING!');
+  }
+
+  // 4. HATUPUNGUZI STOCK hapa - kwa sababu hajalipa bado. Stock itapungua siku atakapolipa / tutakapomuuza
+  // 5. Funga, safisha, rudi kwenye bidhaa
+  document.getElementById('jinaPending').value="";
+  document.getElementById('pendingJinaBox').style.display='none';
+  hifadhiPending();
+  onyeshaPending();
+  if(typeof rudiKwenyeBidhaa==='function') rudiKwenyeBidhaa();
+}
+
+// --- Button ya kuonyesha box la kuandika jina la PENDING - weka kwenye vitendoBarJuu ---
+// Ili hii ifanye kazi, ongeza button hii kwenye vitendoBarJuu - pembeni ya UZA:
+// <button onclick="document.getElementById('pendingJinaBox').style.display='block'" style="background:#EF6C00">⏳<br>PENDING</button>
+
+// --- Fungua mteja mmoja - kama KIKAPU ---
+function funguaPendingMteja(i){
+  pendingIliyofunguliwa = i;
+  var p = pendingList[i];
+  if(!p) return;
+  document.getElementById('pendingBox').style.display='none';
+  document.getElementById('pendingMtejaBox').style.display='block';
+  document.getElementById('pendingMtejaJina').innerText = p.jina;
+  var div = document.getElementById('pendingMtejaBidhaa');
+ div.innerHTML = p.bidhaa.map(function(k,idx){
+  return "<div class='pendingRow'>"
+    + "<div class='pendingRowInfo'><span class='pendingRowJina'>"+k.jina+"</span><span class='pendingRowIdadi'>"+k.jinaIdadi+"</span></div>"
+    + "<span class='pendingRowJumla'>"+k.jumla.toLocaleString()+"/=</span>"
+    + "<div class='pendingBtnWrap'>"
+    + "<button class='btnPendingMini btnPendingBadili' onclick='badiliBidhaaPending("+idx+")'>✏️ BADILI</button>"
+    + "<button class='btnPendingMini btnPendingFuta' onclick='futaBidhaaPending("+idx+")'>🗑️ FUTA</button>"
+    + "</div>"
+    + "</div>";
+}).join("");
+  document.getElementById('punguzoPendingInput').value=0;
+  document.getElementById('helaPendingInput').value="";
+  hesabuPendingPunguza();
+  // Funga mini panels
+  document.querySelectorAll('#pendingMtejaBox .miniPanel').forEach(function(m){m.classList.remove('show')});
+}
+function fungaPendingMteja(){
+  pendingIliyofunguliwa=-1;
+  document.getElementById('pendingMtejaBox').style.display='none';
+  document.getElementById('pendingBox').style.display='block';
+  onyeshaPending();
+}
+function futaBidhaaPending(idx){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  p.bidhaa.splice(idx,1);
+  if(p.bidhaa.length==0){
+    pendingList.splice(pendingIliyofunguliwa,1);
+    hifadhiPending();
+    fungaPendingMteja();
+    alert('Mteja ameondolewa - hana bidhaa tena');
+    return;
+  }
+  hifadhiPending();
+  funguaPendingMteja(pendingIliyofunguliwa);
+}
+
+// --- PUNGUZA / CHENJI za PENDING - kama KIKAPU ---
+function funguaMiniPending(jina){
+  document.querySelectorAll('#pendingMtejaBox .miniPanel').forEach(function(m){m.classList.remove('show')});
+  var el = document.getElementById('miniPending'+jina.charAt(0).toUpperCase()+jina.slice(1));
+  if(el) el.classList.add('show');
+}
+function pataJumlaPending(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return 0;
+  return p.bidhaa.reduce(function(s,x){return s+x.jumla},0);
+}
+function pataPunguzaPending(){ return +document.getElementById('punguzoPendingInput').value||0; }
+function pataJumlaPendingBaadaPunguza(){ return Math.max(0, pataJumlaPending() - pataPunguzaPending()); }
+function hesabuPendingPunguza(){
+  var jumla = pataJumlaPending();
+  var baada = pataJumlaPendingBaadaPunguza();
+  document.getElementById('pendingMtejaJumla').innerText = "Jumla: "+jumla.toLocaleString()+"/= | Baada ya Punguzo: "+baada.toLocaleString()+"/=";
+  document.getElementById('matokeoPendingPunguza').innerText = "Kulipa: "+baada.toLocaleString()+"/=";
+  hesabuChenjiPending();
+}
+function hesabuChenjiPending(){
+  var baada = pataJumlaPendingBaadaPunguza();
+  var hela = +document.getElementById('helaPendingInput').value||0;
+  document.getElementById('chenjiPendingDisplay').innerText = "Jumla: "+baada.toLocaleString()+"/= | Aliyotoa: "+hela.toLocaleString()+"/= | Chenji: "+Math.max(0, hela-baada).toLocaleString()+"/=";
+}
+function wekaHelaPending(v){ document.getElementById('helaPendingInput').value=v; hesabuChenjiPending(); }
+
+// --- UZA PENDING - Akirudi, anauza hapa, anaondolewa kwenye PENDING ---
+function uzaPendingSasa(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  if(!confirm('Uza PENDING ya '+p.jina+'? Jumla '+pataJumlaPendingBaadaPunguza().toLocaleString()+"/= ?")) return;
+  var pungHii = pataPunguzaPending();
+  var pungKwaKimoja = p.bidhaa.length ? Math.round(pungHii / p.bidhaa.length) : 0;
+
+  // Kama KIKAPU - tunauza kila bidhaa, tunapunguza stock sasa (kwa sababu sasa ndio amelipa)
+  for(var i=0;i<p.bidhaa.length;i++){
+    var k = p.bidhaa[i];
+    // Tafuta bidhaa kwenye orodha ili kupunguza stock
+    var bIdx = k.idxBidhaa;
+    if(bIdx!=null && bidhaa[bIdx] && bidhaa[bIdx].jina===k.jina){
+      bidhaa[bIdx].idadi = Math.max(0, Math.round((bidhaa[bIdx].idadi - k.idadi)*1000)/1000);
+    }
+    mauzo.push({
+      jina:k.jina+" ("+k.jinaIdadi+")",
+      idadi:k.idadi,
+      jumla:Math.max(0, k.jumla - pungKwaKimoja),
+      faida:Math.max(0, k.faida - pungKwaKimoja),
+      tarehe:new Date().toDateString(),
+      saa:new Date().toLocaleTimeString(),
+      iso:toISO(new Date()),
+      punguzo:pungKwaKimoja,
+      bei:k.bei,
+      category:k.category,
+      muuzaji:jinaMuuzaji||"?"
+    });
+  }
+  // --- ONDOA KWENYE PENDING BAADA YA KUUZA ---
+  pendingList.splice(pendingIliyofunguliwa,1);
+  pendingIliyofunguliwa=-1;
+  hifadhiPending();
+  document.getElementById('pendingMtejaBox').style.display='none';
+  document.getElementById('pendingBox').style.display='none';
+  // Hifadhi mauzo na bidhaa - tunatumia save() yako ya original, hatuibadili
+  if(typeof save==='function') save(); else if(typeof hifadhiLocal==='function') hifadhiLocal();
+  if(typeof render==='function') render();
+  document.getElementById('msgUza').innerHTML="✅ UMEUZA PENDING ya "+p.jina+"! Ameondolewa kwenye PENDING.";
+  alert('✅ UMEUZA PENDING ya '+p.jina+'!');
+}
+function futaPendingMteja(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  if(!confirm('Futa PENDING ya '+p.jina+'?')) return;
+  pendingList.splice(pendingIliyofunguliwa,1);
+  pendingIliyofunguliwa=-1;
+  hifadhiPending();
+  document.getElementById('pendingMtejaBox').style.display='none';
+  onyeshaPending();
+}
+
+// Anzisha PENDING ikifunguka App
+hifadhiPending();
+// ===== PENDING MUDA - ADD BIDHAA NYINGI KABLA YA WEKA PENDING - MPYA =====
+let pendingMuda = []; // Bidhaa za muda - bado hazijaenda rasmi kwenye PENDING
+
+function funguaPendingMuda(){
+  // Hii ndiyo button ya PENDING kwenye vitendoBarJuu inapaswa kuita sasa
+  // Inafungua box la ku-add bidhaa - na inabaki OPEN
+  var box = document.getElementById('pendingJinaBox');
+  box.style.display = 'block';
+  document.getElementById('pendingBox').style.display='none';
+  document.getElementById('pendingMtejaBox').style.display='none';
+  onyeshaPendingMuda();
+  // Ipande juu pale pale ilipo IDADI
+  setTimeout(function(){ box.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+}
+
+function fungaPendingMuda(){
+  // Ukifunga bila kuweka PENDING, muda unafutika - uliza kwanza kama kuna bidhaa
+  if(pendingMuda.length>0){
+    if(!confirm('Una bidhaa '+pendingMuda.length+' kwenye PENDING ya muda ambazo hujaweka rasmi. Ufunge na kuzifuta?')) return;
+  }
+  pendingMuda = [];
+  onyeshaPendingMuda();
+  document.getElementById('pendingJinaBox').style.display='none';
+  document.getElementById('jinaPending').value="";
+}
+
+
+
+// --- Hii ndiyo ADD PENDING - Ina-add bidhaa uliyochagua sasa kwenye orodha ya muda ---
+
+
+function futaPendingMuda(i){
+  pendingMuda.splice(i,1);
+  onyeshaPendingMuda();
+}
+
+// --- Hii ndiyo WEKA PENDING rasmi - Akimaliza kutaja zote ---
+
+// ===== PENDING - OPTION 3 ZA KILA JINA - ONGEZA / BADILI / FUTA - MPYA =====
+let pendingBidhaaInayobadilishwa = -1; // Ni bidhaa gani tunabadili sasa (kwa JOHN)
+
+// --- 1. ONGEZA - JOHN anarudi anaongeza bidhaa nyingine ---
+function ongezaKwaPendingIliyopo(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  // Tunafunga box la mteja, tunafungua box la ku-add - na jina lake limeshaandikwa
+  document.getElementById('pendingMtejaBox').style.display='none';
+  document.getElementById('pendingJinaBox').style.display='block';
+  document.getElementById('jinaPending').value = p.jina;
+  // Tunaanza na muda mpya - bidhaa za zamani zinabaki kwenye PENDING rasmi, hizi mpya zitaongezwa baadae
+  alert('➕ ONGEZA kwa '+p.jina+' - Chagua bidhaa mpya, bonyeza WEKA PENDING - inaenda moja kwa moja kwenye PENDING yake!');
+  setTimeout(function(){ document.getElementById('pendingJinaBox').scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+  // Kumbuka: wekaPendingRasmi() yako ya zamani tayari inajua - ikikuta jina lipo, inaongeza humo humo, haimuiumbi mpya
+}
+
+// --- 2. BADILI - Fungua box la kubadili ---
+function badiliJinaPending(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  pendingBidhaaInayobadilishwa = -1; // Hapa tunabadili jina la mteja mzima
+  document.getElementById('badiliPendingTitle').innerText = "MTEJA: "+p.jina;
+  document.getElementById('jinaJipyaPending').value = p.jina;
+  document.getElementById('idadiMpyaPending').value = "";
+  document.getElementById('badiliPendingBox').style.display='block';
+  document.getElementById('badiliPendingBox').scrollIntoView({behavior:'smooth', block:'start'});
+}
+// BADILI jina la mteja - Mfano JOHN -> JOHN MPYA
+function hifadhiJinaJipyaPending(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  var jipya = document.getElementById('jinaJipyaPending').value.trim().toUpperCase();
+  if(!jipya) return alert('Andika jina jipya kwanza!');
+  p.jina = jipya;
+  hifadhiPending();
+  document.getElementById('pendingMtejaJina').innerText = jipya;
+  document.getElementById('badiliPendingBox').style.display='none';
+  onyeshaPending();
+  alert('✅ Jina limebadilishwa kuwa '+jipya);
+}
+// BADILI bidhaa moja - Mfano JOHN alikuwa na MCHELE 2 KILO, anataka 3 KILO
+function badiliBidhaaPending(idx){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  pendingBidhaaInayobadilishwa = idx;
+  var k = p.bidhaa[idx];
+  document.getElementById('badiliPendingTitle').innerText = "BIDHAA: "+k.jina+" ("+k.jinaIdadi+")";
+  document.getElementById('jinaJipyaPending').value = p.jina;
+  document.getElementById('idadiMpyaPending').value = k.idadi;
+  document.getElementById('badiliPendingBox').style.display='block';
+  document.getElementById('badiliPendingBox').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function hifadhiIdadiMpyaPending(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  if(pendingBidhaaInayobadilishwa<0) return alert('Chagua bidhaa ya kubadili kwanza - bonyeza BADILI kwenye bidhaa husika');
+  var idadiMpya = +document.getElementById('idadiMpyaPending').value||0;
+  if(idadiMpya<=0) return alert('Andika idadi mpya sahihi!');
+  var k = p.bidhaa[pendingBidhaaInayobadilishwa];
+  // Hesabu upya jumla na faida kwa uwiano - Mfano alikuwa 2 KILO = 6000, sasa 3 KILO = 9000
+  var beiKwaMoja = k.idadi>0 ? (k.jumla / k.idadi) : k.bei;
+  var faidaKwaMoja = k.idadi>0 ? (k.faida / k.idadi) : 0;
+  k.idadi = idadiMpya;
+  k.jumla = Math.round(beiKwaMoja * idadiMpya);
+  k.faida = Math.round(faidaKwaMoja * idadiMpya);
+  // JinaIdadi nalo libadilike - mfano MCHELE 2 KILO -> MCHELE 3 KILO
+  // Tunajaribu kubadili namba ya kwanza tu kwenye jinaIdadi
+  try{ k.jinaIdadi = k.jinaIdadi.replace(/\d+(\.\d+)?/, idadiMpya); }catch(e){}
+  hifadhiPending();
+  document.getElementById('badiliPendingBox').style.display='none';
+  funguaPendingMteja(pendingIliyofunguliwa); // Onyesha upya na hesabu mpya
+  alert('✅ '+k.jina+' imebadilishwa - Sasa idadi '+idadiMpya+' | Jumla '+k.jumla.toLocaleString()+"/=");
+}
+
+// --- 3. FUTA - Kufuta bidhaa moja au mteja yote ---
+// Hii inaitwa kwenye kila bidhaa ndani ya PENDING ya mteja
+function futaBidhaaPending(idx){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  var k = p.bidhaa[idx];
+  if(!confirm('FUTA '+k.jina+' kwenye PENDING ya '+p.jina+'?')) return;
+  p.bidhaa.splice(idx,1);
+  if(p.bidhaa.length==0){
+    // Kama hana bidhaa tena - mfute kabisa
+    pendingList.splice(pendingIliyofunguliwa,1);
+    pendingIliyofunguliwa=-1;
+    hifadhiPending();
+    document.getElementById('pendingMtejaBox').style.display='none';
+    document.getElementById('pendingBox').style.display='block';
+    onyeshaPending();
+    alert('Mteja ameondolewa - hana bidhaa tena');
+    return;
+  }
+  hifadhiPending();
+  funguaPendingMteja(pendingIliyofunguliwa);
+}
+// Hii inaitwa kufuta mteja yote - JOHN wote
+function futaPendingMteja(){
+  var p = pendingList[pendingIliyofunguliwa];
+  if(!p) return;
+  if(!confirm('FUTA PENDING yote ya '+p.jina+'? Bidhaa zake '+p.bidhaa.length+' zitaondolewa!')) return;
+  pendingList.splice(pendingIliyofunguliwa,1);
+  pendingIliyofunguliwa=-1;
+  hifadhiPending();
+  document.getElementById('pendingMtejaBox').style.display='none';
+  document.getElementById('pendingBox').style.display='block';
+  onyeshaPending();
+  alert('✅ PENDING ya '+p.jina+' imefutwa!');
+}
+// ===== PENDING MFUPI - WEKA PENDING MOJA KWA MOJA - MPYA =====
+// Hii inachukua nafasi ya ADD PENDING + WEKA PENDING zote mbili
+function wekaPendingMojaKwaMoja(){
+  ruhusuJinaPendingKubaki(); // Hii ni WEKA PENDING - jina halifutwi
+  if(typeof hakunaBidhaa==='function' && hakunaBidhaa()) return alert('Chagua bidhaa kwanza!');
+
+  // Jina si lazima - kama hana jina tunampa MTEJA 1, MTEJA 2...
+  var jina = document.getElementById('jinaPending').value.trim().toUpperCase();
+  var niMtejaBilaJina = false;
+  if(!jina){
+    var namba = pendingList.length + 1;
+    jina = "MTEJA " + namba;
+    while(pendingList.some(function(p){ return p.jina===jina; })){ namba++; jina = "MTEJA " + namba; }
+    niMtejaBilaJina = true;
+    document.getElementById('jinaPending').value = jina;
+  }
+
+  var calc = null;
+  if(typeof niMafutaIliyochaguliwa==='function' && niMafutaIliyochaguliwa()){
+    calc = hesabuMafuta();
+  } else {
+    calc = hesabuPunguzo();
+  }
+  if(!calc) return alert('Bonyeza BEI kwanza!');
+
+  var b = bidhaaIliyochaguliwa();
+  var itemMpya = {jina:b.jina, jinaIdadi:calc.jinaIdadi, idadi:calc.idadi, jumla:calc.jumlaMpya, faida:calc.faidaMpya, bei:calc.beiMpya, category:pataCategoryYaBidhaa(b), idxBidhaa:bidhaaIliyochaguliwaIdx};
+
+  // Kama jina lipo tayari (mfano JOHN), ongeza humo humo - usimuumbe mpya
+  // Kama ni MTEJA bila jina, kila WEKA PENDING ni mteja mpya - wasichanganyike
+  var idxMteja = -1;
+  if(!niMtejaBilaJina){
+    for(var i=0;i<pendingList.length;i++){ if(pendingList[i].jina===jina) idxMteja=i; }
+  }
+
+  if(idxMteja>=0){
+    pendingList[idxMteja].bidhaa.push(itemMpya);
+    alert('✅ Imeongezwa kwenye PENDING ya '+jina+'! Sasa ana bidhaa '+pendingList[idxMteja].bidhaa.length);
+  } else {
+    pendingList.push({jina:jina, tarehe:new Date().toDateString(), muuzaji:jinaMuuzaji||"?", bidhaa:[itemMpya]});
+    alert('✅ '+jina+' amewekwa PENDING! Bidhaa 1');
+  }
+
+    hifadhiPending();
+  onyeshaPending();
+  // Jina linabaki hapa - kwa sababu unaweza kutaka kuongeza bidhaa nyingine ya JOHN huyo huyo
+  // Lakini ukiclick button nyingine yoyote (UZA, CHENJI, PUNGUZA, RUDI...) - linarudi blank yenyewe
+  // ===== MUHIMU - PENDING INABAKI OPEN ili uongeze nyingine haraka =====
+  // Hatufungi box - tunarudi kwenye bidhaa ili uchague nyingine, halafu WEKA PENDING tena
+  if(typeof rudiKwenyeBidhaa==='function') rudiKwenyeBidhaa();
+  document.getElementById('pendingJinaBox').style.display='block';
+  // Jina linabaki - ili usiandike tena kwa mteja huyo huyo
+}
+
+// Hii ndiyo button ya PENDING kwenye vitendoBarJuu inapaswa kuita - inafungua box fupi
+function funguaPendingMuda(){
+  var box = document.getElementById('pendingJinaBox');
+  box.style.display = 'block';
+  document.getElementById('pendingBox').style.display='none';
+  document.getElementById('pendingMtejaBox').style.display='none';
+  setTimeout(function(){ box.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+}
+function fungaPendingMuda(){
+  document.getElementById('pendingJinaBox').style.display='none';
+  document.getElementById('jinaPending').value="";
+}
+// ===== PENDING - JINA LIRUDI BLANK UKICLICK BUTTON NYINGINE - MPYA =====
+// Kanuni: Jina lishikiliwe na WEKA PENDING tu. Button nyingine yoyote ikibonyezwa, jina linafutika.
+
+let jinaPendingLimeshika = false; // Tumeandika jina na bado hatujabonyeza WEKA PENDING?
+
+// 1. Ukibonyeza WEKA PENDING - jina linakubaliwa, halifutwi na huu mfumo
+function ruhusuJinaPendingKubaki(){
+  jinaPendingLimeshika = true;
+}
+
+// 2. Ukibonyeza button nyingine yoyote - jina linarudi blank
+document.addEventListener('click', function(e){
+  var inputJina = document.getElementById('jinaPending');
+  if(!inputJina) return;
+  // Kama box la PENDING halijafunguliwa, hakuna cha kufuta
+  var box = document.getElementById('pendingJinaBox');
+  if(!box || box.style.display==='none') return;
+  // Kama umeclick ndani ya input ya jina yenyewe - usifute
+  if(e.target===inputJina) return;
+  // Kama umeclick WEKA PENDING - usifute, ndiyo inayotakiwa kubeba jina
+  if(e.target.closest('button') && e.target.closest('button').getAttribute('onclick') && e.target.closest('button').getAttribute('onclick').includes('wekaPendingMojaKwaMoja')) return;
+  // Kama umeclick button ya kufunga PENDING yenyewe (GHAIRI / X) - usifute hapa, itafutwa na funga yake
+  if(e.target.closest('button') && e.target.closest('button').getAttribute('onclick') && e.target.closest('button').getAttribute('onclick').includes('pendingJinaBox')) return;
+
+  // ===== HAPA NDIPO - UMECLICK BUTTON NYINGINE - JINA LINARUDI BLANK =====
+  // Lakini tu kama jina lilikuwa limeandikwa na bado hujaweka PENDING
+  if(inputJina.value.trim()!==""){
+    // Kama umeclick button ya kuchagua bidhaa (bidhaa yenyewe) - usifute bado, kwa sababu unataka kuweka PENDING ya hiyo bidhaa
+    // Tunafuta tu kama ni button za vitendo - UZA, CHENJI, PUNGUZA, KIKAPU, RUDI, PENDING nyingine, n.k.
+    var btn = e.target.closest('button');
+    if(btn){
+      var txt = (btn.innerText||"").toUpperCase();
+      var onclickTxt = btn.getAttribute('onclick')||"";
+      // Orodha ya button zinazofuta jina - zote mbali na WEKA PENDING
+      var niButtonYaVitendo = txt.includes('UZA') || txt.includes('CHENJI') || txt.includes('PUNGUZA') || txt.includes('KIKAPU') || txt.includes('RUDI') || txt.includes('FUTA') || txt.includes('BADILI') || txt.includes('ONGEZA') || onclickTxt.includes('rudiKwenyeBidhaa') || onclickTxt.includes('funguaMini') || onclickTxt.includes('uzaKikapu') || onclickTxt.includes('uzaKweli') || onclickTxt.includes('funguaPending');
+      if(niButtonYaVitendo){
+        inputJina.value = "";
+        // Kama ulikuwa umeandika JOHN ukabonyeza UZA - JOHN anafutika, hana PENDING tena
+      }
+    }
+  }
+}, true);
+
+// 3. Kama umeandika jina ukatoka kwenye box la PENDING bila kuweka - nalo linarudi blank
+// Hii inahakikisha ukirudi baadae, unakuta blank, sio JOHN wa zamani
+function fungaPendingMuda(){
+  document.getElementById('pendingJinaBox').style.display='none';
+  document.getElementById('jinaPending').value="";
+}
 </script>
 </body>
 </html>
