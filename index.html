@@ -180,23 +180,39 @@ small{color:#666}
 .btnKikapuFutaMini{ background:#d32f2f !important; color:white !important; }
 
 /* ===== MUHIMU - CATEGORY TU MBELE - MPYA ===== */
+/* ===== MUHIMU - CATEGORY - NZURI, INAVUTIA - MPYA ===== */
+/* ===== MUHIMU - CATEGORY NDOGO - 4 KWA ROW - MPYA ===== */
+.bidhaaGrid.muhimuGrid{ grid-template-columns:repeat(4,1fr) !important; gap:5px !important; padding:0 !important; }
 .categoryCardMuhimu{
-  background:white !important; border:2px solid #1565C0 !important; border-radius:12px !important;
-  padding:16px 6px !important; text-align:center !important; cursor:pointer !important;
-  font-size:16px !important; font-weight:bold !important; color:#1565C0 !important;
+  border:none !important; border-radius:10px !important;
+  padding:8px 2px 6px 2px !important; text-align:center !important; cursor:pointer !important;
+  color:white !important; font-weight:bold !important;
+  box-shadow:0 2px 5px rgba(0,0,0,0.15) !important;
+  min-height:58px !important; display:flex !important; flex-direction:column !important;
+  align-items:center !important; justify-content:center !important; gap:2px !important;
 }
-.categoryCardMuhimu:active{ background:#1565C0 !important; color:white !important; }
-.categoryCardMuhimu small{ display:block; font-size:11px; color:#666; font-weight:normal; margin-top:4px; }
-.btnRudiCategory{ width:auto !important; padding:6px 12px !important; background:#222 !important; font-size:13px !important; margin:0 0 6px 0 !important; }
-
-/* ===== MUHIMU - CATEGORY TU MBELE - MPYA ===== */
-.categoryCardMuhimu{
-  background:white !important; border:2px solid #1565C0 !important; border-radius:12px !important;
-  padding:16px 6px !important; text-align:center !important; cursor:pointer !important;
-  font-size:16px !important; font-weight:bold !important; color:#1565C0 !important;
-}
-.categoryCardMuhimu:active{ background:#1565C0 !important; color:white !important; }
-.categoryCardMuhimu small{ display:block; font-size:11px; color:#666; font-weight:normal; margin-top:4px; }
+.categoryCardMuhimu:active{ transform:scale(0.94) !important; }
+.categoryCardMuhimu .catImg{ width:28px !important; height:28px !important; object-fit:cover !important; border-radius:6px !important; }
+.categoryCardMuhimu .catJina{ font-size:10px !important; line-height:1.1 !important; letter-spacing:0.2px !important; }
+/* Rangi - laini, zinavutia, sio kali sana */
+.cat-MAFUTA{ background:linear-gradient(135deg,#FFB74D,#F57C00) !important; }
+.cat-NAFAKA{ background:linear-gradient(135deg,#81C784,#2E7D32) !important; }
+.cat-SABUNI{ background:linear-gradient(135deg,#64B5F6,#1565C0) !important; }
+.cat-VINYWAJI{ background:linear-gradient(135deg,#F48FB1,#C2185B) !important; }
+.cat-VIUNGO{ background:linear-gradient(135deg,#BA68C8,#7B1FA2) !important; }
+.cat-MIFUKO{ background:linear-gradient(135deg,#4DB6AC,#00796B) !important; }
+.cat-CHIPS{ background:linear-gradient(135deg,#FFD54F,#FF8F00) !important; color:#3E2723 !important; }
+.cat-ZA100{ background:linear-gradient(135deg,#90A4AE,#455A64) !important; }
+.categoryCardMuhimu .catJina{ font-size:15px !important; text-shadow:0 1px 2px rgba(0,0,0,0.25) !important; }
+/* Rangi kila Category - unaweza kubadilisha */
+.cat-MAFUTA{ background:linear-gradient(135deg,#FF9800,#EF6C00) !important; }
+.cat-NAFAKA{ background:linear-gradient(135deg,#43A047,#1B5E20) !important; }
+.cat-SABUNI{ background:linear-gradient(135deg,#42A5F5,#1565C0) !important; }
+.cat-VINYWAJI{ background:linear-gradient(135deg,#EC407A,#AD1457) !important; }
+.cat-VIUNGO{ background:linear-gradient(135deg,#AB47BC,#6A1B9A) !important; }
+.cat-MIFUKO{ background:linear-gradient(135deg,#26A69A,#00695C) !important; }
+.cat-CHIPS{ background:linear-gradient(135deg,#FFCA28,#FF8F00) !important; color:#3E2723 !important; }
+.cat-ZA100{ background:linear-gradient(135deg,#78909C,#37474F) !important; }
 .btnRudiCategory{ width:auto !important; padding:6px 12px !important; background:#222 !important; font-size:13px !important; margin:0 0 6px 0 !important; }
 </style>
 <link rel="manifest" href="manifest.json">
@@ -738,14 +754,15 @@ function render(){ try{
     categories.forEach(function(cat){
       var idadi = bidhaa.filter(function(b){ return pataCategoryYaBidhaa(b)==cat; }).length;
       var btn=document.createElement('button');
-      btn.className='categoryCardMuhimu';
+            btn.className='categoryCardMuhimu cat-'+cat;
       btn.onclick=function(){ funguaCategoryKutokaMuhimu(cat); };
-      var emoji="📦";
-      if(cat=="MAFUTA") emoji="🛢️";
-      else if(cat=="NAFAKA") emoji="🍚";
-      else if(cat=="SABUNI") emoji="🧼";
-      else if(cat=="VINYWAJI") emoji="🥤";
-      btn.innerHTML=emoji+"<br>"+cat+"<small>Bidhaa "+idadi+" - Bonyeza kuona</small>";
+            var picha="mchele.png";
+      if(cat=="MAFUTA") picha="mosafi.png";
+      else if(cat=="NAFAKA") picha="mchele.png";
+      else if(cat=="SABUNI") picha="royal.png";
+      else if(cat=="VINYWAJI") picha="azam.png";
+      else if(cat=="VIUNGO") picha="iriki.png";
+      btn.innerHTML="<img class='catImg' src='"+picha+"'><span class='catJina'>"+cat+"</span>";
       grid.appendChild(btn);
     });
     if(juU) grid.style.display="none"; else grid.style.display="grid";
