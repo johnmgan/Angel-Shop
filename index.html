@@ -179,11 +179,25 @@ small{color:#666}
 .btnKikapuUzaMini{ background:#1A7A3A !important; color:white !important; }
 .btnKikapuFutaMini{ background:#d32f2f !important; color:white !important; }
 
-/* ===== MUHIMU - DRAG AND DROP - MPYA ===== */
-.bidhaaGrid.muhimuGrid .muhimuBtn{ cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none; }
-.bidhaaGrid.muhimuGrid .muhimuBtn.dragging{ opacity:0.4 !important; border:2px dashed #1A7A3A !important; transform:scale(0.95); }
-.bidhaaGrid.muhimuGrid .muhimuBtn.drag-over{ border:3px solid #1A7A3A !important; background:#E8F5E9 !important; transform:scale(1.05); }
-.bidhaaGrid.muhimuGrid .muhimuBtn .dragHandle{ display:block; font-size:10px; color:#999; letter-spacing:2px; line-height:1; }
+/* ===== MUHIMU - CATEGORY TU MBELE - MPYA ===== */
+.categoryCardMuhimu{
+  background:white !important; border:2px solid #1565C0 !important; border-radius:12px !important;
+  padding:16px 6px !important; text-align:center !important; cursor:pointer !important;
+  font-size:16px !important; font-weight:bold !important; color:#1565C0 !important;
+}
+.categoryCardMuhimu:active{ background:#1565C0 !important; color:white !important; }
+.categoryCardMuhimu small{ display:block; font-size:11px; color:#666; font-weight:normal; margin-top:4px; }
+.btnRudiCategory{ width:auto !important; padding:6px 12px !important; background:#222 !important; font-size:13px !important; margin:0 0 6px 0 !important; }
+
+/* ===== MUHIMU - CATEGORY TU MBELE - MPYA ===== */
+.categoryCardMuhimu{
+  background:white !important; border:2px solid #1565C0 !important; border-radius:12px !important;
+  padding:16px 6px !important; text-align:center !important; cursor:pointer !important;
+  font-size:16px !important; font-weight:bold !important; color:#1565C0 !important;
+}
+.categoryCardMuhimu:active{ background:#1565C0 !important; color:white !important; }
+.categoryCardMuhimu small{ display:block; font-size:11px; color:#666; font-weight:normal; margin-top:4px; }
+.btnRudiCategory{ width:auto !important; padding:6px 12px !important; background:#222 !important; font-size:13px !important; margin:0 0 6px 0 !important; }
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff4081">
@@ -490,7 +504,10 @@ function pataIdadiAnza(b){ if(niMafutaBidhaa(b)) return 250; var k=pataKipimo(b)
 function sasishaRudiChini(){ var btn=document.getElementById('btnRudiChini'); if(!btn) return; btn.style.display=(bidhaaIliyochaguliwaIdx>=0)?"block":"none"; }
 function tafutaBidhaa(){ bidhaaIliyochaguliwaIdx=-1; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('bidhaaGridUza').style.display="grid"; fichaVitendoJuu(); fungaPanelZote(); nenoLaSearch=document.getElementById('searchBidhaa').value.trim().toLowerCase(); render(); }
 function futaSearch(){ document.getElementById('searchBidhaa').value=""; nenoLaSearch=""; render(); }
-let mauzoYaMwisho=""; let kikapu=[]; let bidhaaIliyochaguliwaIdx=-1; let panelIliyofunguka=""; let ainaYaThibitisha=""; let categoryIliyochaguliwa="MUHIMU"; let categoryInayoView=""; let bidhaaInayoEdit=-1; let nenoLaSearch=""; let ripotiMauzoSasa=[]; let ripotiLabelSasa="LEO"; let ripotiCatInayoView=""; let njiaYaMafuta="HELA"; let beiMafutaIliyochaguliwa=0; let miniKikapuIliyofunguka="";
+let mauzoYaMwisho=""; let kikapu=[]; let bidhaaIliyochaguliwaIdx=-1; let panelIliyofunguka=""; let ainaYaThibitisha="";
+ let categoryIliyochaguliwa="MUHIMU"; 
+let categoryKutokaMuhimu=""; // MPYA - Category uliyofungua kutoka MUHIMU
+ let categoryInayoView=""; let bidhaaInayoEdit=-1; let nenoLaSearch=""; let ripotiMauzoSasa=[]; let ripotiLabelSasa="LEO"; let ripotiCatInayoView=""; let njiaYaMafuta="HELA"; let beiMafutaIliyochaguliwa=0; let miniKikapuIliyofunguka="";
 // ===== FIX: PUNGUZA INARUDI 0 UKIBADILI BEI / IDADI / BIDHAA =====
 function safishaPunguzo(){ try{ document.getElementById('punguzo').value=0; var mp=document.getElementById('matokeoPunguzo'); if(mp) mp.innerHTML=""; }catch(e){} }
 function onyeshaFaida(faida, jumla, beiNunuaJumla, idadiText){ var divKawaida=document.getElementById('faidaDisplayJuu'); var divMafuta=document.getElementById('faidaMafutaDisplay'); var txt="", bg="", col="", border=""; if(faida>0){ txt="✅ UTAPATA FAIDA: "+faida.toLocaleString()+"/= <br><small>Utauza "+jumla.toLocaleString()+"/= | Ulinunua "+beiNunuaJumla.toLocaleString()+"/= | "+idadiText+"</small>"; bg="#E8F5E9"; col="#1A7A3A"; border="#1A7A3A"; } else if(faida<0){ txt="❌ UTAPATA HASARA: "+faida.toLocaleString()+"/= - USIUZE! <br><small>Utauza "+jumla.toLocaleString()+"/= | Ulinunua "+beiNunuaJumla.toLocaleString()+"/= | "+idadiText+"</small>"; bg="#FFEBEE"; col="#d32f2f"; border="#d32f2f"; } else { txt="➖ HAKUNA FAIDA - HAKUNA HASARA <br><small>Utauza "+jumla.toLocaleString()+"/= | "+idadiText+"</small>"; bg="#FFF3E0"; col="#EF6C00"; border="#EF6C00"; } if(divKawaida && document.getElementById('idadiJuu').style.display=="block"){ divKawaida.innerHTML=txt; divKawaida.style.background=bg; divKawaida.style.color=col; divKawaida.style.borderColor=border; } if(divMafuta && document.getElementById('mafutaJuu').style.display=="block"){ divMafuta.innerHTML=txt; divMafuta.style.background=bg; divMafuta.style.color=col; divMafuta.style.borderColor=border; } }
@@ -516,7 +533,7 @@ function funguaEditBidhaa(i){ bidhaaInayoEdit=i; var b=bidhaa[i]; var sel=docume
 function fungaEditBidhaa(){ document.getElementById('modalEditBidhaa').classList.remove('show'); }
 function hifadhiEditBidhaa(){ var b=bidhaa[bidhaaInayoEdit]; b.jina=document.getElementById('editJina').value; b.nunua=+document.getElementById('editNunua').value; b.kuza=+document.getElementById('editKuza').value; b.idadi=+document.getElementById('editIdadi').value; b.category=document.getElementById('editCategory').value; b.isMuhimu=document.getElementById('editMuhimu').checked; b.niMafuta=document.getElementById('editNiMafuta').checked; if(b.niMafuta){ b.kipimoKidogo="MILLS"; b.kipimoKikubwa="NDOO"; b.millsKwaLita=+document.getElementById('editMillsKwaLita').value||1000; b.litaKwaNdoo=+document.getElementById('editLitaKwaNdoo').value||20; b.beiZaMafuta=safishaBeiZaMafuta(document.getElementById('editBeiZaMafuta').value); b.idadiKwaKikubwa=b.millsKwaLita*b.litaKwaNdoo; b.kipimo="MILLS"; } else { b.kipimoKidogo=(document.getElementById('editKipimoKidogo').value||"").toUpperCase(); b.kipimoKikubwa=(document.getElementById('editKipimoKikubwa').value||"").toUpperCase(); b.idadiKwaKikubwa=+document.getElementById('editIdadiKwaKikubwa').value||0; b.kipimo=b.kipimoKidogo; } save(); fungaEditBidhaa(); }
 function pataCategoryYaMauzo(m){ if(m.category && m.category!="MUHIMU") return m.category; return "NAFAKA"; }
-function chaguaCategory(cat){ bidhaaIliyochaguliwaIdx=-1; beiMafutaIliyochaguliwa=0; njiaYaMafuta="HELA"; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('bidhaaGridUza').style.display="grid"; fichaVitendoJuu(); fungaPanelZote(); safishaPunguzo(); try{ document.getElementById('helaAliyotoa').value=""; document.getElementById('helaAliyotoaInput').value=""; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini"; document.getElementById('maelezoMafuta').innerHTML=""; document.getElementById('bakiMafutaJuu').innerText=""; document.getElementById('msgUza').innerHTML=""; }catch(e){} rudishaFaidaDefault(); rudishaBeiMafutaDefault(); categoryIliyochaguliwa=cat; render(); }
+function chaguaCategory(cat){ bidhaaIliyochaguliwaIdx=-1; beiMafutaIliyochaguliwa=0; njiaYaMafuta="HELA"; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('bidhaaGridUza').style.display="grid"; fichaVitendoJuu(); fungaPanelZote(); safishaPunguzo(); try{ document.getElementById('helaAliyotoa').value=""; document.getElementById('helaAliyotoaInput').value=""; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini"; document.getElementById('maelezoMafuta').innerHTML=""; document.getElementById('bakiMafutaJuu').innerText=""; document.getElementById('msgUza').innerHTML=""; }catch(e){} rudishaFaidaDefault(); rudishaBeiMafutaDefault(); categoryKutokaMuhimu=""; categoryIliyochaguliwa=cat; render(); }
 function renderCategoryBar(){ var bar=document.getElementById('catBarUza'); if(!bar) return; bar.innerHTML=""; var bMu=document.createElement('button'); bMu.className='muhimuBtn'; bMu.innerText="⭐ MUHIMU"; bMu.onclick=function(){ chaguaCategory("MUHIMU"); }; bar.appendChild(bMu); categories.forEach(function(cat){ var btn=document.createElement('button'); btn.innerText=cat; if(cat==categoryIliyochaguliwa) btn.classList.add('active-cat'); btn.onclick=function(){ chaguaCategory(cat); }; bar.appendChild(btn); }); }
 function renderCategorySelect(){ var sel=document.getElementById('categoryBidhaa'); if(!sel) return; sel.innerHTML=""; categories.forEach(function(cat){ var o=document.createElement('option'); o.value=cat; o.text=cat; sel.appendChild(o); }); }
 function renderCategoryList(){ var div=document.getElementById('orodhaCategory'); if(!div) return; div.innerHTML=""; categories.forEach(function(cat,i){ var row=document.createElement('div'); row.className='catItem'; row.innerHTML="<span><b>"+cat+"</b></span>"; var btns=document.createElement('span'); var bv=document.createElement('button'); bv.innerText='VIEW'; bv.style.cssText='width:auto;padding:5px;background:#1565C0;margin:0'; bv.onclick=function(){ viewCategory(cat); }; var bd=document.createElement('button'); bd.innerText='DELETE'; bd.style.cssText='width:auto;padding:5px;background:red;margin:0'; bd.onclick=function(){ futaCategory(i); }; btns.appendChild(bv); btns.appendChild(bd); row.appendChild(btns); div.appendChild(row); }); }
@@ -708,61 +725,97 @@ function ripotiWiki(){ var leo=new Date(); var siku=leo.getDay(); var jumatatu=n
 function ripotiMwezi(){ var leo=new Date(); var m=leo.getMonth(); var y=leo.getFullYear(); var f=function(iso){ var d=new Date(iso); return d.getMonth()==m && d.getFullYear()==y; }; hesabuRipoti(mauzo.filter(function(m){return m.iso&&f(m.iso)}), matumizi.filter(function(m){return m.iso&&f(m.iso)}), [], "MWEZI"); }
 function ripotiTarehe(){ var k=document.getElementById('tareheKuanzia').value; var mw=document.getElementById('tareheMwisho').value; if(!k||!mw) return alert('Chagua tarehe'); hesabuRipoti(mauzo.filter(function(m){return m.iso>=k && m.iso<=mw}), matumizi.filter(function(m){return m.iso>=k && m.iso<=mw}), [], "TAREHE"); }
 function printRipoti(){ window.location.href="sms:?body="+encodeURIComponent(tengenezaRipotiFupi()); }
-function render(){ try{ renderCategoryBar(); renderCategorySelect(); renderCategoryList(); var grid=document.getElementById('bidhaaGridUza'); var juU=document.getElementById('mafutaJuu').style.display=="block" || document.getElementById('idadiJuu').style.display=="block"; grid.innerHTML=""; var niMuhimuView = (categoryIliyochaguliwa=="MUHIMU" && !nenoLaSearch);
 
- if(niMuhimuView) grid.classList.add('muhimuGrid'); else grid.classList.remove('muhimuGrid'); var list; if(nenoLaSearch){ list=bidhaa.map(function(b,idx){return {b:b,idx:idx}}).filter(function(x){ return x.b.jina.toLowerCase().includes(nenoLaSearch); }); } else { list=bidhaa.map(function(b,idx){return {b:b,idx:idx}}).filter(function(x){ if(categoryIliyochaguliwa=="MUHIMU") return niMuhimu(x.b); return pataCategoryYaBidhaa(x.b)==categoryIliyochaguliwa; }); } if(list.length==0){ grid.innerHTML="<div style='grid-column:1/4;text-align:center'>Hakuna bidhaa</div>"; } else { list.forEach(function(x){ var b=x.b; var btn=document.createElement('button'); 
+function render(){ try{
+  renderCategoryBar(); renderCategorySelect(); renderCategoryList();
+  var grid=document.getElementById('bidhaaGridUza');
+  var juU=document.getElementById('mafutaJuu').style.display=="block" || document.getElementById('idadiJuu').style.display=="block";
+  grid.innerHTML="";
 
-  if(niMuhimuView){
-  btn.className='bidhaaBtn muhimuBtn'+(b.idadi<=0?' isha':'');
-  btn.innerHTML="<span class='dragHandle'>⠿⠿</span><b>"+b.jina+"</b>"+(niMafutaBidhaa(b)?"":"<br><small style='color:#1A7A3A;font-weight:bold;font-size:11px'>"+b.kuza.toLocaleString()+"/=</small>");
-  // ===== DRAG AND DROP - MPYA =====
-  btn.draggable=true;
-  btn.dataset.idxMuhimu=x.idx; // idx halisi kwenye bidhaa[]
-  // Click ya kawaida - bado inachagua bidhaa kuuza
-  // Tunatofautisha click na drag: kama umedrag, usichague
-  var ilidrag=false;
-  btn.onclick=function(){ if(ilidrag){ ilidrag=false; return; } chaguaBidhaa(x.idx); };
-  btn.addEventListener('dragstart', function(e){ ilidrag=true; muhimuDraggedIdx=x.idx; e.dataTransfer.setData('text/plain', x.idx); e.dataTransfer.effectAllowed='move'; btn.classList.add('dragging'); });
-  btn.addEventListener('dragend', function(){ btn.classList.remove('dragging'); document.querySelectorAll('.muhimuBtn').forEach(function(b2){ b2.classList.remove('drag-over'); }); ilidrag=false; });
-  btn.addEventListener('dragover', function(e){ e.preventDefault(); e.dataTransfer.dropEffect='move'; btn.classList.add('drag-over'); });
-  btn.addEventListener('dragleave', function(){ btn.classList.remove('drag-over'); });
-  btn.addEventListener('drop', function(e){
-    e.preventDefault(); btn.classList.remove('drag-over');
-    var kutoka = +e.dataTransfer.getData('text/plain');
-    var kwenda = x.idx;
-    if(kutoka===kwenda) return;
-    hamishaMuhimu(kutoka, kwenda);
-  });
-  // ===== KWA SIMU - TOUCH DRAG - MPYA =====
-  // Kwenye simu HTML5 drag haifanyi kazi - tunatumia touch
-  var touchY=0, touchImeanza=false, touchTimer=null;
-  btn.addEventListener('touchstart', function(e){ touchY=e.touches[0].clientY; touchImeanza=false; touchTimer=setTimeout(function(){ touchImeanza=true; muhimuDraggedIdx=x.idx; btn.classList.add('dragging'); }, 250); }, {passive:true});
-  btn.addEventListener('touchmove', function(e){
-    if(!touchImeanza) return;
-    e.preventDefault();
-    var y=e.touches[0].clientY;
-    var el=document.elementFromPoint(e.touches[0].clientX, y);
-    var targetBtn = el ? el.closest('.muhimuBtn') : null;
-    document.querySelectorAll('.muhimuBtn').forEach(function(b2){ b2.classList.remove('drag-over'); });
-    if(targetBtn) targetBtn.classList.add('drag-over');
-  }, {passive:false});
-  btn.addEventListener('touchend', function(e){
-    clearTimeout(touchTimer);
-    if(!touchImeanza) return;
-    btn.classList.remove('dragging');
-    var el=document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-    var targetBtn = el ? el.closest('.muhimuBtn') : null;
-    document.querySelectorAll('.muhimuBtn').forEach(function(b2){ b2.classList.remove('drag-over'); });
-    if(targetBtn){
-      var kwenda=+targetBtn.dataset.idxMuhimu;
-      var kutoka=muhimuDraggedIdx;
-      if(kutoka!==kwenda) hamishaMuhimu(kutoka, kwenda);
-    }
-    touchImeanza=false; ilidrag=true;
-  }, {passive:true});
-}
+  // ===== 1. MUHIMU MBELE - CATEGORY TU =====
+  if(categoryIliyochaguliwa=="MUHIMU" && !nenoLaSearch && !categoryKutokaMuhimu){
+    grid.classList.add('muhimuGrid');
+    categories.forEach(function(cat){
+      var idadi = bidhaa.filter(function(b){ return pataCategoryYaBidhaa(b)==cat; }).length;
+      var btn=document.createElement('button');
+      btn.className='categoryCardMuhimu';
+      btn.onclick=function(){ funguaCategoryKutokaMuhimu(cat); };
+      var emoji="📦";
+      if(cat=="MAFUTA") emoji="🛢️";
+      else if(cat=="NAFAKA") emoji="🍚";
+      else if(cat=="SABUNI") emoji="🧼";
+      else if(cat=="VINYWAJI") emoji="🥤";
+      btn.innerHTML=emoji+"<br>"+cat+"<small>Bidhaa "+idadi+" - Bonyeza kuona</small>";
+      grid.appendChild(btn);
+    });
+    if(juU) grid.style.display="none"; else grid.style.display="grid";
+    var orodha=document.getElementById('orodha');
+    if(orodha) orodha.innerHTML="<h4>Chagua Category - Bidhaa ("+bidhaa.length+")</h4>";
+    return;
+  }
 
-  else { btn.className='bidhaaBtn'+(b.idadi<=0?' isha':''); btn.onclick=function(){ chaguaBidhaa(x.idx); }; if(niMafutaBidhaa(b)){ btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= kwa MILLS 1 | Baki "+formatStock(b)+"<br>MILLS / LITA / NDOO | Bei: "+pataBeiZaMafuta(b).join(', ')+"</small>"; } else { btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= | Baki "+formatStock(b)+"<br>"+pataKipimoKidogo(b)+" / "+pataKipimoKikubwa(b)+"</small>"; } } grid.appendChild(btn); }); } if(juU) grid.style.display="none"; else grid.style.display="grid"; var orodha=document.getElementById('orodha'); orodha.innerHTML="<h4>Bidhaa ("+bidhaa.length+")</h4>"; bidhaa.forEach(function(b,i){ var div=document.createElement('div'); div.className='item'; if(niMafutaBidhaa(b)){ div.innerHTML="<span><b>"+b.jina+" 🛢️</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= kwa MILLS 1 | Nunua "+b.nunua+"/= kwa MILLS 1<br><span class='stockLine'>MILLS "+pataMillsKwaLita(b)+" = LITA 1 | LITA "+pataLitaKwaNdoo(b)+" = NDOO 1<br>BEI: "+pataBeiZaMafuta(b).join(', ')+"</span></small></span><span><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>"; } else { div.innerHTML="<span><b>"+b.jina+"</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= kwa "+pataKipimoKidogo(b)+"<br><span class='stockLine'>"+pataKipimoKidogo(b)+" "+pataIdadiKwaKikubwa(b)+" = "+pataKipimoKikubwa(b)+" 1</span></small></span><span><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>"; } orodha.appendChild(div); });
+  // ===== 2. NDANI YA CATEGORY - ONYESHA BIDHAA ZAKE =====
+  grid.classList.remove('muhimuGrid');
+  var list;
+  if(nenoLaSearch){
+    list=bidhaa.map(function(b,idx){return {b:b,idx:idx}}).filter(function(x){ return x.b.jina.toLowerCase().includes(nenoLaSearch); });
+  } else if(categoryKutokaMuhimu){
+    list=bidhaa.map(function(b,idx){return {b:b,idx:idx}}).filter(function(x){ return pataCategoryYaBidhaa(x.b)==categoryKutokaMuhimu; });
+  } else {
+    list=bidhaa.map(function(b,idx){return {b:b,idx:idx}}).filter(function(x){ if(categoryIliyochaguliwa=="MUHIMU") return niMuhimu(x.b); return pataCategoryYaBidhaa(x.b)==categoryIliyochaguliwa; });
+  }
+
+  // ===== 3. BUTTON YA RUDI - Kwanza, kabla ya bidhaa, ili isifutwe =====
+  if(categoryKutokaMuhimu && !nenoLaSearch){
+    var btnRudi=document.createElement('button');
+    btnRudi.className='btnRudiCategory';
+    btnRudi.innerText="⬅️ RUDI KWENYE CATEGORY";
+    btnRudi.style.gridColumn="1/-1";
+    btnRudi.onclick=function(){ rudiKwenyeCategoryMuhimu(); };
+    grid.appendChild(btnRudi);
+    var title=document.createElement('div');
+    title.style.gridColumn="1/-1"; title.style.textAlign="center"; title.style.fontWeight="bold"; title.style.fontSize="16px";
+    title.innerText="📦 "+categoryKutokaMuhimu+" - Bidhaa "+list.length;
+    grid.appendChild(title);
+  }
+
+  // ===== 4. BIDHAA - Kama zamani yako =====
+  if(list.length==0){
+    var divHakuna=document.createElement('div');
+    divHakuna.style.gridColumn="1/-1"; divHakuna.style.textAlign="center";
+    divHakuna.innerText="Hakuna bidhaa";
+    grid.appendChild(divHakuna);
+  } else {
+    list.forEach(function(x){
+      var b=x.b;
+      var btn=document.createElement('button');
+      btn.className='bidhaaBtn'+(b.idadi<=0?' isha':'');
+      btn.onclick=function(){ chaguaBidhaa(x.idx); };
+      if(niMafutaBidhaa(b)){
+        btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= kwa MILLS 1 | Baki "+formatStock(b)+"<br>MILLS / LITA / NDOO | Bei: "+pataBeiZaMafuta(b).join(', ')+"</small>";
+      } else {
+        btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= | Baki "+formatStock(b)+"<br>"+pataKipimoKidogo(b)+" / "+pataKipimoKikubwa(b)+"</small>";
+      }
+      grid.appendChild(btn);
+    });
+  }
+  if(juU) grid.style.display="none"; else grid.style.display="grid";
+
+  var orodha2=document.getElementById('orodha');
+  if(orodha2){
+    orodha2.innerHTML="<h4>Bidhaa ("+bidhaa.length+")</h4>";
+    // ===== MPYA - Rudisha orodha ya BIDHAA page - EDIT / FUTA =====
+    bidhaa.forEach(function(b,i){
+      var div=document.createElement('div'); div.className='item';
+      if(niMafutaBidhaa(b)){
+        div.innerHTML="<span><b>"+b.jina+" 🛢️</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= kwa MILLS 1 | Nunua "+b.nunua+"/= kwa MILLS 1<br><span class='stockLine'>MILLS "+pataMillsKwaLita(b)+" = LITA 1 | LITA "+pataLitaKwaNdoo(b)+" = NDOO 1<br>BEI: "+pataBeiZaMafuta(b).join(', ')+"</span></small></span><span><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>";
+      } else {
+        div.innerHTML="<span><b>"+b.jina+"</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= kwa "+pataKipimoKidogo(b)+"<br><span class='stockLine'>"+pataKipimoKidogo(b)+" "+pataIdadiKwaKikubwa(b)+" = "+pataKipimoKikubwa(b)+" 1</span></small></span><span><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>";
+      }
+      orodha2.appendChild(div);
+    });
+  }
+  // ===== HAPA NDIPO CODE YA MAUZO / MATUMIZI / MADENI INAYOFUATA - IBaki hapo hapo, sasa iko NDANI ya render() tena =====
  var om=document.getElementById('orodhaMauzo'); om.innerHTML=""; 
 
  var jM=0,jF=0; mauzo.slice().reverse().forEach(function(m,idxRev){ var i=mauzo.length-1-idxRev; jM+=m.jumla; jF+=m.faida; var d=document.createElement('div'); d.className='item'; d.innerHTML="<span><b>"+m.jina+"</b><br><small>"+m.tarehe+" "+(m.saa||"")+" | Muuzaji: "+(m.muuzaji||"-")+" | Faida "+m.faida.toLocaleString()+"/=</small></span><span><b>"+m.jumla.toLocaleString()+"/=</b><br><button onclick='futaMauzo("+i+")' style='width:auto;padding:5px 10px;background:#d32f2f;margin-top:4px;font-size:12px'>🗑️ FUTA</button></span>"; om.appendChild(d); }); 
@@ -1254,35 +1307,18 @@ function fungaPendingMuda(){
   document.getElementById('jinaPending').value="";
 }
 
-// ===== MUHIMU - DRAG AND DROP - HAMISHA - MPYA =====
-var muhimuDraggedIdx=-1;
-
-// kutoka = idx ya bidhaa uliyoshika, kwenda = idx ya bidhaa uliyoidropia
-function hamishaMuhimu(kutokaIdx, kwendaIdx){
-  // 1. Pata orodha ya MUHIMU kwa mpangilio wa sasa
-  var muhimuIdxs=[];
-  bidhaa.forEach(function(b,i){ if(niMuhimu(b)) muhimuIdxs.push(i); });
-  var posKutoka = muhimuIdxs.indexOf(kutokaIdx);
-  var posKwenda = muhimuIdxs.indexOf(kwendaIdx);
-  if(posKutoka<0 || posKwenda<0 || posKutoka===posKwenda) return;
-
-  // 2. Hamisha - mfano: ya 7 iende ya 2, ya 2 inasogea kuwa ya 3
-  var item = muhimuIdxs.splice(posKutoka,1)[0];
-  muhimuIdxs.splice(posKwenda,0,item);
-
-  // 3. Panga upya bidhaa[] - MUHIMU tu ndio zinahamishwa, nyingine zinabaki palepale
-  var muhimuBidhaaMpya = muhimuIdxs.map(function(i){ return bidhaa[i]; });
-  var pos=0;
-  var bidhaaMpya = bidhaa.map(function(b,i){
-    if(niMuhimu(b)){ var mpya=muhimuBidhaaMpya[pos]; pos++; return mpya; }
-    return b;
-  });
-  bidhaa = bidhaaMpya;
-
-  // 4. Hifadhi - ili ukifunga na kufungua tena, mpangilio mpya ubaki
-  save();
+// ===== MUHIMU - FUNGUA CATEGORY / RUDI - MPYA =====
+function funguaCategoryKutokaMuhimu(cat){
+  categoryKutokaMuhimu=cat;
+  bidhaaIliyochaguliwaIdx=-1;
   render();
 }
+function rudiKwenyeCategoryMuhimu(){
+  categoryKutokaMuhimu="";
+  bidhaaIliyochaguliwaIdx=-1;
+  render();
+}
+
 </script>
 </body>
 </html>
