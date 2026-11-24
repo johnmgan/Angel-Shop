@@ -153,6 +153,31 @@ small{color:#666}
 }
 .btnPendingBadili{ background:#EF6C00 !important; color:white !important; }
 .btnPendingFuta{ background:#d32f2f !important; color:white !important; }
+
+/* ===== BUTTON ZA KIKAPU - UZA WA / FUTA WA - NDOGO VERTICAL KUSHOTO CHINI - MPYA ===== */
+
+.kikapuMtejaBtns{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:4px !important;
+  margin-top:4px !important;
+}
+
+.btnKikapuMtejaMini{
+  width:auto !important;
+  padding:4px 8px !important;
+  font-size:11px !important;
+  border-radius:6px !important;
+  margin:0 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  min-width:80px !important;
+  text-align:left !important;
+}
+.btnKikapuUzaMini{ background:#1A7A3A !important; color:white !important; }
+.btnKikapuFutaMini{ background:#d32f2f !important; color:white !important; }
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff4081">
@@ -186,7 +211,7 @@ small{color:#666}
 <button id="btnPunguza" onclick="funguaPanel('punguza')">🔥<br>PUNGUZA</button>
 <button id="btnKikapu" onclick="funguaPanel('kikapu')">🧺<br>KIKAPU (<span id="idadiKikapuBar">0</span>)</button>
 <button onclick="document.getElementById('pendingJinaBox').style.display='block'" style="background:#EF6C00">⏳<br>PENDING</button>
-<button id="btnUza" class="btnUzaMoja" onclick="uzaPapohapo()">🛒<br>UZA</button>
+<button id="btnUza" class="btnUzaMoja" onclick="uzaNjePekee()">🛒<br>UZA</button>
 </div>
 
 <!-- ===== PENDING - OPEN - ADD BIDHAA NYINGI KABLA YA WEKA PENDING ===== -->
@@ -252,6 +277,18 @@ small{color:#666}
 <div id="panelHela" class="panelVitendo"><div class="chenchiBox"><b>💵 CHENJI:</b><div id="chenchiDisplay" style="font-weight:bold;font-size:20px;margin:6px 0;background:white;padding:10px;border-radius:8px;text-align:center">Jumla: 0/=</div><div id="chaguoHela" style="text-align:center;font-weight:bold">Hujachagua</div><input id="helaAliyotoaInput" type="number" placeholder="Andika - mfano 12500" oninput="andikaHelaAliyotoa()" onclick="this.select()"><div class="helaGrid"><button onclick="wekaHelaAliyotoa(2000,this)">2000</button><button onclick="wekaHelaAliyotoa(3000,this)">3000</button><button onclick="wekaHelaAliyotoa(5000,this)">5000</button><button onclick="wekaHelaAliyotoa(10000,this)">10000</button><button onclick="wekaHelaAliyotoa(20000,this)">20000</button><button onclick="wekaHelaAliyotoa(50000,this)">50000</button></div><input id="helaAliyotoa" type="hidden"><input id="helaMafuta" type="hidden"></div></div>
 <div id="panelPunguza" class="panelVitendo"><div class="punguzoBox"><b>🔥 PUNGUZA (Jumla - ukibadili bei / idadi inarudi 0):</b><input id="punguzo" type="number" value="0" oninput="hesabuPunguzo()" placeholder="Punguzo la jumla - mfano 500"><div id="matokeoPunguzo" style="font-weight:bold"></div></div></div>
 <div id="panelKikapu" class="panelVitendo">
+  <!-- ===== KIKAPU - JINA LA MTEJA - MPYA ===== -->
+  <div style="background:#E3F2FD;border:2px solid #1565C0;border-radius:8px;padding:6px;margin-bottom:6px">
+    <b>👤 JINA LA MTEJA - KIKAPU</b>
+    <input id="jinaKikapu" placeholder="Andika jina - mfano JOHN - halafu weka bidhaa zake" style="margin-top:4px">
+    <small style="display:block;color:#555">JOHN akimaliza - andika MARY, weka bidhaa za MARY - wote wako ndani ya KIKAPU kimoja</small>
+    <div style="display:flex;gap:4px;margin-top:4px">
+      <button onclick="badiliMtejaKikapu()" style="background:#1565C0;flex:1;padding:6px;font-size:12px">👤 BADILI MTEJA</button>
+      <button onclick="safishaJinaKikapu()" style="background:#666;flex:1;padding:6px;font-size:12px">❌ SAFISHA JINA</button>
+    </div>
+    <div id="mtejaWaKikapuSasa" style="text-align:center;font-weight:bold;background:white;padding:4px;border-radius:6px;margin-top:4px">Mteja wa sasa: - (Hakuna jina)</div>
+  </div>
+
 <button class="btnBlue" onclick="wekaKikapu()">➕ WEKA KWENYE KIKAPU</button>
 <div class="kikapuBox">
 <div id="orodhaKikapu"><small>Kikapu kiko wazi</small></div>
@@ -260,7 +297,7 @@ small{color:#666}
 <div class="kikapuMiniBar">
 <button id="btnKikapuPunguza" onclick="funguaMiniKikapu('punguza')">🔥<br>PUNGUZA</button>
 <button id="btnKikapuChenji" onclick="funguaMiniKikapu('chenji')">💵<br>CHENJI</button>
-<button class="btnUzaKikapu" onclick="uzaPapohapo()">🛒<br>UZA</button>
+<button class="btnUzaKikapu" onclick="uzaKikapuNdani()">🛒<br>UZA ZOTE NDANI</button>
 </div>
 <div id="miniKikapuPunguza" class="miniPanel"><div class="punguzoBox"><b>🔥 PUNGUZA KIKAPU CHOTE (Jumla):</b><input id="punguzoKikapu" type="number" value="0" oninput="hesabuKikapuPunguzo()" placeholder="Andika punguzo - mfano 500"><div id="matokeoKikapuPunguzo" style="font-weight:bold;color:#EF6C00"></div></div></div>
 <div id="miniKikapuChenji" class="miniPanel"><div class="chenchiBox"><b>💵 CHENJI YA KIKAPU:</b><div id="chenchiKikapuDisplay" style="font-weight:bold;font-size:18px;margin:6px 0;background:white;padding:10px;border-radius:8px;text-align:center">Jumla: 0/=</div><input id="helaKikapuInput" type="number" placeholder="Mteja ametoa - mfano 15000" oninput="hesabuChenchiKikapu()" onclick="this.select()"><div class="helaGrid"><button onclick="wekaHelaKikapu(2000)">2000</button><button onclick="wekaHelaKikapu(3000)">3000</button><button onclick="wekaHelaKikapu(5000)">5000</button><button onclick="wekaHelaKikapu(10000)">10000</button><button onclick="wekaHelaKikapu(20000)">20000</button><button onclick="wekaHelaKikapu(50000)">50000</button></div></div></div>
@@ -481,8 +518,26 @@ function ongezaCategory(){ var jina=document.getElementById('jinaCategoryMpya').
 function futaCategory(i){ if(!confirm('Ufute?')) return; categories.splice(i,1); save(); }
 function funguaPanel(jina){ var panels={'hela':'panelHela','punguza':'panelPunguza','kikapu':'panelKikapu'}; if(panelIliyofunguka==jina){ document.getElementById(panels[jina]).classList.remove('show'); panelIliyofunguka=""; return; } for(var k in panels) document.getElementById(panels[k]).classList.remove('show'); document.getElementById(panels[jina]).classList.add('show'); panelIliyofunguka=jina; hesabuChenchi(); }
 function fungaPanelZote(){ ['panelHela','panelPunguza','panelKikapu'].forEach(function(id){ document.getElementById(id).classList.remove('show'); }); panelIliyofunguka=""; }
-function uzaPapohapo(){ if(kikapu.length>0) ombaThibitishaZote(); else ombaThibitishaMoja(); }
-function sasishaButtonZaUza(){ var b=document.getElementById('btnUza'); if(b) b.innerHTML=kikapu.length>0?"🛒<br>UZA ZOTE ("+kikapu.length+")":"🛒<br>UZA"; var k=document.getElementById('idadiKikapuBar'); if(k) k.innerText=kikapu.length; }
+// ===== MPYA - UZA WA NJE HAUUGUSI KIKAPU =====
+// Hii ni ya button ya NJE tu - inauza bidhaa uliyochagua sasa TU, hata kama KIKAPU kina bidhaa 10
+function uzaNjePekee(){
+  ombaThibitishaMoja(); // Moja tu - haangali kikapu kabisa
+}
+
+// ===== MPYA - UZA NDANI YA KIKAPU - UNAUZA ZOTE ZA NDANI TU =====
+// Hii ni ya button ya NDANI ya KIKAPU tu - inauza zote zilizomo ndani ya KIKAPU
+function uzaKikapuNdani(){
+  if(kikapu.length==0) return alert('KIKAPU kiko wazi! Weka bidhaa kwenye KIKAPU kwanza');
+  ombaThibitishaZote(); // Zote za KIKAPU
+}
+
+// ===== MPYA - Button ya nje ibaki UZA tu, isiandike UZA ZOTE =====
+function sasishaButtonZaUza(){
+  var b=document.getElementById('btnUza');
+  if(b) b.innerHTML="🛒<br>UZA"; // Daima UZA - haiandiki tena UZA ZOTE
+  var k=document.getElementById('idadiKikapuBar');
+  if(k) k.innerText=kikapu.length;
+}
 function onyeshaModal(t,b,bt){ document.getElementById('modalTitle').innerHTML=t; document.getElementById('modalBody').innerHTML=b; document.getElementById('modalBtnUza').innerText=bt; document.getElementById('modalThibitisha').classList.add('show'); }
 function ghairiThibitisha(){ document.getElementById('modalThibitisha').classList.remove('show'); }
 function thibitishaUza(){ document.getElementById('modalThibitisha').classList.remove('show'); if(ainaYaThibitisha=="moja") uzaKweli(); if(ainaYaThibitisha=="zote") uzaZoteKweli(); }
@@ -525,8 +580,108 @@ function wekaHelaAliyotoa(kiasi,btn){ document.getElementById('helaAliyotoa').va
 function hesabuChenchi(){ var jumla=pataJumlaYaSasa().jumla; var aliyotoa=+document.getElementById('helaAliyotoa').value||0; var div=document.getElementById('chenchiDisplay'); if(!div) return; if(jumla<=0){ div.innerHTML="Jumla: 0/="; return; } if(aliyotoa<=0){ div.innerHTML="Jumla: "+jumla.toLocaleString()+"/="; return; } div.innerHTML="Jumla: "+jumla.toLocaleString()+"/= | CHENCHI: "+(aliyotoa-jumla).toLocaleString()+"/="; }
 function hesabuMafuta(){ var b=bidhaaIliyochaguliwa(); if(!b) return null; var hm=+document.getElementById('helaMafuta').value||0; var im=+document.getElementById('idadiMafuta').value||1; var pz=+document.getElementById('punguzo').value||0; if(hm<=0) return null; njiaYaMafuta="HELA"; var jumlaKabla=hm*im; var jy=Math.max(0, jumlaKabla - pz); var mills=Math.round(jumlaKabla / b.kuza); var lita=millsKwaLitaHesabu(b,mills); var ndoo=millsKwaNdooHesabu(b,mills); var beiNunuaJumla=Math.round(b.nunua*mills); var faidaKabla=jumlaKabla - beiNunuaJumla; var fa=faidaKabla - pz; document.getElementById('jumlaMafutaHaraka').innerText="= "+jy.toLocaleString()+"/="; document.getElementById('maelezoMafuta').innerHTML="Atapata MILLS "+mills+" = LITA "+lita+" = NDOO "+ndoo+" | "+jy+"/="+(pz>0?" (Punguzo -"+pz.toLocaleString()+"/=)":""); onyeshaFaida(fa, jy, beiNunuaJumla, "MILLS "+mills+" (LITA "+lita+" | NDOO "+ndoo+")"); var baki=Math.max(0,Math.round((b.idadi-mills)*100)/100); document.getElementById('bakiMafutaJuu').innerText="Baada ya kuuza utabaki: "+formatStockMafuta({idadi:baki,millsKwaLita:pataMillsKwaLita(b),litaKwaNdoo:pataLitaKwaNdoo(b),niMafuta:true}); hesabuChenchi(); return {beiMpya:b.kuza,jumlaMpya:jy,faidaMpya:fa,punguzo:pz,idadi:mills,jinaIdadi:"MILLS "+mills+" (LITA "+lita+" | NDOO "+ndoo+")",helaMoja:hm,njia:"HELA"}; }
 function hesabuPunguzo(){ if(niMafutaIliyochaguliwa()) return hesabuMafuta(); if(hakunaBidhaa()) return null; var b=bidhaaIliyochaguliwa(); var idadi=pataIdadi(); var pz=+document.getElementById('punguzo').value||0; var jumlaKabla=Math.round(b.kuza*idadi); var jm=Math.max(0, jumlaKabla - pz); var beiNunuaJumla=Math.round(b.nunua*idadi); var faidaKabla=jumlaKabla - beiNunuaJumla; var fm=faidaKabla - pz; var bm=idadi>0 ? (jm/idadi) : b.kuza; document.getElementById('jumlaHaraka').innerText="= "+jm.toLocaleString()+"/="; document.getElementById('jumlaHarakaJuu').innerText="= "+jm.toLocaleString()+"/="; var divP=document.getElementById('matokeoPunguzo'); if(divP){ if(pz>0) divP.innerHTML="Kabla: "+jumlaKabla.toLocaleString()+"/= | Punguzo: -"+pz.toLocaleString()+"/= | Kulipa: "+jm.toLocaleString()+"/= | Faida: "+fm.toLocaleString()+"/="; else divP.innerHTML=""; } onyeshaFaida(fm, jm, beiNunuaJumla, jinaKamiliKwaKipimo(b, idadi)); hesabuChenchi(); return {beiMpya:bm,jumlaMpya:jm,faidaMpya:fm,punguzo:pz,idadi:idadi,jinaIdadi:jinaKamiliKwaKipimo(b,idadi)}; }
-function wekaKikapu(){ if(hakunaBidhaa()) return alert('Chagua bidhaa!'); var b=bidhaa[bidhaaIliyochaguliwaIdx]; var calc; if(niMafutaBidhaa(b)){ calc=hesabuMafuta(); if(!calc) return alert('Bonyeza BEI kwanza!'); } else calc=hesabuPunguzo(); kikapu.push({jina:b.jina,idadi:calc.idadi,jinaIdadi:calc.jinaIdadi,bei:calc.beiMpya,jumla:calc.jumlaMpya,faida:calc.faidaMpya,punguzo:calc.punguzo,idx:bidhaaIliyochaguliwaIdx,helaMoja:calc.helaMoja,category:pataCategoryYaBidhaa(b)}); onyeshaKikapu(); bidhaaIliyochaguliwaIdx=-1; onyeshaBidhaaGrid(); fichaVitendoJuu(); safishaPunguzo(); sasishaButtonZaUza(); if(panelIliyofunguka!="kikapu"){ funguaPanel('kikapu'); } }
-function onyeshaKikapu(){ var div=document.getElementById('orodhaKikapu'); var vitendo=document.getElementById('kikapuVitendo'); if(!div) return; if(kikapu.length==0){ div.innerHTML="<small>Kikapu kiko wazi</small>"; if(vitendo) vitendo.style.display="none"; document.getElementById('jumlaKikapu').innerHTML=""; return; } div.innerHTML=""; var jy=0; kikapu.forEach(function(k,i){ jy+=k.jumla; div.innerHTML+="<div class='kikapuItem'><span><b>"+k.jina+"</b> - "+k.jinaIdadi+"</span><span><b>"+k.jumla.toLocaleString()+"/=</b> <button onclick='toaKwenyeKikapu("+i+")' style='width:auto;padding:3px 6px;background:#d32f2f;margin:0;font-size:11px'>✕</button></span></div>"; }); document.getElementById('jumlaKikapu').innerHTML="JUMLA: "+jy.toLocaleString()+"/="; if(vitendo) vitendo.style.display="block"; hesabuKikapuPunguzo(); hesabuChenchiKikapu(); }
+// ===== KIKAPU - WATEJA WENGI - MPYA =====
+let jinaMtejaKikapu = ""; // Mteja gani tunamwekea bidhaa sasa
+
+function pataJinaMtejaKikapu(){
+  var v = document.getElementById('jinaKikapu') ? document.getElementById('jinaKikapu').value.trim().toUpperCase() : "";
+  if(v) jinaMtejaKikapu = v;
+  if(!jinaMtejaKikapu) jinaMtejaKikapu = "MTEJA";
+  return jinaMtejaKikapu;
+}
+function badiliMtejaKikapu(){
+  var v = document.getElementById('jinaKikapu').value.trim().toUpperCase();
+  if(!v) return alert('Andika jina la mteja mpya kwanza! Mfano MARY');
+  jinaMtejaKikapu = v;
+  var el = document.getElementById('mtejaWaKikapuSasa');
+  if(el) el.innerText = "Mteja wa sasa: " + jinaMtejaKikapu + " - Sasa weka bidhaa zake";
+  alert('✅ Sasa unawekea '+jinaMtejaKikapu+' - Chagua bidhaa, bonyeza WEKA KWENYE KIKAPU');
+}
+function safishaJinaKikapu(){
+  jinaMtejaKikapu = "";
+  document.getElementById('jinaKikapu').value = "";
+  var el = document.getElementById('mtejaWaKikapuSasa');
+  if(el) el.innerText = "Mteja wa sasa: - (Hakuna jina)";
+}
+
+// ===== WEKA KIKAPU - SASA INAWEKA NA JINA LA MTEJA =====
+function wekaKikapu(){
+  if(hakunaBidhaa()) return alert('Chagua bidhaa!');
+  var b=bidhaa[bidhaaIliyochaguliwaIdx];
+  var calc;
+  if(niMafutaBidhaa(b)){ calc=hesabuMafuta(); if(!calc) return alert('Bonyeza BEI kwanza!'); }
+  else calc=hesabuPunguzo();
+  // ===== MPYA - Chukua jina la mteja - kama hakuandika, tunamwita MTEJA =====
+  var jinaMteja = pataJinaMtejaKikapu();
+  kikapu.push({jina:b.jina, idadi:calc.idadi, jinaIdadi:calc.jinaIdadi, bei:calc.beiMpya, jumla:calc.jumlaMpya, faida:calc.faidaMpya, punguzo:calc.punguzo, idx:bidhaaIliyochaguliwaIdx, helaMoja:calc.helaMoja, category:pataCategoryYaBidhaa(b), jinaMteja:jinaMteja});
+  onyeshaKikapu();
+  bidhaaIliyochaguliwaIdx=-1; onyeshaBidhaaGrid(); fichaVitendoJuu(); safishaPunguzo(); sasishaButtonZaUza();
+  if(panelIliyofunguka!="kikapu"){ funguaPanel('kikapu'); }
+  alert('✅ Imewekwa kwenye KIKAPU ya '+jinaMteja+' - '+b.jina+' '+calc.jinaIdadi);
+}
+function onyeshaKikapu(){
+  var div=document.getElementById('orodhaKikapu');
+  var vitendo=document.getElementById('kikapuVitendo');
+  if(!div) return;
+  if(kikapu.length==0){
+    div.innerHTML="<small>Kikapu kiko wazi</small>";
+    if(vitendo) vitendo.style.display="none";
+    document.getElementById('jumlaKikapu').innerHTML="";
+    return;
+  }
+  // ===== MPYA - Panga bidhaa kwa jina la mteja =====
+  var kwaMteja = {};
+  kikapu.forEach(function(k,i){
+    var jm = k.jinaMteja || "MTEJA";
+    if(!kwaMteja[jm]) kwaMteja[jm]=[];
+    kwaMteja[jm].push({item:k, idxHalisi:i});
+  });
+  div.innerHTML="";
+  for(var jm in kwaMteja){
+    var bidhaaZaMteja = kwaMteja[jm];
+    var jumlaMteja = bidhaaZaMteja.reduce(function(s,x){ return s+x.item.jumla },0);
+    // Kichwa cha mteja - JINA + JUMLA YAKE + BUTTON ZAKE
+    div.innerHTML += "<div style='background:#1565C0;color:white;padding:6px 8px;border-radius:8px 8px 0 0;margin-top:8px;display:flex;justify-content:space-between;align-items:center'><b>👤 "+jm+"</b><b>"+jumlaMteja.toLocaleString()+"/=</b></div>";
+    div.innerHTML += "<div style='background:#E3F2FD;border:1px solid #1565C0;border-radius:0 0 8px 8px;padding:4px;margin-bottom:4px'>";
+    bidhaaZaMteja.forEach(function(x){
+      var k=x.item, i=x.idxHalisi;
+      div.innerHTML += "<div class='kikapuItem'><span><b>"+k.jina+"</b> - "+k.jinaIdadi+"</span><span><b>"+k.jumla.toLocaleString()+"/=</b> <button onclick='toaKwenyeKikapu("+i+")' style='width:auto;padding:3px 6px;background:#d32f2f;margin:0;font-size:11px'>✕</button></span></div>";
+    });
+    // Button za kila mteja - UZA WAKE TU au FUTA WAKE TU
+   div.innerHTML += "<div class='kikapuMtejaBtns'><button class='btnKikapuMtejaMini btnKikapuUzaMini' onclick=\"uzaKikapuMteja('"+jm+"')\">🛒 UZA WA</button><button class='btnKikapuMtejaMini btnKikapuFutaMini' onclick=\"futaKikapuMteja('"+jm+"')\">🗑️ FUTA WA</button></div>";
+    div.innerHTML += "</div>";
+  }
+  var jy = kikapu.reduce(function(s,x){ return s+x.jumla },0);
+  document.getElementById('jumlaKikapu').innerHTML="JUMLA YA WOTE: "+jy.toLocaleString()+"/=";
+  if(vitendo) vitendo.style.display="block";
+  hesabuKikapuPunguzo(); hesabuChenchiKikapu();
+  var el=document.getElementById('mtejaWaKikapuSasa');
+  if(el && jinaMtejaKikapu) el.innerText="Mteja wa sasa: "+jinaMtejaKikapu;
+}
+
+// ===== MPYA - UZA WA MTEJA MMOJA TU NDANI YA KIKAPU =====
+function uzaKikapuMteja(jinaMteja){
+  var zaMteja = kikapu.filter(function(k){ return (k.jinaMteja||"MTEJA")===jinaMteja; });
+  if(zaMteja.length==0) return alert('Hana bidhaa!');
+  if(!confirm('Uza bidhaa '+zaMteja.length+' za '+jinaMteja+'? Jumla '+zaMteja.reduce(function(s,x){return s+x.jumla},0).toLocaleString()+"/=")) return;
+  // Tunauza za huyu tu - tunazitenga, tunauza, tunabakiza za wengine
+  var kikapuWengine = kikapu.filter(function(k){ return (k.jinaMteja||"MTEJA")!==jinaMteja; });
+  var kikapuZamani = kikapu.slice();
+  kikapu = zaMteja;
+  // Tumia uzaZoteKweli yako ya zamani - inauza kikapu kilichopo sasa (za huyu tu)
+  uzaZoteKweli();
+  // Rudisha za wengine - kwa sababu uzaZoteKweli inafuta kikapu chote
+  kikapu = kikapuWengine;
+  onyeshaKikapu(); sasishaButtonZaUza();
+  // Kama huyu ndiye aliyekuwa mteja wa sasa, safisha jina ili uandike mwingine
+  if(jinaMtejaKikapu===jinaMteja){ jinaMtejaKikapu=""; document.getElementById('jinaKikapu').value=""; }
+}
+function futaKikapuMteja(jinaMteja){
+  if(!confirm('Futa bidhaa zote za '+jinaMteja+' kwenye KIKAPU?')) return;
+  kikapu = kikapu.filter(function(k){ return (k.jinaMteja||"MTEJA")!==jinaMteja; });
+  onyeshaKikapu(); sasishaButtonZaUza();
+  if(jinaMtejaKikapu===jinaMteja){ jinaMtejaKikapu=""; document.getElementById('jinaKikapu').value=""; }
+}
 function toaKwenyeKikapu(i){ kikapu.splice(i,1); onyeshaKikapu(); sasishaButtonZaUza(); }
 function futaKikapu(){ kikapu=[]; try{ document.getElementById('punguzoKikapu').value=0; document.getElementById('helaKikapuInput').value=""; }catch(e){} fungaMiniKikapuZote(); onyeshaKikapu(); sasishaButtonZaUza(); }
 function uzaZoteKweli(){ if(kikapu.length==0) return; var pungTotal=pataPunguzoKikapu(); var jumlaKabla=pataJumlaKikapuBilaPunguzo(); kikapu.forEach(function(k){ var b=bidhaa[k.idx]; var pungHii=jumlaKabla>0?Math.round(pungTotal*k.jumla/jumlaKabla):0; var jumlaMpya=k.jumla-pungHii; var faidaMpya=k.faida-pungHii; b.idadi=Math.round((b.idadi-k.idadi)*1000)/1000; mauzo.push({jina:k.jina+" ("+k.jinaIdadi+")",idadi:k.idadi,jumla:jumlaMpya,faida:faidaMpya,tarehe:new Date().toDateString(),saa:new Date().toLocaleTimeString(),iso:toISO(new Date()),saa:new Date().toLocaleTimeString(),punguzo:(k.punguzo||0)+pungHii,bei:k.bei,category:k.category,muuzaji:jinaMuuzaji||"?"}); }); kikapu=[]; try{ document.getElementById('punguzoKikapu').value=0; document.getElementById('helaKikapuInput').value=""; }catch(e){} fungaMiniKikapuZote(); onyeshaKikapu(); save(); fichaVitendoJuu(); fungaPanelZote(); safishaPunguzo(); document.getElementById('msgUza').innerHTML="✅ UMEUZA ZOTE KUTOKA KIKAPU!"; }
