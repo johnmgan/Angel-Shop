@@ -242,7 +242,7 @@ small{color:#666}
 <div id="catBarUza" class="catBar"></div>
 <div id="bidhaaGridUza" class="bidhaaGrid"></div>
 
-<div id="vitendoBarJuu" class="vitendoBar" style="display:none;margin-top:6px">
+<div id="vitendoBarJuu" class="vitendoBar" style="display:none;">
 <button id="btnHela" onclick="funguaPanel('hela')">💵<br>CHENJI</button>
 <button id="btnPunguza" onclick="funguaPanel('punguza')">🔥<br>PUNGUZA</button>
 <button id="btnKikapu" onclick="funguaPanel('kikapu')">🧺<br>KIKAPU (<span id="idadiKikapuBar">0</span>)</button>
@@ -259,7 +259,6 @@ small{color:#666}
     <button onclick="wekaPendingMojaKwaMoja()" style="background:#EF6C00;flex:1">⏳ WEKA PENDING</button>
     <button onclick="document.getElementById('pendingJinaBox').style.display='none'" style="background:#d32f2f;flex:1">❌ GHAIRI</button>
   </div>
-  <small>Chagua bidhaa hapo juu, bonyeza WEKA PENDING - inaenda moja kwa moja. Chagua nyingine, WEKA PENDING tena.</small>
   <button onclick="funguaPending()" style="background:#222;margin-top:4px">👁️ ONA WATEJA WA PENDING</button>
 </div>
 
@@ -369,7 +368,7 @@ small{color:#666}
 <div id="beiInfo" class="deniBox">Tafuta bidhaa hapo juu</div>
 <div id="sehemuRobo" style="display:none"><div class="roboBox"><button class="minus" onclick="punguzaRobo()">-</button><input id="idadiUza" class="roboInput" type="number" step="0.25" min="0.25" value="0.25" oninput="badiliRobo()" onclick="this.select()"><button onclick="ongezaRobo()">+</button><div id="jumlaHaraka" class="jumlaHaraka">= 0/=</div></div><div id="roboDisplay" style="text-align:center;font-weight:bold;color:#1A7A3A;background:#E8F5E9;padding:5px;border-radius:6px">ROBO</div></div>
 <!-- ===== PENDING - MPYA - BADALA YA RUDI KWENYE BIDHAA ===== -->
-<div style="display:flex;gap:4px;margin-top:8px">
+<div id="rudiPendingJuu" style="display:none;gap:4px;margin-top:8px">
   <button onclick="rudiKwenyeBidhaa()" style="background:#222;flex:1">← RUDI KWENYE BIDHAA</button>
   <button onclick="funguaPending()" style="background:#EF6C00;flex:1">⏳ PENDING (<span id="idadiPending">0</span>)</button>
 </div>
@@ -402,12 +401,21 @@ small{color:#666}
 <input id="litaKwaNdoo" type="number" placeholder="mfano 20" oninput="hesabuMafutaFomu()">
 <label>5. Kipimo cha Juu: NDOO</label>
 <input value="NDOO" disabled style="background:#eee">
-<label>6. BEI ZA MAFUTA - Andika ukitenganisha na koma ( , ):</label>
-<input id="beiZaMafuta" placeholder="mfano 1000,1500,2000,2500,3000,5000" oninput="onyeshaBeiZaMafutaFomu()">
-<small>Andika bei zote unazouzia leo. Ukibadilisha kesho, nenda EDIT ubadilishe hapa.</small>
-<div id="beiZaMafutaPreview" style="margin-top:6px"></div>
 <div id="mafutaPreview" class="mafutaPreview">Andika MILLS na LITA hapo juu</div>
 </div>
+
+<!-- ===== BEI ZANGU - KWA BIDHAA YOYOTE - SIO LAZIMA IWE MAFUTA ===== -->
+<div style="background:#FFF8E1;border:2px dashed #EF6C00;border-radius:10px;padding:8px;margin-top:6px">
+  <b>💰 BEI ZANGU - Andika bei zako hapa - Kwa bidhaa yoyote</b>
+  <label>BEI - Andika ukitenganisha na koma ( , ):</label>
+  <input id="beiZaMafuta" placeholder="mfano 1000,3000,9000,12000" oninput="onyeshaBeiZaMafutaFomu()">
+  <small>Andika bei zote unazouzia leo. Mfano DAGAA MAFTA: 1000,3000,9000,12000. Ukibadilisha kesho, nenda EDIT ubadilishe hapa.</small>
+  <div id="beiZaMafutaPreview" style="margin-top:6px"></div>
+</div>
+
+
+
+
 <div id="kawaidaFomu" class="guniaBox">
 <b>📦 KIPIMO KIKUBWA / KIDOGO - Bidhaa za kawaida</b>
 <label>1. Kipimo Kidogo - Andika mwenyewe:</label>
@@ -420,12 +428,89 @@ small{color:#666}
 </div>
 <input id="nunua" type="number" placeholder="Bei ya Kununua - kwa MAFUTA ni kwa MILLS 1"><input id="kuza" type="number" placeholder="Bei ya Kuuza - kwa MAFUTA ni kwa MILLS 1"><input id="idadi" type="number" placeholder="Idadi - kwa MAFUTA ni MILLS, kwa kawaida ni Kipimo Kidogo" oninput="hesabuGuniaFomu();hesabuMafutaFomu()"><button onclick="ongezaBidhaa()">ONGEZA BIDHAA</button>
 <div class="catBox"><h3 style="color:#EF6C00;margin:0">📂 CATEGORY</h3><div style="display:flex;gap:4px"><input id="jinaCategoryMpya" placeholder="Category mpya" style="flex:1"><button onclick="ongezaCategory()" style="width:auto;background:#EF6C00">+ ADD</button></div><div id="orodhaCategory"></div><div id="viewCategoryBox" style="display:none"></div></div>
-<div id="orodha"></div><button class="btnRed" onclick="futaZilizoisha()">FUTA ZILIZOISHA</button>
+ <div id="orodha"></div>
+
+<button class="btnRed" onclick="futaZilizoisha()">FUTA ZILIZOISHA</button>
 </div>
 
 <div id="mauzoList" class="card" style="display:none"><h3>Mauzo - Wote (Live)</h3><div id="orodhaMauzo"></div><div id="jumlaMauzoMoja" class="deniBox"></div></div>
 <div id="matumizi" class="card" style="display:none"><h3>Matumizi</h3><select id="ainaMatumizi"><option>Nauli</option><option>Chakula</option><option>Kodi ya Duka</option><option>Maji / Umeme</option><option>Airtime / Bando</option><option>Mengine</option></select><input id="sababu" placeholder="Maelezo"><input id="kiasiMatumizi" type="number" placeholder="Kiasi"><button onclick="ongezaMatumizi()">WEKA MATUMIZI</button><div id="mchanganuoMatumizi"></div><div id="jumlaMatumiziBox" class="deniBox"></div></div>
-<div id="madeni" class="card" style="display:none"><h3>1. Deni Jipya</h3><input id="jinaMteja" placeholder="Jina"><input id="tareheDeni" type="date"><input id="bidhaaDeni" placeholder="Bidhaa"><input id="jumlaDeni" type="number" placeholder="Jumla"><input id="nambaDeni" placeholder="Namba"><button onclick="ongezaDeni()">ANDIKA DENI</button><h3>2. Mteja Akilipa</h3><select id="selDeni"></select><input id="kiasiLipa" type="number" placeholder="Kiasi"><input id="tareheLipa" type="date"><button class="btnOrange" onclick="lipaDeni()">INGIZA MALIPO</button><p id="msgDeni"></p><h3>3. Orodha</h3><div id="orodhaMadeni"></div><div id="jumlaMadeniBox" class="deniBox"></div></div>
+
+<div id="madeni" class="card" style="display:none">
+<h3>💳 MADENI</h3>
+
+<!-- CHAGUA - Hii ndio unaiona kwanza ukibonyeza MADENI -->
+<div id="madeniChagua" style="display:grid;gap:8px">
+  <button onclick="funguaMadeni('yangu')" style="background:#EF6C00;padding:16px;font-size:16px">📤 MADENI YANGU<br><small style="font-weight:normal">Mimi nimedaiwa - nimekopa bidhaa / fedha - <span id="jumlaMadeniYanguChagua">0/=</span></small></button>
+  <button onclick="funguaMadeni('wateja')" style="background:#1565C0;padding:16px;font-size:16px">📥 MADENI YA WATEJA<br><small style="font-weight:normal">Wateja wamenidai - <span id="jumlaMadeniWatejaChagua">0/=</span></small></button>
+</div>
+
+<!-- ============ MADENI YANGU ============ -->
+<div id="madeniYanguBox" style="display:none">
+  <button onclick="funguaMadeni('chagua')" style="background:#222">⬅️ RUDI KWENYE MADENI</button>
+  <h3 style="color:#EF6C00;margin:8px 0 0">📤 MADENI YANGU</h3>
+  <div style="display:flex;gap:4px;margin:8px 0">
+    <button id="btnDeniYanguBidhaa" onclick="funguaMadeniYangu('bidhaa')" style="background:#EF6C00;flex:1">📦 1. KUKOPA BIDHAA</button>
+    <button id="btnDeniYanguFedha" onclick="funguaMadeniYangu('fedha')" style="background:#666;flex:1">💵 2. KUKOPA FEDHA</button>
+  </div>
+
+  <!-- 1. KUKOPA BIDHAA -->
+  <div id="deniYanguBidhaaBox">
+    <input id="jinaDeniYanguBidhaa" placeholder="Nani amekukopesha? - mfano MAMA NDEGE / MUUZAJI WA JUMla">
+    <input id="bidhaaDeniYangu" placeholder="Bidhaa uliyokopa - mfano MCHELE GUNIA 1">
+    <input id="jumlaDeniYanguBidhaa" type="number" placeholder="Jumla unamdai - mfano 120000">
+    <input id="tareheDeniYanguBidhaa" type="date">
+    <button onclick="ongezaDeniYangu('bidhaa')" style="background:#EF6C00">➕ WEKA DENI LA BIDHAA</button>
+  </div>
+
+  <!-- 2. KUKOPA FEDHA -->
+  <div id="deniYanguFedhaBox" style="display:none">
+    <input id="jinaDeniYanguFedha" placeholder="Nani amekukopesha pesa? - mfano JUMA / MAMA">
+    <input id="jumlaDeniYanguFedha" type="number" placeholder="Kiasi ulichokopa - mfano 50000">
+    <input id="sababuDeniYanguFedha" placeholder="Sababu - mfano KODI YA DUKA / MTaji">
+    <input id="tareheDeniYanguFedha" type="date">
+    <button onclick="ongezaDeniYangu('fedha')" style="background:#EF6C00">➕ WEKA DENI LA FEDHA</button>
+  </div>
+
+  <h3 style="margin-top:12px">Orodha - Madeni Yangu</h3>
+
+  <div id="jumlaMadeniYanguBox" style="..."></div>
+<input id="tafutaMadeniYangu" placeholder="🔍 TAFTA JINA - mfano: MZIGUA..." oninput="ukurasaMadeniYangu=1;onyeshaMadeniYangu()" style="width:100%;padding:10px;margin:6px 0;border:2px solid #1A7A3A;border-radius:8px;font-size:14px" />
+<div id="orodhaMadeniYangu"></div>
+
+<div style="display:flex;gap:4px">
+  <input id="jinaMtejaDaiwa" placeholder="Jina la Mteja - mfano: JUMA" style="flex:1" />
+  <button onclick="andikaDeniWateja()" style="flex:1;background:#1A7A3A">✍️ ANDIKA DENI</button>
+</div>
+<div id="fomuDeniWateja" style="display:none;background:#f5f5f5;padding:8px;border-radius:8px;margin-top:6px">
+  <div id="jinaKwaDeniWateja" style="font-weight:bold;margin-bottom:4px"></div>
+  <input id="bidhaaDeniWateja" placeholder="Bidhaa / Sababu - mfano: MCHELE GUNIA 1" style="width:100%;margin-bottom:4px" />
+  <input id="kiasiDeniWateja" type="number" placeholder="Kiasi - mfano: 50000" style="width:100%;margin-bottom:4px" />
+  <input id="tareheDeniWateja" placeholder="Tarehe - 2026-11-26" style="width:100%;margin-bottom:4px" />
+  <button onclick="hifadhiDeniWateja()" style="width:100%;background:#1A7A3A">💾 HIFADHI DENI</button>
+</div>
+  <div id="orodhaMadeniYangu"></div>
+  <div id="jumlaMadeniYanguBox" class="deniBox"></div>
+</div>
+
+<!-- ============ MADENI YA WATEJA - YAKO YA ZAMANI ============ -->
+<div id="madeniWatejaBox" style="display:none">
+  <button onclick="funguaMadeni('chagua')" style="background:#222">⬅️ RUDI KWENYE MADENI</button>
+  <h3 style="color:#1565C0;margin:8px 0 0">📥 MADENI YA WATEJA</h3>
+  <h3>1. Deni Jipya</h3><input id="jinaMteja" placeholder="Jina"><input id="tareheDeni" type="date"><input id="bidhaaDeni" placeholder="Bidhaa"><input id="jumlaDeni" type="number" placeholder="Jumla"><input id="nambaDeni" placeholder="Namba">
+
+  <button onclick="ongezaDeni()">ANDIKA DENI</button>
+  <h3>2. Mteja Akilipa</h3>
+  <select id="selDeni"></select>
+ <label style="font-size:12px">Analipa wapi?</label>
+
+  <input id="kiasiLipa" type="number" placeholder="Kiasi"><input id="tareheLipa" type="date"><button class="btnOrange" onclick="lipaDeni()">INGIZA MALIPO</button><p id="msgDeni"></p>
+ <h3>3. Orodha</h3><input id="tafutaMadeni" placeholder="🔍 TAFTA MTEJA - mfano: JUMA..." oninput="onyeshaMadeni()" style="width:100%;padding:10px;margin:6px 0;border:2px solid #1A7A3A;border-radius:8px;font-size:14px" /><div id="orodhaMadeni"></div>
+
+  <div id="jumlaMadeniBox" class="deniBox"></div>
+</div>
+
+</div>
 
 <div id="ripoti" class="card" style="display:none">
 <h3>RIPOTI - KWA CATEGORY</h3>
@@ -460,6 +545,10 @@ let db=null; let imeunganishwa=false;
 try{ if(firebaseConfig.apiKey.indexOf("WEKA")==-1){ firebase.initializeApp(firebaseConfig); db=firebase.database(); imeunganishwa=true; } }catch(e){ console.log("Firebase error",e); }
 function funguaApp(){ document.querySelectorAll('.modalOverlay').forEach(function(m){m.classList.remove('show')}); show('uza'); alert('Imefunguliwa!'); }
 let bidhaa=[]; let mauzo=[]; let matumizi=[]; let madeni=[];
+let madeniYangu=[];
+var ukurasaMadeniYangu=1;
+var ukurasaMiamalaYangu={}; // Kila jina ana page yake - MZIGUA page 1, JUMA page 2, n.k
+var kwaPageMadeniYangu=10;
 let categories=["NAFAKA","MAFUTA","SABUNI","VINYWAJI","VIUNGO","MIFUKO","CHIPS","ZA100"];
 let jinaMuuzaji=localStorage.getItem('mangi_muuzaji')||"";
 let mipangilioRipoti={namba:"",muda:"19:00",njia:"BOTH",auto:false,imethibitishwaTarehe:""};
@@ -469,7 +558,62 @@ function pataKipimoKikubwa(b){ if(b && b.kipimoKikubwa) return b.kipimoKikubwa; 
 function pataIdadiKwaKikubwa(b){ if(b && b.idadiKwaKikubwa && +b.idadiKwaKikubwa>0) return +b.idadiKwaKikubwa; return 0; }
 function pataStockKikubwa(b){ var conv=pataIdadiKwaKikubwa(b); if(!conv) return 0; return Math.floor((+b.idadi||0)*100/conv)/100; }
 function formatKikubwa(b){ var kubwa=pataKipimoKikubwa(b); if(!kubwa) return ""; return kubwa+" "+pataStockKikubwa(b); }
-function niMafutaBidhaa(b){ if(!b) return false; if(b.niMafuta) return true; if(b.jina && b.jina.toLowerCase().includes('mafuta')) return true; return false; }
+
+function niMafutaBidhaa(b){ if(!b) return false; if(b.niMafuta) return true; if(b.jina && b.jina.toLowerCase().includes('mafuta')) return true; return false; 
+}
+
+// ===== AKILI YA APP - Kama bidhaa ina BEI, ni ya ku-click BEI =====
+function pataBeiZaBidhaa(b){
+  if(!b) return [];
+  var raw = b.beiZaBidhaa || b.beiZaMafuta || [];
+  if(typeof raw === 'string'){
+    if(!raw.trim()) return [];
+    return raw.split(',').map(function(x){ return +String(x).replace(/[^0-9]/g,''); }).filter(function(x){ return x>0; });
+  }
+  if(Array.isArray(raw)){
+    return raw.map(function(x){ return +x; }).filter(function(x){ return x>0; });
+  }
+  return [];
+}
+function niBidhaaYaBei(b){
+  if(!b) return false;
+  return pataBeiZaBidhaa(b).length>0;
+}
+
+function niKuuzaKwaBei(b){
+  if(!b) return false;
+  return niMafutaBidhaa(b) || niBidhaaYaBei(b);
+}
+function niKuuzaKwaBeiIliyochaguliwa(){
+  var b=bidhaaIliyochaguliwa(); if(!b) return false;
+  return niKuuzaKwaBei(b);
+}
+
+function niBidhaaYaBeiIliyochaguliwa(){
+  var b=bidhaaIliyochaguliwa();
+  if(!b) return false;
+  return niBidhaaYaBei(b) || niMafutaBidhaa(b);
+}
+
+function niDagaaBidhaa(b){ if(!b) return false; if(b.jina && (b.jina.toLowerCase().includes('dagaa') || b.jina.toLowerCase().includes('mafta'))) return true; return false; }
+
+function elezaGramu(g){
+  g=+g||0;
+  if(g==0) return "GRAMU 0";
+  if(g<1000){
+    if(g==250) return "GRAMU 250 = ROBO KILO";
+    if(g==500) return "GRAMU 500 = NUSU KILO";
+    if(g==750) return "GRAMU 750 = KILO KASORO (NUSU NA ROBO)";
+    return "GRAMU "+g;
+  }
+  var kilo=Math.floor(g/1000); var baki=g%1000;
+  if(baki==0) return "KILO "+kilo+(kilo==1?" - KILO 1 KAMILI":"");
+  if(baki==250) return "KILO "+kilo+" NA ROBO";
+  if(baki==500) return "KILO "+kilo+" NA NUSU";
+  if(baki==750) return "KILO "+kilo+" NA NUSU NA ROBO (KILO KASORO)";
+  return "KILO "+kilo+" na GRAMU "+baki;
+}
+
 function pataMillsKwaLita(b){ if(b && b.millsKwaLita && +b.millsKwaLita>0) return +b.millsKwaLita; return 1000; }
 function pataLitaKwaNdoo(b){ if(b && b.litaKwaNdoo && +b.litaKwaNdoo>0) return +b.litaKwaNdoo; return 20; }
 function pataMillsKwaNdoo(b){ return pataMillsKwaLita(b)*pataLitaKwaNdoo(b); }
@@ -481,7 +625,12 @@ function safishaBeiZaMafuta(str){ if(!str) return []; if(Array.isArray(str)) ret
 function pataBeiZaMafuta(b){ if(b && b.beiZaMafuta && b.beiZaMafuta.length>0) return safishaBeiZaMafuta(b.beiZaMafuta); return []; }
 function onyeshaBeiZaMafutaFomu(){ var v=document.getElementById('beiZaMafuta').value; var arr=safishaBeiZaMafuta(v); var div=document.getElementById('beiZaMafutaPreview'); if(!div) return; if(arr.length==0){ div.innerHTML=""; return; } div.innerHTML="Bei zitakazoonekana kwenye UZA: <br>" + arr.map(function(x){ return "<span class='beiTag'>"+x.toLocaleString()+"/=</span>"; }).join(" "); }
 function onyeshaBeiZaMafutaEdit(){ var v=document.getElementById('editBeiZaMafuta').value; var arr=safishaBeiZaMafuta(v); var div=document.getElementById('editBeiPreview'); if(!div) return; if(arr.length==0){ div.innerHTML=""; return; } div.innerHTML="Bei zitakazoonekana kwenye UZA: <br>" + arr.map(function(x){ return "<span class='beiTag'>"+x.toLocaleString()+"/=</span>"; }).join(" "); }
-function angaliaKamaMafuta(){ var j=(document.getElementById('jina').value||"").toLowerCase(); var chk=document.getElementById('niMafutaCheck'); if(j.includes('mafuta')){ chk.checked=true; badiliFomuMafuta(); } }
+
+function angaliaKamaMafuta(){ var j=(document.getElementById('jina').value||"").toLowerCase(); var chk=document.getElementById('niMafutaCheck');
+
+ if(j.includes('mafuta')){ chk.checked=true; badiliFomuMafuta(); }
+  }
+
 function badiliFomuMafuta(){ var ni=document.getElementById('niMafutaCheck').checked; document.getElementById('mafutaFomu').style.display=ni?"block":"none"; document.getElementById('kawaidaFomu').style.display=ni?"none":"block"; var nunua=document.getElementById('nunua'); var kuza=document.getElementById('kuza'); var idadi=document.getElementById('idadi'); if(ni){ nunua.placeholder="Bei ya Kununua MILLS 1 - mfano 5"; kuza.placeholder="Bei ya Kuuza MILLS 1 - mfano 8"; idadi.placeholder="Idadi kwa MILLS - mfano 20000"; } else { nunua.placeholder="Bei ya Kununua"; kuza.placeholder="Bei ya Kuuza"; idadi.placeholder="Idadi kwa Kipimo Kidogo - mfano 200"; } hesabuMafutaFomu(); hesabuGuniaFomu(); }
 function hesabuMafutaFomu(){ var millsKwaLita=+document.getElementById('millsKwaLita').value||0; var litaKwaNdoo=+document.getElementById('litaKwaNdoo').value||0; var idadi=+document.getElementById('idadi').value||0; var prev=document.getElementById('mafutaPreview'); if(!prev) return; if(!millsKwaLita||!litaKwaNdoo){ prev.innerText="Andika MILLS na LITA hapo juu"; return; } var millsKwaNdoo=millsKwaLita*litaKwaNdoo; var lita=Math.floor(idadi*100/millsKwaLita)/100; var ndoo=Math.floor(idadi*100/millsKwaNdoo)/100; prev.innerText=idadi+" MILLS = LITA "+lita+" = NDOO "+ndoo+"  |  MILLS "+millsKwaLita+" = LITA 1  |  LITA "+litaKwaNdoo+" = NDOO 1"; }
 function hesabuMafutaEdit(){ var millsKwaLita=+document.getElementById('editMillsKwaLita').value||0; var litaKwaNdoo=+document.getElementById('editLitaKwaNdoo').value||0; var idadi=+document.getElementById('editIdadi').value||0; var prev=document.getElementById('editMafutaPreview'); if(!prev) return; if(!millsKwaLita||!litaKwaNdoo){ prev.innerText="Andika MILLS na LITA hapo juu"; return; } var millsKwaNdoo=millsKwaLita*litaKwaNdoo; var lita=Math.floor(idadi*100/millsKwaLita)/100; var ndoo=Math.floor(idadi*100/millsKwaNdoo)/100; prev.innerText=idadi+" MILLS = LITA "+lita+" = NDOO "+ndoo; }
@@ -491,8 +640,14 @@ function hesabuGuniaEdit(){ var kidogo=(document.getElementById('editKipimoKidog
 function wekaJinaMuuzaji(){ jinaMuuzaji=document.getElementById('jinaMuuzaji').value.trim().toUpperCase(); localStorage.setItem('mangi_muuzaji',jinaMuuzaji); document.getElementById('jinaMuuzajiLabel').innerText="Muuzaji: "+(jinaMuuzaji||"-"); if(db && jinaMuuzaji){ db.ref('online/'+jinaMuuzaji).set({jina:jinaMuuzaji,mwisho:Date.now()}); db.ref('online/'+jinaMuuzaji).onDisconnect().remove(); } }
 // ===== SYNC PEKEE - USIBADILI KINGINE =====
 let inSync=false; let pendingSync=false;
-function hifadhiLocal(){ try{ localStorage.setItem('mangi_v4_bidhaa',JSON.stringify(bidhaa)); localStorage.setItem('mangi_v4_mauzo',JSON.stringify(mauzo)); localStorage.setItem('mangi_v4_matumizi',JSON.stringify(matumizi)); localStorage.setItem('mangi_v4_madeni',JSON.stringify(madeni)); localStorage.setItem('mangi_v4_categories',JSON.stringify(categories)); }catch(e){} }
-function pakiaLocal(){ try{ var b=JSON.parse(localStorage.getItem('mangi_v4_bidhaa')||'[]'); var m=JSON.parse(localStorage.getItem('mangi_v4_mauzo')||'[]'); var t=JSON.parse(localStorage.getItem('mangi_v4_matumizi')||'[]'); var d=JSON.parse(localStorage.getItem('mangi_v4_madeni')||'[]'); var c=JSON.parse(localStorage.getItem('mangi_v4_categories')||'[]'); if(Array.isArray(b)) bidhaa=b; if(Array.isArray(m)) mauzo=m; if(Array.isArray(t)) matumizi=t; if(Array.isArray(d)) madeni=d; if(c&&c.length) categories=c; bidhaa.forEach(function(x){ if(!x._id) x._id='b_'+Date.now()+'_'+Math.random().toString(36).substr(2,6); if(!x._updated) x._updated=Date.now(); }); }catch(e){} }
+function hifadhiLocal(){ try{ localStorage.setItem('mangi_v4_bidhaa',JSON.stringify(bidhaa)); 
+localStorage.setItem('mangi_v4_madeniYangu',JSON.stringify(madeniYangu));
+localStorage.setItem('mangi_v4_mauzo',JSON.stringify(mauzo)); localStorage.setItem('mangi_v4_matumizi',JSON.stringify(matumizi)); localStorage.setItem('mangi_v4_madeni',JSON.stringify(madeni)); localStorage.setItem('mangi_v4_categories',JSON.stringify(categories)); }catch(e){} 
+
+}
+function pakiaLocal(){ try{ var b=JSON.parse(localStorage.getItem('mangi_v4_bidhaa')||'[]'); var m=JSON.parse(localStorage.getItem('mangi_v4_mauzo')||'[]'); var t=JSON.parse(localStorage.getItem('mangi_v4_matumizi')||'[]'); var d=JSON.parse(localStorage.getItem('mangi_v4_madeni')||'[]');
+var my=JSON.parse(localStorage.getItem('mangi_v4_madeniYangu')||'[]'); if(Array.isArray(my)) madeniYangu=my;
+ var c=JSON.parse(localStorage.getItem('mangi_v4_categories')||'[]'); if(Array.isArray(b)) bidhaa=b; if(Array.isArray(m)) mauzo=m; if(Array.isArray(t)) matumizi=t; if(Array.isArray(d)) madeni=d; if(c&&c.length) categories=c; bidhaa.forEach(function(x){ if(!x._id) x._id='b_'+Date.now()+'_'+Math.random().toString(36).substr(2,6); if(!x._updated) x._updated=Date.now(); }); }catch(e){} }
 function mergeBidhaa(L,R){ var map={}; L.forEach(function(x){ if(!x._id) x._id='b_'+Date.now()+'_'+Math.random().toString(36).substr(2,6); map[x._id]=x; }); R.forEach(function(r){ if(!r._id){ var f=null; for(var k in map) if(map[k].jina&&map[k].jina.toLowerCase()==(r.jina||"").toLowerCase()) f=map[k]; if(f){ if((r._updated||0)>(f._updated||0)){ r._id=f._id; map[f._id]=r; } } else { r._id='b_'+Date.now()+'_'+Math.random().toString(36).substr(2,6); map[r._id]=r; } } else { if(!map[r._id]) map[r._id]=r; else if((r._updated||0)>(map[r._id]._updated||0)) map[r._id]=r; } }); return Object.values(map); }
 
 function mergeById(L,R,p){ var map={}; function funguo(x){ if(x._id) return x._id; return (x.jina||"")+"|"+(x.jumla||x.kiasi||0)+"|"+(x.iso||x.tarehe||"")+"|"+(x.saa||"")+"|"+(x.muuzaji||"")+"|"+(x.idadi||0)+"|"+(x.bidhaa||""); } L.forEach(function(x){ var k=funguo(x); if(!map[k]){ if(!x._id) x._id=p+'_'+k; map[k]=x; } }); R.forEach(function(r){ var k=funguo(r); if(!map[k]){ if(!r._id) r._id=p+'_'+k; map[k]=r; } }); return Object.values(map); }
@@ -528,8 +683,10 @@ let categoryKutokaMuhimu=""; // MPYA - Category uliyofungua kutoka MUHIMU
 function safishaPunguzo(){ try{ document.getElementById('punguzo').value=0; var mp=document.getElementById('matokeoPunguzo'); if(mp) mp.innerHTML=""; }catch(e){} }
 function onyeshaFaida(faida, jumla, beiNunuaJumla, idadiText){ var divKawaida=document.getElementById('faidaDisplayJuu'); var divMafuta=document.getElementById('faidaMafutaDisplay'); var txt="", bg="", col="", border=""; if(faida>0){ txt="✅ UTAPATA FAIDA: "+faida.toLocaleString()+"/= <br><small>Utauza "+jumla.toLocaleString()+"/= | Ulinunua "+beiNunuaJumla.toLocaleString()+"/= | "+idadiText+"</small>"; bg="#E8F5E9"; col="#1A7A3A"; border="#1A7A3A"; } else if(faida<0){ txt="❌ UTAPATA HASARA: "+faida.toLocaleString()+"/= - USIUZE! <br><small>Utauza "+jumla.toLocaleString()+"/= | Ulinunua "+beiNunuaJumla.toLocaleString()+"/= | "+idadiText+"</small>"; bg="#FFEBEE"; col="#d32f2f"; border="#d32f2f"; } else { txt="➖ HAKUNA FAIDA - HAKUNA HASARA <br><small>Utauza "+jumla.toLocaleString()+"/= | "+idadiText+"</small>"; bg="#FFF3E0"; col="#EF6C00"; border="#EF6C00"; } if(divKawaida && document.getElementById('idadiJuu').style.display=="block"){ divKawaida.innerHTML=txt; divKawaida.style.background=bg; divKawaida.style.color=col; divKawaida.style.borderColor=border; } if(divMafuta && document.getElementById('mafutaJuu').style.display=="block"){ divMafuta.innerHTML=txt; divMafuta.style.background=bg; divMafuta.style.color=col; divMafuta.style.borderColor=border; } }
 function rudishaFaidaDefault(){ var d1=document.getElementById('faidaDisplayJuu'); if(d1){ d1.innerHTML="Chagua idadi ili uone faida"; d1.style.background="#E8F5E9"; d1.style.color="#1A7A3A"; d1.style.borderColor="#1A7A3A"; } var d2=document.getElementById('faidaMafutaDisplay'); if(d2){ d2.innerHTML="Bonyeza BEI ili uone faida"; d2.style.background="#E8F5E9"; d2.style.color="#1A7A3A"; d2.style.borderColor="#1A7A3A"; } }
-function onyeshaVitendoJuu(){ var v=document.getElementById('vitendoBarJuu'); if(v) v.style.display="flex"; }
-function fichaVitendoJuu(){ var v=document.getElementById('vitendoBarJuu'); if(v) v.style.display="none"; }
+function onyeshaVitendoJuu(){ var v=document.getElementById('vitendoBarJuu'); if(v) v.style.display="flex"; var rp=document.getElementById('rudiPendingJuu'); if(rp) rp.style.display="flex"; }
+
+function fichaVitendoJuu(){ var v=document.getElementById('vitendoBarJuu'); if(v) v.style.display="none"; var rp=document.getElementById('rudiPendingJuu'); if(rp) rp.style.display="none"; }
+
 function pataJumlaKikapuBilaPunguzo(){ return kikapu.reduce(function(a,b){return a+b.jumla},0); }
 function pataPunguzoKikapu(){ return +document.getElementById('punguzoKikapu').value || 0; }
 function pataJumlaKikapuBaadaPunguzo(){ return Math.max(0, pataJumlaKikapuBilaPunguzo() - pataPunguzoKikapu()); }
@@ -549,7 +706,14 @@ function funguaEditBidhaa(i){ bidhaaInayoEdit=i; var b=bidhaa[i]; var sel=docume
 function fungaEditBidhaa(){ document.getElementById('modalEditBidhaa').classList.remove('show'); }
 function hifadhiEditBidhaa(){ var b=bidhaa[bidhaaInayoEdit]; b.jina=document.getElementById('editJina').value; b.nunua=+document.getElementById('editNunua').value; b.kuza=+document.getElementById('editKuza').value; b.idadi=+document.getElementById('editIdadi').value; b.category=document.getElementById('editCategory').value; b.isMuhimu=document.getElementById('editMuhimu').checked; b.niMafuta=document.getElementById('editNiMafuta').checked; if(b.niMafuta){ b.kipimoKidogo="MILLS"; b.kipimoKikubwa="NDOO"; b.millsKwaLita=+document.getElementById('editMillsKwaLita').value||1000; b.litaKwaNdoo=+document.getElementById('editLitaKwaNdoo').value||20; b.beiZaMafuta=safishaBeiZaMafuta(document.getElementById('editBeiZaMafuta').value); b.idadiKwaKikubwa=b.millsKwaLita*b.litaKwaNdoo; b.kipimo="MILLS"; } else { b.kipimoKidogo=(document.getElementById('editKipimoKidogo').value||"").toUpperCase(); b.kipimoKikubwa=(document.getElementById('editKipimoKikubwa').value||"").toUpperCase(); b.idadiKwaKikubwa=+document.getElementById('editIdadiKwaKikubwa').value||0; b.kipimo=b.kipimoKidogo; } save(); fungaEditBidhaa(); }
 function pataCategoryYaMauzo(m){ if(m.category && m.category!="MUHIMU") return m.category; return "NAFAKA"; }
-function chaguaCategory(cat){ bidhaaIliyochaguliwaIdx=-1; beiMafutaIliyochaguliwa=0; njiaYaMafuta="HELA"; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('bidhaaGridUza').style.display="grid"; fichaVitendoJuu(); fungaPanelZote(); safishaPunguzo(); try{ document.getElementById('helaAliyotoa').value=""; document.getElementById('helaAliyotoaInput').value=""; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini"; document.getElementById('maelezoMafuta').innerHTML=""; document.getElementById('bakiMafutaJuu').innerText=""; document.getElementById('msgUza').innerHTML=""; }catch(e){} rudishaFaidaDefault(); rudishaBeiMafutaDefault(); categoryKutokaMuhimu=""; categoryIliyochaguliwa=cat; render(); }
+function chaguaCategory(cat){ bidhaaIliyochaguliwaIdx=-1; beiMafutaIliyochaguliwa=0; njiaYaMafuta="HELA"; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('bidhaaGridUza').style.display="grid"; fichaVitendoJuu(); fungaPanelZote(); safishaPunguzo(); try{ document.getElementById('helaAliyotoa').value=""; document.getElementById('helaAliyotoaInput').value=""; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini";
+
+ document.getElementById('maelezoMafuta').innerHTML=""; document.getElementById('bakiMafutaJuu').innerText=""; document.getElementById('msgUza').innerHTML=""; }catch(e){} rudishaFaidaDefault(); rudishaBeiMafutaDefault(); categoryKutokaMuhimu="";
+  categoryKutokaMuhimu="";
+  categoryIliyochaguliwa=cat;
+  render();
+ 
+}
 function renderCategoryBar(){ var bar=document.getElementById('catBarUza'); if(!bar) return; bar.innerHTML=""; var bMu=document.createElement('button'); bMu.className='muhimuBtn'; bMu.innerText="⭐ MUHIMU"; bMu.onclick=function(){ chaguaCategory("MUHIMU"); }; bar.appendChild(bMu); categories.forEach(function(cat){ var btn=document.createElement('button'); btn.innerText=cat; if(cat==categoryIliyochaguliwa) btn.classList.add('active-cat'); btn.onclick=function(){ chaguaCategory(cat); }; bar.appendChild(btn); }); }
 function renderCategorySelect(){ var sel=document.getElementById('categoryBidhaa'); if(!sel) return; sel.innerHTML=""; categories.forEach(function(cat){ var o=document.createElement('option'); o.value=cat; o.text=cat; sel.appendChild(o); }); }
 function renderCategoryList(){ var div=document.getElementById('orodhaCategory'); if(!div) return; div.innerHTML=""; categories.forEach(function(cat,i){ var row=document.createElement('div'); row.className='catItem'; row.innerHTML="<span><b>"+cat+"</b></span>"; var btns=document.createElement('span'); var bv=document.createElement('button'); bv.innerText='VIEW'; bv.style.cssText='width:auto;padding:5px;background:#1565C0;margin:0'; bv.onclick=function(){ viewCategory(cat); }; var bd=document.createElement('button'); bd.innerText='DELETE'; bd.style.cssText='width:auto;padding:5px;background:red;margin:0'; bd.onclick=function(){ futaCategory(i); }; btns.appendChild(bv); btns.appendChild(bd); row.appendChild(btns); div.appendChild(row); }); }
@@ -580,20 +744,471 @@ function sasishaButtonZaUza(){
 function onyeshaModal(t,b,bt){ document.getElementById('modalTitle').innerHTML=t; document.getElementById('modalBody').innerHTML=b; document.getElementById('modalBtnUza').innerText=bt; document.getElementById('modalThibitisha').classList.add('show'); }
 function ghairiThibitisha(){ document.getElementById('modalThibitisha').classList.remove('show'); }
 function thibitishaUza(){ document.getElementById('modalThibitisha').classList.remove('show'); if(ainaYaThibitisha=="moja") uzaKweli(); if(ainaYaThibitisha=="zote") uzaZoteKweli(); }
-function ombaThibitishaMoja(){ if(hakunaBidhaa()) return alert('Chagua bidhaa!'); var b=bidhaaIliyochaguliwa(); var calc; if(niMafutaBidhaa(b)){ calc=hesabuMafuta(); if(!calc) return alert('Bonyeza BEI kwanza!'); } else calc=hesabuPunguzo(); ainaYaThibitisha="moja"; onyeshaModal("UNAKARIBIA KUUZA","<b>"+b.jina+" - "+calc.jinaIdadi+"</b><br>Jumla: "+calc.jumlaMpya.toLocaleString()+"/= | Faida: "+calc.faidaMpya.toLocaleString()+"/= | Muuzaji: "+(jinaMuuzaji||"-"),"✅ UZA"); }
-function ombaThibitishaZote(){ var jy=pataJumlaKikapuBaadaPunguzo(); var jf=kikapu.reduce(function(a,b){return a+b.faida},0)-pataPunguzoKikapu(); ainaYaThibitisha="zote"; onyeshaModal("UZA ZOTE","JUMLA: "+jy.toLocaleString()+"/= | FAIDA: "+jf.toLocaleString()+"/=","✅ UZA ZOTE"); }
-function show(id){ var pages=['uza','bidhaa','mauzoList','matumizi','madeni','ripoti']; for(var i=0;i<pages.length;i++){ var el=document.getElementById(pages[i]); if(el) el.style.display=(pages[i]==id?'block':'none'); var tab=document.getElementById('t-'+pages[i]); if(tab){ if(pages[i]==id) tab.classList.add('active'); else tab.classList.remove('active'); } } if(id=='ripoti'){ ripotiLeo(); sasishaStatusAuto(); } }
+
+
+function ombaThibitishaMoja(){ if(hakunaBidhaa()) return alert('Chagua bidhaa!'); var b=bidhaaIliyochaguliwa(); var calc; if(niKuuzaKwaBei(b)){ calc=hesabuMafuta(); } else { calc=hesabuPunguzo(); } if(!calc || !calc.idadi) return alert('Bonyeza BEI kwanza!'); ainaYaThibitisha="moja"; onyeshaModal("UNAKARIBIA KUUZA","<b>"+b.jina+" - "+calc.jinaIdadi+"</b><br>Jumla: "+calc.jumlaMpya.toLocaleString()+"/= | Faida: "+calc.faidaMpya.toLocaleString()+"/= | Muuzaji: "+(jinaMuuzaji||"-"),"✅ UZA"); }
+
+
+function ombaThibitishaZote(){ var jy=pataJumlaKikapuBaadaPunguzo(); var jf=kikapu.reduce(function(a,b){return a+b.faida},0)-pataPunguzoKikapu(); ainaYaThibitisha="zote"; onyeshaModal("UZA ZOTE","JUMLA: "+jy.toLocaleString()+"/= | FAIDA: "+jf.toLocaleString()+"/=","✅ UZA ZOTE"); 
+}
+
+function onyeshaOrodhaBidhaa(){
+  var orodha2=document.getElementById('orodha');
+  if(!orodha2) 
+onyeshaMadeni();
+    return;
+  var list=bidhaa.map(function(b,idx){return {b:b,idx:idx}});
+  if(categoryKutokaMuhimu) list=list.filter(function(x){return pataCategoryYaBidhaa(x.b)==categoryKutokaMuhimu});
+  orodha2.innerHTML="<h4>"+(categoryKutokaMuhimu?categoryKutokaMuhimu+" - ":"")+"Bidhaa ("+list.length+")</h4>";
+  list.forEach(function(x){
+    var b=x.b; var i=x.idx;
+    var div=document.createElement('div'); div.className='item';
+    div.innerHTML="<span><b>"+b.jina+"</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= | Nunua "+b.nunua+"/=</small></span><span><button style='width:auto;padding:5px;background:#1A7A3A' onclick='show(\"uza\");chaguaBidhaa("+i+")'>UZA</button><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>";
+    orodha2.appendChild(div);
+  });
+}
+
+function funguaMadeni(sehemu){
+  document.getElementById('madeniChagua').style.display = sehemu=='chagua' ? 'grid' : 'none';
+  document.getElementById('madeniYanguBox').style.display = sehemu=='yangu' ? 'block' : 'none';
+  document.getElementById('madeniWatejaBox').style.display = sehemu=='wateja' ? 'block' : 'none';
+  if(sehemu=='yangu') onyeshaMadeniYangu();
+  if(sehemu=='wateja' && typeof sasishaSelDeni=='function') sasishaSelDeni();
+  sasishaJumlaMadeniChagua();
+}
+function funguaMadeniYangu(aina){
+  document.getElementById('deniYanguBidhaaBox').style.display = aina=='bidhaa' ? 'block' : 'none';
+  document.getElementById('deniYanguFedhaBox').style.display = aina=='fedha' ? 'block' : 'none';
+  document.getElementById('btnDeniYanguBidhaa').style.background = aina=='bidhaa' ? '#EF6C00' : '#666';
+  document.getElementById('btnDeniYanguFedha').style.background = aina=='fedha' ? '#EF6C00' : '#666';
+}
+function ongezaDeniYangu(aina){
+  var jina, jumla, tarehe, bidhaaTxt="", sababu="";
+  if(aina=='bidhaa'){
+    jina=document.getElementById('jinaDeniYanguBidhaa').value.trim().toUpperCase();
+    bidhaaTxt=document.getElementById('bidhaaDeniYangu').value.trim().toUpperCase();
+    jumla=+document.getElementById('jumlaDeniYanguBidhaa').value||0;
+    tarehe=document.getElementById('tareheDeniYanguBidhaa').value||toISO(new Date());
+    if(!jina||!bidhaaTxt||!jumla) return alert('Jaza jina, bidhaa na jumla!');
+  } else {
+    jina=document.getElementById('jinaDeniYanguFedha').value.trim().toUpperCase();
+    jumla=+document.getElementById('jumlaDeniYanguFedha').value||0;
+    sababu=document.getElementById('sababuDeniYanguFedha').value.trim().toUpperCase();
+    tarehe=document.getElementById('tareheDeniYanguFedha').value||toISO(new Date());
+    if(!jina||!jumla) return alert('Jaza jina na kiasi!');
+    bidhaaTxt="FEDHA - "+(sababu||"");
+  }
+  madeniYangu.push({jina:jina, aina:aina, bidhaa:bidhaaTxt, jumla:jumla, imelipwa:0, tarehe:tarehe, iso:tarehe, _id:'my_'+Date.now()+'_'+Math.random().toString(36).substr(2,5), _updated:Date.now()});
+  save();
+  onyeshaMadeniYangu();
+  alert('Deni langu limeandikwa!');
+}
+
+// Pata jumla niliyolipa - kutokana na orodha ya malipo
+function pataImelipwaYangu(m){
+  if(m.malipo && m.malipo.length>0) return m.malipo.reduce(function(a,x){return a+(+x.kiasi||0)},0);
+  return +m.imelipwa||0;
+}
+function pataBakiYangu(m){ return m.jumla - pataImelipwaYangu(m); }
+
+function lipaDeniYangu(i, njia){
+  var m=madeniYangu[i]; if(!m) return;
+  // Kama deni la zamani lina imelipwa tu bila orodha - libadilishe kuwa malipo moja la kwanza
+  if(!m.malipo){
+    m.malipo=[];
+    if(+m.imelipwa>0) m.malipo.push({kiasi:+m.imelipwa, njia:'FEDHA', tarehe:m.tarehe||toISO(new Date()), maelezo:'Malipo ya zamani'});
+  }
+ 
+
+  if(kiasi<=0) return alert('Weka kiasi!');
+  if(kiasi>pataBakiYangu(m)) return alert('Kiasi kimezidi deni! Baki ni '+pataBakiYangu(m).toLocaleString()+'/=');
+  var maelezo=prompt('Maelezo - mfano: Nimemrudishia MCHELE / Nimempa CASH - (si lazima)')||"";
+  var tarehe=prompt('Tarehe - mfano 2026-11-26 (acha wazi = leo)', toISO(new Date()))||toISO(new Date());
+  m.malipo.push({kiasi:kiasi, njia:njia, tarehe:tarehe, maelezo:maelezo});
+  m._updated=Date.now();
+  save(); onyeshaMadeniYangu();
+  alert('Umelipa '+kiasi.toLocaleString()+'/= kwa '+njia+' - Baki sasa ni '+pataBakiYangu(m).toLocaleString()+'/=');
+}
+function lipaDeniYangu(i){
+  try{
+    var m=madeniYangu[i]; if(!m){ alert('Deni halikupatikana!'); return; }
+    if(!m.malipo) m.malipo=[];
+    if(m.malipo.length==0 && +m.imelipwa>0){ m.malipo.push({kiasi:+m.imelipwa, njia:'FEDHA', tarehe:m.tarehe||toISO(new Date()), maelezo:'Malipo ya zamani'}); }
+    var imelipwa=m.malipo.reduce(function(a,x){return a+(+x.kiasi||0)},0);
+    var baki=m.jumla-imelipwa;
+    var kiasi=+prompt('Unalipa kiasi gani? - Deni linalobaki ni '+baki.toLocaleString()+'/=')||0;
+    if(kiasi<=0) return;
+    if(kiasi>baki){ alert('Kiasi kimezidi deni! Baki ni '+baki.toLocaleString()+'/='); return; }
+    var maelezo=prompt('Maelezo - mfano: Nimempa CASH - (si lazima)')||"";
+    var tarehe=prompt('Tarehe - mfano 2026-11-26 (acha wazi = leo)', toISO(new Date()))||toISO(new Date());
+    m.malipo.push({kiasi:kiasi, njia:'FEDHA', tarehe:tarehe, maelezo:maelezo});
+    m.imelipwa=imelipwa+kiasi;
+    m._updated=Date.now();
+    save();
+    onyeshaMadeniYangu();
+    alert('Umelipa '+kiasi.toLocaleString()+'/= - Baki sasa ni '+(baki-kiasi).toLocaleString()+'/=');
+  }catch(e){ alert('Kosa kwenye kulipa: '+e.message); console.log(e); }
+}
+
+
+function lipaDeniYanguKwaJina(jinaCode){
+  var jina=decodeURIComponent(jinaCode);
+  // Tafuta madeni yote ya jina hili
+  var entries=madeniYangu.filter(function(m){return (m.jina||"").trim().toUpperCase()==jina});
+  var jumla=entries.reduce(function(a,m){return a+(+m.jumla||0)},0);
+  var imelipwa=entries.reduce(function(a,m){ var ml=m.malipo||[]; if(ml.length==0 && +m.imelipwa>0) return a+(+m.imelipwa); return a+ml.reduce(function(x,p){return x+(+p.kiasi||0)},0); },0);
+  var baki=jumla-imelipwa;
+  if(baki<=0) return alert(jina+' hana deni linalobaki!');
+  var kiasi=+prompt(jina+' - Unalipa kiasi gani? Baki ni '+baki.toLocaleString()+'/=')||0;
+  if(kiasi<=0) return;
+  if(kiasi>baki) return alert('Kiasi kimezidi deni! Baki ni '+baki.toLocaleString()+'/=');
+  var maelezo=prompt('Maelezo - mfano: Nimempa CASH - (si lazima)')||"";
+  var tarehe=prompt('Tarehe - mfano 2026-11-26 (acha wazi = leo)', toISO(new Date()))||toISO(new Date());
+  // Gawa malipo kwenye madeni ya zamani kwanza - ili baki la kila deni lipungue
+  var bado=kiasi;
+  for(var i=0;i<madeniYangu.length && bado>0;i++){
+    var m=madeniYangu[i];
+    if((m.jina||"").trim().toUpperCase()!=jina) continue;
+    if(!m.malipo) m.malipo=[];
+    var im=m.malipo.reduce(function(a,x){return a+(+x.kiasi||0)},0);
+    if(m.malipo.length==0 && +m.imelipwa>0){ im=+m.imelipwa; m.malipo.push({kiasi:+m.imelipwa, njia:'FEDHA', tarehe:m.tarehe||tarehe, maelezo:'Malipo ya zamani'}); }
+    var bakiDeni=m.jumla-im;
+    if(bakiDeni<=0) continue;
+    var lipaHapa=Math.min(bakiDeni, bado);
+    m.malipo.push({kiasi:lipaHapa, njia:'FEDHA', tarehe:tarehe, maelezo:maelezo});
+    m.imelipwa=im+lipaHapa;
+    m._updated=Date.now();
+    bado-=lipaHapa;
+  }
+  save(); onyeshaMadeniYangu();
+  alert('Umemlipa '+jina+' '+kiasi.toLocaleString()+'/= - Baki sasa ni '+(baki-kiasi).toLocaleString()+'/=');
+}
+function ongezaDeniKwaJina(jinaCode){
+  var jina=decodeURIComponent(jinaCode);
+  var entries=madeniYangu.filter(function(m){return (m.jina||"").trim().toUpperCase()==jina});
+  var jumla=entries.reduce(function(a,m){return a+(+m.jumla||0)},0);
+  var imelipwa=entries.reduce(function(a,m){ var ml=m.malipo||[]; return a+ml.reduce(function(x,p){return x+(+p.kiasi||0)},0); },0);
+  var baki=jumla-imelipwa;
+  var kiasi=+prompt(jina+' - Baki la sasa ni '+baki.toLocaleString()+'/= - Unaongeza deni kiasi gani?')||0;
+  if(kiasi<=0) return;
+  var bidhaa=prompt('Bidhaa / Sababu ya deni jipya - mfano: MCHELE GUNIA 1 / FEDHA - (si lazima)')||"DENI JIPYA";
+  var tarehe=prompt('Tarehe - mfano 2026-11-26 (acha wazi = leo)', toISO(new Date()))||toISO(new Date());
+  var aina=entries.length>0 ? (entries[0].aina||'bidhaa') : 'bidhaa';
+  madeniYangu.push({jina:jina, aina:aina, bidhaa:bidhaa.toUpperCase(), jumla:kiasi, imelipwa:0, malipo:[], tarehe:tarehe, iso:tarehe, _id:'my_'+Date.now()+'_'+Math.random().toString(36).substr(2,5), _updated:Date.now()});
+  save(); onyeshaMadeniYangu();
+  alert('Deni limeongezwa! Baki la zamani '+baki.toLocaleString()+'/= + Deni jipya '+kiasi.toLocaleString()+'/= = Jumla '+(baki+kiasi).toLocaleString()+'/=');
+}
+
+function futaMalipoYangu(entryIdx, malipoIdx){
+  var m=madeniYangu[entryIdx]; if(!m || !m.malipo || !m.malipo[malipoIdx]) return alert('Muamala haukupatikana!');
+  var p=m.malipo[malipoIdx];
+  if(!confirm('Ufute muamala huu? - '+ (+p.kiasi||0).toLocaleString() +'/= - '+(p.tarehe||"")+'\nDeni LOTE halitafutika, ni huu muamala tu. Baki litarudi juu.')) return;
+  m.malipo.splice(malipoIdx,1);
+  // Sasisha imelipwa
+  m.imelipwa=m.malipo.reduce(function(a,x){return a+(+x.kiasi||0)},0);
+  m._updated=Date.now();
+  save(); onyeshaMadeniYangu();
+}
+
+function badiliUkurasaMadeniYangu(n){
+  ukurasaMadeniYangu=n;
+  onyeshaMadeniYangu();
+  var el=document.getElementById('orodhaMadeniYangu');
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+
+function badiliUkurasaMiamalaYangu(jinaCode,n){
+  var jina=decodeURIComponent(jinaCode);
+  ukurasaMiamalaYangu[jina]=n;
+  onyeshaMadeniYangu();
+}
+
+var mtejaDeniWateja="";
+function andikaDeniWateja(){
+  var jina=document.getElementById('jinaMtejaDaiwa');
+  var j=jina ? jina.value.trim().toUpperCase() : "";
+  if(!j) return alert('Andika kwanza Jina la Mteja!');
+  mtejaDeniWateja=j;
+  document.getElementById('jinaKwaDeniWateja').innerHTML="Deni la: "+j;
+  document.getElementById('fomuDeniWateja').style.display='block';
+  document.getElementById('bidhaaDeniWateja').focus();
+}
+function hifadhiDeniWateja(){
+  if(!mtejaDeniWateja) return alert('Chagua kwanza mteja!');
+  var bidhaa=document.getElementById('bidhaaDeniWateja').value.trim().toUpperCase()||"DENI";
+  var kiasi=+document.getElementById('kiasiDeniWateja').value||0;
+  if(kiasi<=0) return alert('Weka kiasi!');
+  var tarehe=document.getElementById('tareheDeniWateja').value||toISO(new Date());
+  // Hapa ndipo deni linaingia - tumia array uliyonayo ya madeni ya wateja
+  // Kama array yako inaitwa madeni - badilisha hapa
+  if(typeof madeni=="undefined") window.madeni=[];
+  madeni.push({jina:mtejaDeniWateja, bidhaa:bidhaa, jumla:kiasi, imelipwa:0, malipo:[], tarehe:tarehe, iso:tarehe, _id:'w_'+Date.now(), _updated:Date.now()});
+  if(typeof save=="function") save();
+  document.getElementById('fomuDeniWateja').style.display='none';
+  document.getElementById('bidhaaDeniWateja').value="";
+  document.getElementById('kiasiDeniWateja').value="";
+  document.getElementById('jinaMtejaDaiwa').value="";
+  // Lazimisha orodha ionekane - rudi Page 1 na futa search
+  if(typeof ukurasaMadeni!="undefined") ukurasaMadeni=1;
+  if(document.getElementById('tafutaMadeni')) document.getElementById('tafutaMadeni').value="";
+  if(document.getElementById('tafutaMadaiwa')) document.getElementById('tafutaMadaiwa').value="";
+  console.log('MADENI SASA:', madeni.length, madeni[madeni.length-1]);
+  if(typeof onyeshaMadeni=="function") onyeshaMadeni();
+  if(typeof onyeshaMadaiwa=="function") onyeshaMadaiwa();
+  // Kama div bado tupu, jaribu kuandika hapa moja kwa moja
+  var divA=document.getElementById('orodhaMadaiwa')||document.getElementById('orodhaMadeni');
+  if(divA && divA.innerHTML.trim()=="" && madeni.length>0){
+    divA.innerHTML=madeni.map(function(m){ return "<div style='background:white;padding:8px;margin:4px 0;border-radius:6px'><b>"+m.jina+"</b> - "+(+m.jumla||0).toLocaleString()+"/= - "+(m.bidhaa||"")+"</div>"; }).join('');
+  }
+  else if(typeof render=="function") render();
+  alert('Deni la '+mtejaDeniWateja+' - '+kiasi.toLocaleString()+'/= limehifadhiwa!');
+}
+
+function futaDeniYanguKwaJina(jinaCode){
+  var jina=decodeURIComponent(jinaCode);
+  if(!confirm('Ufute madeni YOTE ya '+jina+'?')) return;
+  madeniYangu=madeniYangu.filter(function(m){return (m.jina||"").trim().toUpperCase()!=jina});
+  save(); onyeshaMadeniYangu();
+}
+
+function futaDeniYangu(i){ if(!confirm('Ufute deni hili?')) return; madeniYangu.splice(i,1); save(); onyeshaMadeniYangu(); }
+// ORODHA YA MADAIWA - Wateja unaowadai
+var ukurasaMadeni=1;
+function onyeshaMadeni(){
+  var div=document.getElementById('orodhaMadaiwa')||document.getElementById('orodhaMadeni');
+  if(!div) return;
+  div.innerHTML="";
+  if(!madeni || madeni.length==0){ div.innerHTML="<small>Hakuna madaiwa</small>"; return; }
+
+  // SEARCH - kama una input ya kutafuta wateja
+  var neno=document.getElementById('tafutaMadeni')||document.getElementById('tafutaMadaiwa');
+  var tafuta=neno ? neno.value.trim().toUpperCase() : "";
+
+  // PANGA KWA JINA
+  var makundi={};
+  madeni.forEach(function(m,i){
+    var j=(m.jina||"").toUpperCase();
+    if(!makundi[j]) makundi[j]=[];
+    makundi[j].push({m:m, i:i});
+  });
+
+  var majinaYote=Object.keys(makundi).filter(function(j){ return !tafuta || j.indexOf(tafuta)!==-1; });
+  var jumlaPages=Math.max(1, Math.ceil(majinaYote.length/10));
+  if(ukurasaMadeni>jumlaPages) ukurasaMadeni=jumlaPages;
+  if(ukurasaMadeni<1) ukurasaMadeni=1;
+  var majinaPage=majinaYote.slice((ukurasaMadeni-1)*10, ukurasaMadeni*10);
+
+  if(majinaPage.length==0){ div.innerHTML="<small>Hakuna jina linalofanana na '<b>"+tafuta+"</b>'</small>"; return; }
+
+  majinaPage.forEach(function(jina){
+    var list=makundi[jina];
+    var jumlaKubwa=0, imelipwaYote=0;
+    var htmlDeni="";
+    list.forEach(function(e){
+      var m=e.m;
+      jumlaKubwa+=(+m.jumla||0);
+      imelipwaYote+=(+m.imelipwa||0)+(+m.amelipa||0);
+      htmlDeni+="<div style='background:white;padding:6px;border-radius:6px;margin:3px 0;display:flex;justify-content:space-between'><span>• "+(m.bidhaa||"DENI")+" - "+(+m.jumla||0).toLocaleString()+"/= - "+(m.tarehe||"")+"</span><button onclick='futaDeniWateja("+e.i+")' style='width:auto;padding:3px 7px;background:#d32f2f;font-size:11px'>🗑️ FUTA</button></div>";
+    });
+    var baki=jumlaKubwa-imelipwaYote;
+    var jinaCode=encodeURIComponent(jina);
+    div.innerHTML+="<div style='background:#E8F5E9;padding:8px;border-radius:8px;margin:6px 0'><b>"+jina+"</b> - Deni: "+jumlaKubwa.toLocaleString()+"/= - Amelipa: "+imelipwaYote.toLocaleString()+"/= - <b style='color:"+(baki>0?"#d32f2f":"green")+"'>Baki: "+baki.toLocaleString()+"/=</b><br>"+htmlDeni+"<div style='display:flex;gap:4px;margin-top:4px'><button onclick='lipaDeniWateja(\""+jinaCode+"\")' style='flex:1;background:#1A7A3A'>💰 LIPA</button></div></div>";
+  });
+
+  // Page namba chini kulia
+  if(jumlaPages>1){
+    var hp="<div style='display:flex;justify-content:flex-end;gap:4px;margin-top:10px;align-items:center'><span style='font-size:12px'>Page "+ukurasaMadeni+" / "+jumlaPages+"</span>";
+    for(var pg=1; pg<=jumlaPages; pg++){ hp+="<button onclick='badiliUkurasaMadeni("+pg+")' style='width:auto;padding:5px 10px;background:"+(pg==ukurasaMadeni?"#1A7A3A":"#ccc")+";color:"+(pg==ukurasaMadeni?"white":"black")+"'>"+pg+"</button>"; }
+    hp+="</div>";
+    div.innerHTML+=hp;
+  }
+
+  var jb=document.getElementById('jumlaMadeniBox')||document.getElementById('jumlaMadaiwaBox');
+  if(jb){
+    var tj=0, ti=0;
+    madeni.forEach(function(m){ tj+=(+m.jumla||0); ti+=(+m.imelipwa||0)+(+m.amelipa||0); });
+    jb.innerHTML="Jumla Madaiwa: "+tj.toLocaleString()+"/= | Amelipwa: "+ti.toLocaleString()+"/= | Baki: "+(tj-ti).toLocaleString()+"/=";
+  }
+}
+function badiliUkurasaMadeni(n){ ukurasaMadeni=n; onyeshaMadeni(); }
+function futaDeniWateja(i){
+  if(!confirm('Ufute deni hili la '+madeni[i].jina+'?')) return;
+  madeni.splice(i,1); save(); onyeshaMadeni();
+}
+function lipaDeniWateja(jinaCode){
+  var jina=decodeURIComponent(jinaCode);
+  var kiasi=+prompt('JUMA - Lipa kiasi gani? - '+jina,'');
+  if(!kiasi||kiasi<=0) return;
+  // Lipa deni la kwanza ambalo bado halijaisha
+  for(var i=0;i<madeni.length;i++){
+    if(madeni[i].jina.toUpperCase()==jina){
+      var baki=(+madeni[i].jumla||0)-((+madeni[i].imelipwa||0)+(+madeni[i].amelipa||0));
+      if(baki>0){
+        var lipa=Math.min(kiasi,baki);
+        madeni[i].imelipwa=(+madeni[i].imelipwa||0)+lipa;
+        madeni[i].amelipa=madeni[i].imelipwa;
+        if(!madeni[i].malipo) madeni[i].malipo=[];
+        madeni[i].malipo.push({kiasi:lipa, njia:'FEDHA', tarehe:toISO(new Date())});
+        madeni[i]._updated=Date.now();
+        save(); onyeshaMadeni();
+        alert(jina+' amelipa '+lipa.toLocaleString()+'/=');
+        return;
+      }
+    }
+  }
+  alert('Hana deni linalodaiwa!');
+}
+
+function onyeshaMadeniYangu(){
+  var div=document.getElementById('orodhaMadeniYangu'); if(!div) return;
+  div.innerHTML="";
+  // SEARCH - chukua jina anayotafuta
+  var neno=document.getElementById('tafutaMadeniYangu');
+  var tafuta=neno ? neno.value.trim().toUpperCase() : "";
+  div.innerHTML="";
+  // 1. KUSANYA KWA JINA - MZIGUA mmoja tu, hata kama ana madeni 3
+  var makundi={};
+  madeniYangu.forEach(function(m,idx){
+    var jina=(m.jina||"HAINA JINA").trim().toUpperCase();
+    if(!makundi[jina]) makundi[jina]={jina:jina, entries:[], aina:m.aina||'bidhaa'};
+    makundi[jina].entries.push({m:m, i:idx});
+  });
+  var jumlaBakiYote=0;
+  // PAGINATION - chukua majina 10 tu kwa page hii
+  var majinaYote=Object.keys(makundi).filter(function(jina){ return !tafuta || jina.indexOf(tafuta)!==-1; });
+  // Kama umetafuta jina jipya - rudi page 1
+  var jumlaPages=Math.max(1, Math.ceil(majinaYote.length / kwaPageMadeniYangu));
+  if(ukurasaMadeniYangu>jumlaPages) ukurasaMadeniYangu=jumlaPages;
+  if(ukurasaMadeniYangu<1) ukurasaMadeniYangu=1;
+  var majinaPage=majinaYote.slice((ukurasaMadeniYangu-1)*kwaPageMadeniYangu, ukurasaMadeniYangu*kwaPageMadeniYangu);
+  majinaPage.forEach(function(jina){
+    var g=makundi[jina];
+    var jumlaKubwa=0, imelipwaYote=0, malipoYote=[];
+    g.entries.forEach(function(e){
+      jumlaKubwa+=+e.m.jumla||0;
+      var ml=e.m.malipo||[];
+      if(ml.length==0 && +e.m.imelipwa>0) ml=[{kiasi:+e.m.imelipwa, njia:'FEDHA', tarehe:e.m.tarehe||"", maelezo:'Malipo ya zamani'}];
+        ml.forEach(function(p, pIdx){ malipoYote.push({kiasi:p.kiasi, njia:p.njia, tarehe:p.tarehe, maelezo:p.maelezo, deni:e.m.bidhaa||"", entryIdx:e.i, malipoIdx:pIdx}); });
+      imelipwaYote+=ml.reduce(function(a,x){return a+(+x.kiasi||0)},0);
+    });
+    var baki=jumlaKubwa-imelipwaYote;
+    jumlaBakiYote+=baki;
+    var jinaCode=encodeURIComponent(jina);
+    // Orodha ya madeni niliyoongeza kwa mtu huyu
+    var htmlOngeza="<div style='background:#E3F2FD;padding:6px;border-radius:6px;margin-top:6px'><b>📦 MADENI NILIYOONGEZA:</b><br>";
+    g.entries.forEach(function(e,idx){
+      htmlOngeza+="<div style='background:white;padding:5px;margin:3px 0;border-radius:5px'>"+(idx+1)+". "+(+e.m.jumla||0).toLocaleString()+"/= - "+(e.m.bidhaa||"")+" - "+(e.m.tarehe||"")+"</div>";
+    });
+    htmlOngeza+="</div>";
+    // Orodha ya malipo - kila moja na baki lake
+      // Orodha ya malipo - PAGINATION 10 kwa page ndani ya jina hili
+    var htmlMalipo="";
+    if(malipoYote.length>0){
+      var ukMiamala=ukurasaMiamalaYangu[jina]||1;
+      var jumlaPagesMiamala=Math.max(1, Math.ceil(malipoYote.length/10));
+      if(ukMiamala>jumlaPagesMiamala) ukMiamala=jumlaPagesMiamala;
+      if(ukMiamala<1) ukMiamala=1;
+      ukurasaMiamalaYangu[jina]=ukMiamala;
+      var mwanzo=(ukMiamala-1)*10;
+      var mwisho=Math.min(malipoYote.length, mwanzo+10);
+      // Baki kabla ya page hii - ili Baki ionyeshwe sahihi hata Page 2 na 3
+      var bakiBaada=jumlaKubwa;
+      for(var bi=0; bi<mwanzo; bi++) bakiBaada-= (+malipoYote[bi].kiasi||0);
+      htmlMalipo="<div style='background:#FFF3E0;padding:6px;border-radius:6px;margin-top:6px'><b>📜 MIAMALA YA MALIPO - Page "+ukMiamala+" / "+jumlaPagesMiamala+" ("+malipoYote.length+" yote):</b><br>";
+      for(var mi=mwanzo; mi<mwisho; mi++){
+        var p=malipoYote[mi];
+        bakiBaada=bakiBaada-(+p.kiasi||0);
+        htmlMalipo+="<div style='background:white;padding:5px;margin:3px 0;border-radius:5px;display:flex;justify-content:space-between;align-items:center;gap:4px'><span>"+(mi+1)+". "+(+p.kiasi||0).toLocaleString()+"/= - "+(p.njia||'FEDHA')+" - "+(p.tarehe||"")+" "+(p.maelezo?" - "+p.maelezo:"")+"</span><span><b>Baki: "+bakiBaada.toLocaleString()+"/=</b> <button onclick='futaMalipoYangu("+p.entryIdx+","+p.malipoIdx+")' style='width:auto;padding:3px 7px;background:#d32f2f;font-size:11px'>🗑️ FUTA</button></span></div>";
+      }
+      // Namba za page za miamala - chini kulia ndani ya kadi
+      if(jumlaPagesMiamala>1){
+        htmlMalipo+="<div style='display:flex;justify-content:flex-end;gap:4px;margin-top:6px;flex-wrap:wrap;align-items:center'>";
+        htmlMalipo+="<span style='font-size:11px'>Page "+ukMiamala+" / "+jumlaPagesMiamala+"</span>";
+        if(ukMiamala>1) htmlMalipo+="<button onclick='badiliUkurasaMiamalaYangu(\""+jinaCode+"\","+(ukMiamala-1)+")' style='width:auto;padding:4px 8px;background:#666;font-size:11px'>‹</button>";
+        for(var pg=1; pg<=jumlaPagesMiamala; pg++){
+          if(pg==1 || pg==jumlaPagesMiamala || Math.abs(pg-ukMiamala)<=1){
+            htmlMalipo+="<button onclick='badiliUkurasaMiamalaYangu(\""+jinaCode+"\","+pg+")' style='width:auto;padding:4px 8px;background:"+(pg==ukMiamala?"#1A7A3A":"#ccc")+";color:"+(pg==ukMiamala?"white":"black")+";font-size:11px'>"+pg+"</button>";
+          } else if(pg==ukMiamala-2 || pg==ukMiamala+2){ htmlMalipo+="<span>...</span>"; }
+        }
+        if(ukMiamala<jumlaPagesMiamala) htmlMalipo+="<button onclick='badiliUkurasaMiamalaYangu(\""+jinaCode+"\","+(ukMiamala+1)+")' style='width:auto;padding:4px 8px;background:#666;font-size:11px'>›</button>";
+        htmlMalipo+="</div>";
+      }
+      htmlMalipo+="</div>";
+    }
+    var d=document.createElement('div'); d.className='item'; d.style.display='block';
+    d.innerHTML="<div><b style='font-size:16px'>"+jina+"</b> - "+(g.aina=='bidhaa'?'📦':'💵')+"<br><small>Deni kubwa lote: "+jumlaKubwa.toLocaleString()+"/= | Nimemlipa: "+imelipwaYote.toLocaleString()+"/= | <b style='color:#d32f2f'>Baki: "+baki.toLocaleString()+"/=</b></small></div>"
+    + htmlOngeza + htmlMalipo
+    + "<div style='display:flex;gap:4px;margin-top:8px'><button onclick='lipaDeniYanguKwaJina(\""+jinaCode+"\")' style='flex:1;background:#1A7A3A'>💵 LIPA</button><button onclick='ongezaDeniKwaJina(\""+jinaCode+"\")' style='flex:1;background:#EF6C00'>➕ ONGEZA DENI</button><button onclick='futaDeniYanguKwaJina(\""+jinaCode+"\")' style='flex:1;background:#d32f2f'>🗑️ FUTA</button></div>";
+    div.appendChild(d);
+  });
+  if(madeniYangu.length==0) div.innerHTML="<small>Hakuna deni langu</small>";
+    // Onyesha namba za page - chini kulia
+  if(majinaYote.length>0){
+    var htmlPage="<div style='display:flex;justify-content:flex-end;gap:4px;margin-top:10px;flex-wrap:wrap;align-items:center'>";
+    htmlPage+="<span style='font-size:12px;margin-right:4px'>Page "+ukurasaMadeniYangu+" / "+jumlaPages+"</span>";
+    if(ukurasaMadeniYangu>1) htmlPage+="<button onclick='badiliUkurasaMadeniYangu("+(ukurasaMadeniYangu-1)+")' style='width:auto;padding:5px 10px;background:#666'>‹</button>";
+    for(var pg=1; pg<=jumlaPages; pg++){
+      // Onyesha page 1, ya mwisho, na zile karibu na ya sasa - ili zisijaze skrini
+      if(pg==1 || pg==jumlaPages || Math.abs(pg-ukurasaMadeniYangu)<=1){
+        htmlPage+="<button onclick='badiliUkurasaMadeniYangu("+pg+")' style='width:auto;padding:5px 10px;background:"+(pg==ukurasaMadeniYangu?"#1A7A3A":"#ccc")+";color:"+(pg==ukurasaMadeniYangu?"white":"black")+"'>"+pg+"</button>";
+      } else if(pg==ukurasaMadeniYangu-2 || pg==ukurasaMadeniYangu+2){
+        htmlPage+="<span>...</span>";
+      }
+    }
+    if(ukurasaMadeniYangu<jumlaPages) htmlPage+="<button onclick='badiliUkurasaMadeniYangu("+(ukurasaMadeniYangu+1)+")' style='width:auto;padding:5px 10px;background:#666'>›</button>";
+    htmlPage+="</div>";
+    div.innerHTML+=htmlPage;
+  }
+  else if(div.innerHTML=="") div.innerHTML="<small>Hakuna jina linalofanana na '<b>"+tafuta+"</b>'</small>";
+  document.getElementById('jumlaMadeniYanguBox').innerHTML="JUMLA NINAYODAIWA: "+jumlaBakiYote.toLocaleString()+"/=";
+  sasishaJumlaMadeniChagua();
+}
+
+
+function sasishaJumlaMadeniChagua(){
+  var y=madeniYangu.reduce(function(a,b){return a+pataBakiYangu(b)},0);
+  var w=madeni.reduce(function(a,b){return a+(+b.jumla||0)-(+b.imelipwa||0)},0);
+  var e1=document.getElementById('jumlaMadeniYanguChagua'); if(e1) e1.innerText=y.toLocaleString()+"/=";
+  var e2=document.getElementById('jumlaMadeniWatejaChagua'); if(e2) e2.innerText=w.toLocaleString()+"/=";
+}
+
+function show(id){ var pages=['uza','bidhaa','mauzoList','matumizi','madeni','ripoti']; for(var i=0;i<pages.length;i++){ var el=document.getElementById(pages[i]); if(el) el.style.display=(pages[i]==id?'block':'none'); var tab=document.getElementById('t-'+pages[i]); if(tab){ if(pages[i]==id) tab.classList.add('active'); else tab.classList.remove('active'); } } if(id=='bidhaa'){ onyeshaOrodhaBidhaa(); } if(id=='madeni'){ onyeshaMadeni(); } if(id=='ripoti'){ ripotiLeo(); sasishaStatusAuto(); } }
+
 function toISO(d){return new Date(d).toISOString().slice(0,10);}
 function niMafuta(b){ return niMafutaBidhaa(b); }
 function bidhaaIliyochaguliwa(){ if(bidhaaIliyochaguliwaIdx<0) return null; return bidhaa[bidhaaIliyochaguliwaIdx]; }
-function niMafutaIliyochaguliwa(){ return niMafutaBidhaa(bidhaaIliyochaguliwa()); }
+
+
+function niMafutaIliyochaguliwa(){ var b=bidhaaIliyochaguliwa(); if(!b) return false; return niMafutaBidhaa(b) || niBidhaaYaBei(b); }
+
 function hakunaBidhaa(){ return bidhaaIliyochaguliwaIdx<0 || !bidhaa[bidhaaIliyochaguliwaIdx]; }
 function onyeshaBidhaaGrid(){ document.getElementById('bidhaaGridUza').style.display="grid"; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="none"; }
-function tengenezaBeiZaMafutaGrid(b){ var grid=document.getElementById('mafutaBeiGrid'); var hakuna=document.getElementById('mafutaHakunaBei'); if(!grid) return; grid.innerHTML=""; var bei=pataBeiZaMafuta(b); if(bei.length==0){ if(hakuna) hakuna.style.display="block"; return; } if(hakuna) hakuna.style.display="none"; bei.forEach(function(kiasi){ var btn=document.createElement('button'); btn.innerText=kiasi.toLocaleString(); btn.onclick=function(){ wekaHelaMafuta(kiasi,btn); }; grid.appendChild(btn); }); }
-function onyeshaMafutaJuu(){ var b=bidhaaIliyochaguliwa(); document.getElementById('bidhaaGridUza').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('mafutaJuu').style.display="block"; document.getElementById('jinaMafutaJuu').innerText=b?b.jina.toUpperCase():"MAFUTA"; var st=document.getElementById('stockMafutaJuu'); if(st&&b) st.innerText="STOCK: "+formatStock(b)+" | Bei MILLS 1: "+b.kuza+"/= (Nunua "+b.nunua+"/=)"; rudishaBeiMafutaDefault(); tengenezaBeiZaMafutaGrid(b); njiaYaMafuta="HELA"; onyeshaVitendoJuu(); rudishaFaidaDefault(); }
+
+
+function tengenezaBeiZaMafutaGrid(b){ var grid=document.getElementById('mafutaBeiGrid'); var hakuna=document.getElementById('mafutaHakunaBei'); if(!grid) return; grid.innerHTML=""; var bei=pataBeiZaBidhaa(b); if(bei.length==0) bei=pataBeiZaMafuta(b);
+
+
+if(bei.length==0){ if(hakuna) hakuna.style.display="block"; return; } if(hakuna) hakuna.style.display="none"; bei.forEach(function(kiasi){ var btn=document.createElement('button'); btn.innerText=kiasi.toLocaleString(); btn.onclick=function(){ wekaHelaMafuta(kiasi,btn); }; grid.appendChild(btn); }); }
+function onyeshaMafutaJuu(){ var b=bidhaaIliyochaguliwa(); document.getElementById('bidhaaGridUza').style.display="none"; document.getElementById('idadiJuu').style.display="none"; document.getElementById('mafutaJuu').style.display="block"; 
+
+
+document.getElementById('jinaMafutaJuu').innerText=b?b.jina.toUpperCase():"MAFUTA";
+
+ var kidogo=pataKipimoKidogo(b)||"MILLS"; var kubwa=pataKipimoKikubwa(b)||"NDOO";
+var st=document.getElementById('stockMafutaJuu'); if(st&&b){ if(niDagaaBidhaa(b)) st.innerText="STOCK: "+elezaGramu(b.idadi)+" | Bei "+kidogo+" 1: "+b.kuza+"/= | "+kubwa+" 1: "+(b.kuza*1000).toLocaleString()+"/="; else st.innerText="STOCK: "+formatStock(b)+" | Bei "+kidogo+" 1: "+b.kuza+"/= (Nunua "+b.nunua+"/=)"; }
+
+var lab1=document.getElementById('labelMafutaIdadi'); if(lab1) lab1.innerText="Idadi kwa "+kidogo;
+var lab2=document.getElementById('labelMafutaHela'); if(lab2) lab2.innerText="Hela - "+kidogo+" ngapi?";
+
+
+  rudishaBeiMafutaDefault(); tengenezaBeiZaMafutaGrid(b); njiaYaMafuta="HELA"; onyeshaVitendoJuu(); rudishaFaidaDefault();
+  }
 function onyeshaIdadiJuu(){ var b=bidhaaIliyochaguliwa(); document.getElementById('bidhaaGridUza').style.display="none"; document.getElementById('mafutaJuu').style.display="none"; document.getElementById('idadiJuu').style.display="block"; document.getElementById('jinaBidhaaJuu').innerText=b?b.jina.toUpperCase():"BIDHAA"; document.getElementById('kipimoLabelJuu').innerText=pataKipimoKidogo(b); if(b) document.getElementById('beiInfoJuu').innerText="Bei: "+b.kuza.toLocaleString()+"/= kwa "+pataKipimoKidogo(b)+" 1 | Baki: "+formatStock(b); var st=document.getElementById('stockInfoJuu'); if(st&&b) st.innerText="STOCK: "+formatStock(b); onyeshaVitendoJuu(); rudishaFaidaDefault(); }
 function rudiKwenyeBidhaa(){ bidhaaIliyochaguliwaIdx=-1; onyeshaBidhaaGrid(); fungaPanelZote(); fichaVitendoJuu(); safishaPunguzo(); render(); }
-function chaguaBidhaa(idx){ if(!bidhaa[idx]) return; if(bidhaa[idx].idadi<=0){ alert('IMEISHA!'); return; } bidhaaIliyochaguliwaIdx=idx; safishaPunguzo(); rudishaChiniDefault(); var b=bidhaa[idx]; if(niMafutaBidhaa(b)){ onyeshaMafutaJuu(); } else { var anza=pataIdadiAnza(b); document.getElementById('idadiUza').value=anza; document.getElementById('idadiUzaJuu').value=anza; onyeshaIdadiJuu(); andikaRoboBilaKusafisha(); } hesabuChenchi(); sasishaRudiChini(); }
+
+function chaguaBidhaa(idx){ if(!bidhaa[idx]) return; if(bidhaa[idx].idadi<=0){ alert('IMEISHA!'); return; } bidhaaIliyochaguliwaIdx=idx; safishaPunguzo(); rudishaChiniDefault(); var b=bidhaa[idx]; if(niMafutaBidhaa(b) || niBidhaaYaBei(b)){ onyeshaMafutaJuu(); } else { var anza=pataIdadiAnza(b); document.getElementById('idadiUza').value=anza; document.getElementById('idadiUzaJuu').value=anza; onyeshaIdadiJuu(); andikaRoboBilaKusafisha(); } hesabuChenchi(); sasishaRudiChini(); }
+
+
 function nambaKwaManeno(n){ var m=["","MOJA","MBILI","TATU","NNE","TANO","SITA","SABA","NANE","TISA","KUMI","KUMI NA MOJA","KUMI NA MBILI","KUMI NA TATU","KUMI NA NNE","KUMI NA TANO","KUMI NA SITA","KUMI NA SABA","KUMI NA NANE","KUMI NA TISA","ISHIRINI"]; if(n<=20) return m[n]; return ""+n; }
 function tengenezaJinaRobo(r){ var k=Math.floor(r); var s=Math.round((r-k)*100)/100; if(k==0){ if(s==0.25) return "ROBO"; if(s==0.5) return "NUSU"; if(s==0.75) return "NUSU NA ROBO"; return pataKipimoKidogo(bidhaaIliyochaguliwa())+" "+r; } var jk=pataKipimoKidogo(bidhaaIliyochaguliwa())+" "+nambaKwaManeno(k); if(s==0) return jk; if(s==0.25) return jk+" NA ROBO"; if(s==0.5) return jk+" NA NUSU"; return jk; }
 function jinaKamiliRobo(r){ if(r==0.25) return "ROBO"; if(r==0.5) return "NUSU"; if(r==0.75) return "NUSU NA ROBO"; if(r==1) return pataKipimoKidogo(bidhaaIliyochaguliwa())+" MOJA"; return tengenezaJinaRobo(r); }
@@ -607,18 +1222,83 @@ function badiliRoboJuu(){ var v=+document.getElementById('idadiUzaJuu').value; i
 function ongezaRobo(){ var b=bidhaaIliyochaguliwa(); var hatua=b?pataHatua(b):0.25; wekaIdadi(Math.round((pataIdadi()+hatua)*100)/100); andikaRobo(); }
 function punguzaRobo(){ var b=bidhaaIliyochaguliwa(); var hatua=b?pataHatua(b):0.25; var anza=b?pataIdadiAnza(b):0.25; if(pataIdadi()<=anza) return; wekaIdadi(Math.round((pataIdadi()-hatua)*100)/100); andikaRobo(); }
 function rudishaChiniDefault(){ try{ document.getElementById('helaAliyotoa').value=""; document.getElementById('helaAliyotoaInput').value=""; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; var b=bidhaaIliyochaguliwa(); var anza=b?pataIdadiAnza(b):0.25; document.getElementById('idadiUza').value=anza; document.getElementById('idadiUzaJuu').value=anza; }catch(e){} }
-function wekaHelaMafuta(kiasi, btn){ safishaPunguzo(); var grid=document.querySelectorAll('#mafutaBeiGrid button'); if(beiMafutaIliyochaguliwa===kiasi){ beiMafutaIliyochaguliwa=0; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini"; document.getElementById('jumlaMafutaHaraka').innerText="= 0/="; document.getElementById('maelezoMafuta').innerHTML=""; document.getElementById('bakiMafutaJuu').innerText=""; grid.forEach(function(b){ b.classList.remove('active'); }); rudishaFaidaDefault(); hesabuChenchi(); return; } beiMafutaIliyochaguliwa=kiasi; grid.forEach(function(b){ b.classList.remove('active'); }); if(btn) btn.classList.add('active'); document.getElementById('helaMafuta').value=kiasi; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Mafuta wa "+kiasi.toLocaleString()+"/= - UMECAGUA ✅"; njiaYaMafuta="HELA"; hesabuMafuta(); }
+function wekaHelaMafuta(kiasi, btn){
+  safishaPunguzo();
+  var grid=document.querySelectorAll('#mafutaBeiGrid button');
+  if(beiMafutaIliyochaguliwa===kiasi){
+    beiMafutaIliyochaguliwa=0;
+    document.getElementById('helaMafuta').value="";
+    document.getElementById('idadiMafuta').value=1;
+    document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini";
+    document.getElementById('jumlaMafutaHaraka').innerText="= 0/=";
+    document.getElementById('maelezoMafuta').innerHTML="";
+    document.getElementById('bakiMafutaJuu').innerText="";
+    grid.forEach(function(b){ b.classList.remove('active'); });
+    rudishaFaidaDefault(); hesabuChenchi(); return;
+  }
+  beiMafutaIliyochaguliwa=kiasi;
+  grid.forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  document.getElementById('helaMafuta').value=kiasi;
+  document.getElementById('idadiMafuta').value=1;
+  document.getElementById('chaguoMafuta').innerText="Umechagua BEI "+kiasi.toLocaleString()+"/= ✅";
+  njiaYaMafuta="HELA";
+  hesabuMafuta(); // ===== HII NDIO ILIKUWA INAKOSekana - sasa hesabu mara moja =====
+  hesabuChenchi();
+}
+
 function rudishaBeiMafutaDefault(){ beiMafutaIliyochaguliwa=0; document.getElementById('helaMafuta').value=""; document.getElementById('idadiMafuta').value=1; document.getElementById('chaguoMafuta').innerText="Bonyeza BEI hapo chini"; var grid=document.querySelectorAll('#mafutaBeiGrid button'); grid.forEach(function(b){ b.classList.remove('active'); }); }
 function badiliIdadiMafuta(){ safishaPunguzo(); hesabuMafuta(); }
 function ongezaIdadiMafuta(){ if(!beiMafutaIliyochaguliwa) return alert('Bonyeza BEI kwanza!'); safishaPunguzo(); document.getElementById('idadiMafuta').value=(+document.getElementById('idadiMafuta').value||1)+1; njiaYaMafuta="HELA"; hesabuMafuta(); }
 function punguzaIdadiMafuta(){ if(!beiMafutaIliyochaguliwa) return alert('Bonyeza BEI kwanza!'); var cur=+document.getElementById('idadiMafuta').value||1; if(cur<=1) return; safishaPunguzo(); document.getElementById('idadiMafuta').value=cur-1; njiaYaMafuta="HELA"; hesabuMafuta(); }
-function hesabuJumlaMojaBilaChenchi(){ var b=bidhaaIliyochaguliwa(); if(!b) return 0; if(niMafutaBidhaa(b)){ var hm=+document.getElementById('helaMafuta').value||0; var im=+document.getElementById('idadiMafuta').value||1; var pz=+document.getElementById('punguzo').value||0; return Math.max(0,hm*im-pz); } else { var pz2=+document.getElementById('punguzo').value||0; return Math.max(0, Math.round(b.kuza*pataIdadi() - pz2)); } }
+function hesabuJumlaMojaBilaChenchi(){ var b=bidhaaIliyochaguliwa(); if(!b) return 0;
+
+if(niKuuzaKwaBei(b)){ var hm=+document.getElementById('helaMafuta').value||0;
+
+ var im=+document.getElementById('idadiMafuta').value||1; var pz=+document.getElementById('punguzo').value||0; return Math.max(0,hm*im-pz); } else { var pz2=+document.getElementById('punguzo').value||0; return Math.max(0, Math.round(b.kuza*pataIdadi() - pz2)); } }
 function pataJumlaYaSasa(){ if(kikapu.length>0) return {jumla:pataJumlaKikapuBaadaPunguzo()}; return {jumla:hesabuJumlaMojaBilaChenchi()}; }
 function andikaHelaAliyotoa(){ document.getElementById('helaAliyotoa').value=+document.getElementById('helaAliyotoaInput').value||0; hesabuChenchi(); }
 function wekaHelaAliyotoa(kiasi,btn){ document.getElementById('helaAliyotoa').value=kiasi; document.getElementById('helaAliyotoaInput').value=kiasi; hesabuChenchi(); }
 function hesabuChenchi(){ var jumla=pataJumlaYaSasa().jumla; var aliyotoa=+document.getElementById('helaAliyotoa').value||0; var div=document.getElementById('chenchiDisplay'); if(!div) return; if(jumla<=0){ div.innerHTML="Jumla: 0/="; return; } if(aliyotoa<=0){ div.innerHTML="Jumla: "+jumla.toLocaleString()+"/="; return; } div.innerHTML="Jumla: "+jumla.toLocaleString()+"/= | CHENCHI: "+(aliyotoa-jumla).toLocaleString()+"/="; }
-function hesabuMafuta(){ var b=bidhaaIliyochaguliwa(); if(!b) return null; var hm=+document.getElementById('helaMafuta').value||0; var im=+document.getElementById('idadiMafuta').value||1; var pz=+document.getElementById('punguzo').value||0; if(hm<=0) return null; njiaYaMafuta="HELA"; var jumlaKabla=hm*im; var jy=Math.max(0, jumlaKabla - pz); var mills=Math.round(jumlaKabla / b.kuza); var lita=millsKwaLitaHesabu(b,mills); var ndoo=millsKwaNdooHesabu(b,mills); var beiNunuaJumla=Math.round(b.nunua*mills); var faidaKabla=jumlaKabla - beiNunuaJumla; var fa=faidaKabla - pz; document.getElementById('jumlaMafutaHaraka').innerText="= "+jy.toLocaleString()+"/="; document.getElementById('maelezoMafuta').innerHTML="Atapata MILLS "+mills+" = LITA "+lita+" = NDOO "+ndoo+" | "+jy+"/="+(pz>0?" (Punguzo -"+pz.toLocaleString()+"/=)":""); onyeshaFaida(fa, jy, beiNunuaJumla, "MILLS "+mills+" (LITA "+lita+" | NDOO "+ndoo+")"); var baki=Math.max(0,Math.round((b.idadi-mills)*100)/100); document.getElementById('bakiMafutaJuu').innerText="Baada ya kuuza utabaki: "+formatStockMafuta({idadi:baki,millsKwaLita:pataMillsKwaLita(b),litaKwaNdoo:pataLitaKwaNdoo(b),niMafuta:true}); hesabuChenchi(); return {beiMpya:b.kuza,jumlaMpya:jy,faidaMpya:fa,punguzo:pz,idadi:mills,jinaIdadi:"MILLS "+mills+" (LITA "+lita+" | NDOO "+ndoo+")",helaMoja:hm,njia:"HELA"}; }
-function hesabuPunguzo(){ if(niMafutaIliyochaguliwa()) return hesabuMafuta(); if(hakunaBidhaa()) return null; var b=bidhaaIliyochaguliwa(); var idadi=pataIdadi(); var pz=+document.getElementById('punguzo').value||0; var jumlaKabla=Math.round(b.kuza*idadi); var jm=Math.max(0, jumlaKabla - pz); var beiNunuaJumla=Math.round(b.nunua*idadi); var faidaKabla=jumlaKabla - beiNunuaJumla; var fm=faidaKabla - pz; var bm=idadi>0 ? (jm/idadi) : b.kuza; document.getElementById('jumlaHaraka').innerText="= "+jm.toLocaleString()+"/="; document.getElementById('jumlaHarakaJuu').innerText="= "+jm.toLocaleString()+"/="; var divP=document.getElementById('matokeoPunguzo'); if(divP){ if(pz>0) divP.innerHTML="Kabla: "+jumlaKabla.toLocaleString()+"/= | Punguzo: -"+pz.toLocaleString()+"/= | Kulipa: "+jm.toLocaleString()+"/= | Faida: "+fm.toLocaleString()+"/="; else divP.innerHTML=""; } onyeshaFaida(fm, jm, beiNunuaJumla, jinaKamiliKwaKipimo(b, idadi)); hesabuChenchi(); return {beiMpya:bm,jumlaMpya:jm,faidaMpya:fm,punguzo:pz,idadi:idadi,jinaIdadi:jinaKamiliKwaKipimo(b,idadi)}; }
+
+function hesabuMafuta(){
+  var b=bidhaaIliyochaguliwa(); if(!b) return null;
+  var kidogo=pataKipimoKidogo(b)||"MILLS"; var kubwa=pataKipimoKikubwa(b)||"NDOO";
+  var kiasi=+document.getElementById('helaMafuta').value||0;
+  var idadiM=+document.getElementById('idadiMafuta').value||1;
+  var pz=+document.getElementById('punguzo').value||0;
+  if(!kiasi){ document.getElementById('maelezoMafuta').innerHTML=""; document.getElementById('jumlaMafutaHaraka').innerText="= 0/="; return null; }
+
+  var jumlaKabla=kiasi*idadiM;
+  var mills=Math.floor(jumlaKabla/b.kuza);
+  var faidaKabla=Math.floor((b.kuza-b.nunua)*mills);
+  var jm=Math.max(0, jumlaKabla-pz);
+  var fm=faidaKabla-pz;
+  var lita=0; var ndoo=0;
+  if(niMafutaBidhaa(b)){ lita=Math.floor(mills*100/pataMillsKwaLita(b))/100; ndoo=Math.floor(mills*100/pataMillsKwaNdoo(b))/100; }
+  else { var conv=+b.idadiKwaKikubwa||1000; ndoo=Math.floor(mills*100/conv)/100; }
+
+  document.getElementById('jumlaMafutaHaraka').innerText="= "+jm.toLocaleString()+"/=";
+  var baki=document.getElementById('bakiMafutaJuu'); if(baki) baki.innerText="Baki baada ya kuuza: "+(b.idadi-mills)+" "+kidogo;
+
+  var eleza="";
+  var jinaIdadi="";
+  if(niDagaaBidhaa(b)){ eleza="UTAPATA: "+elezaGramu(mills); jinaIdadi=elezaGramu(mills); }
+  else if(niMafutaBidhaa(b)){ eleza="UTAPATA: "+kidogo+" "+mills+" = LITA "+lita+" = "+kubwa+" "+ndoo; jinaIdadi=kidogo+" "+mills; }
+  else { eleza="UTAPATA: "+kidogo+" "+mills+" = "+kubwa+" "+ndoo; jinaIdadi=kidogo+" "+mills; }
+
+  document.getElementById('maelezoMafuta').innerHTML="<b>"+eleza+"</b><br>💰 FAIDA: <b>"+fm.toLocaleString()+"/=</b> | Bei: "+jm.toLocaleString()+"/= | Nunua: "+b.nunua+"/= kwa "+kidogo+" 1";
+  var faidaBox=document.getElementById('faidaMafutaJuu'); if(faidaBox) faidaBox.innerText="Faida: "+fm.toLocaleString()+"/=";
+  var faidaBox2=document.getElementById('faidaJuu'); if(faidaBox2) faidaBox2.innerText="Faida: "+fm.toLocaleString()+"/=";
+
+  // ===== HII NDIO ILIKUWA INAKOSEKANA - sasa inarudisha kama hesabuPunguzo =====
+  return {beiMpya:jm/mills||b.kuza, jumlaMpya:jm, faidaMpya:fm, punguzo:pz, idadi:mills, jinaIdadi:jinaIdadi, helaMoja:kiasi};
+}
+
+
+function hesabuPunguzo(){ if(niKuuzaKwaBeiIliyochaguliwa()) return hesabuMafuta();
+
+if(hakunaBidhaa()) return null; var b=bidhaaIliyochaguliwa(); var idadi=pataIdadi(); var pz=+document.getElementById('punguzo').value||0; var jumlaKabla=Math.round(b.kuza*idadi); var jm=Math.max(0, jumlaKabla - pz); var beiNunuaJumla=Math.round(b.nunua*idadi); var faidaKabla=jumlaKabla - beiNunuaJumla; var fm=faidaKabla - pz; var bm=idadi>0 ? (jm/idadi) : b.kuza; document.getElementById('jumlaHaraka').innerText="= "+jm.toLocaleString()+"/="; document.getElementById('jumlaHarakaJuu').innerText="= "+jm.toLocaleString()+"/="; var divP=document.getElementById('matokeoPunguzo'); if(divP){ if(pz>0) divP.innerHTML="Kabla: "+jumlaKabla.toLocaleString()+"/= | Punguzo: -"+pz.toLocaleString()+"/= | Kulipa: "+jm.toLocaleString()+"/= | Faida: "+fm.toLocaleString()+"/="; else divP.innerHTML=""; } onyeshaFaida(fm, jm, beiNunuaJumla, jinaKamiliKwaKipimo(b, idadi)); hesabuChenchi(); return {beiMpya:bm,jumlaMpya:jm,faidaMpya:fm,punguzo:pz,idadi:idadi,jinaIdadi:jinaKamiliKwaKipimo(b,idadi)}; }
 // ===== KIKAPU - WATEJA WENGI - MPYA =====
 let jinaMtejaKikapu = ""; // Mteja gani tunamwekea bidhaa sasa
 
@@ -648,7 +1328,7 @@ function wekaKikapu(){
   if(hakunaBidhaa()) return alert('Chagua bidhaa!');
   var b=bidhaa[bidhaaIliyochaguliwaIdx];
   var calc;
-  if(niMafutaBidhaa(b)){ calc=hesabuMafuta(); if(!calc) return alert('Bonyeza BEI kwanza!'); }
+if(niKuuzaKwaBei(b)){ calc=hesabuMafuta(); }
   else calc=hesabuPunguzo();
   // ===== MPYA - Chukua jina la mteja - kama hakuandika, tunamwita MTEJA =====
   var jinaMteja = pataJinaMtejaKikapu();
@@ -724,15 +1404,126 @@ function futaKikapuMteja(jinaMteja){
 function toaKwenyeKikapu(i){ kikapu.splice(i,1); onyeshaKikapu(); sasishaButtonZaUza(); }
 function futaKikapu(){ kikapu=[]; try{ document.getElementById('punguzoKikapu').value=0; document.getElementById('helaKikapuInput').value=""; }catch(e){} fungaMiniKikapuZote(); onyeshaKikapu(); sasishaButtonZaUza(); }
 function uzaZoteKweli(){ if(kikapu.length==0) return; var pungTotal=pataPunguzoKikapu(); var jumlaKabla=pataJumlaKikapuBilaPunguzo(); kikapu.forEach(function(k){ var b=bidhaa[k.idx]; var pungHii=jumlaKabla>0?Math.round(pungTotal*k.jumla/jumlaKabla):0; var jumlaMpya=k.jumla-pungHii; var faidaMpya=k.faida-pungHii; b.idadi=Math.round((b.idadi-k.idadi)*1000)/1000; mauzo.push({jina:k.jina+" ("+k.jinaIdadi+")",idadi:k.idadi,jumla:jumlaMpya,faida:faidaMpya,tarehe:new Date().toDateString(),saa:new Date().toLocaleTimeString(),iso:toISO(new Date()),saa:new Date().toLocaleTimeString(),punguzo:(k.punguzo||0)+pungHii,bei:k.bei,category:k.category,muuzaji:jinaMuuzaji||"?"}); }); kikapu=[]; try{ document.getElementById('punguzoKikapu').value=0; document.getElementById('helaKikapuInput').value=""; }catch(e){} fungaMiniKikapuZote(); onyeshaKikapu(); save(); fichaVitendoJuu(); fungaPanelZote(); safishaPunguzo(); document.getElementById('msgUza').innerHTML="✅ UMEUZA ZOTE KUTOKA KIKAPU!"; }
-function ongezaBidhaa(){ var j=document.getElementById('jina').value.trim(); var n=+document.getElementById('nunua').value; var k=+document.getElementById('kuza').value; var i=+document.getElementById('idadi').value; var cat=document.getElementById('categoryBidhaa').value||"NAFAKA"; var muhimu=document.getElementById('wekaMuhimuCheck').checked; var niMafuta=document.getElementById('niMafutaCheck').checked || j.toLowerCase().includes('mafuta'); if(!j||!n||!k) return alert('Jaza jina na bei'); if(niMafuta){ var millsKwaLita=+document.getElementById('millsKwaLita').value||0; var litaKwaNdoo=+document.getElementById('litaKwaNdoo').value||0; if(!millsKwaLita||!litaKwaNdoo) return alert('Jaza MILLS ngapi = LITA 1 na LITA ngapi = NDOO 1'); var beiZaMafuta=safishaBeiZaMafuta(document.getElementById('beiZaMafuta').value); if(beiZaMafuta.length==0) return alert('Weka BEI ZA MAFUTA - mfano 1000,1500,2000'); bidhaa.push({jina:j,nunua:n,kuza:k,idadi:i,category:cat,isMuhimu:muhimu,niMafuta:true,kipimo:"MILLS",kipimoKidogo:"MILLS",kipimoKikubwa:"NDOO",millsKwaLita:millsKwaLita,litaKwaNdoo:litaKwaNdoo,beiZaMafuta:beiZaMafuta,idadiKwaKikubwa:millsKwaLita*litaKwaNdoo}); save(); alert(j+' imeongezwa! '+i+' MILLS = LITA '+(Math.floor(i*100/millsKwaLita)/100)+' = NDOO '+(Math.floor(i*100/(millsKwaLita*litaKwaNdoo))/100)+' | Bei: '+beiZaMafuta.join(', ')); } else { var kipimoKidogo=(document.getElementById('kipimoKidogo').value||"").trim().toUpperCase(); var kipimoKikubwa=(document.getElementById('kipimoKikubwa').value||"").trim().toUpperCase(); var idadiKwaKikubwa=+document.getElementById('idadiKwaKikubwa').value||0; if(!kipimoKidogo||!kipimoKikubwa||!idadiKwaKikubwa) return alert('Jaza Kipimo Kidogo, Kikubwa na Idadi ya vidogo = 1 kikubwa'); bidhaa.push({jina:j,nunua:n,kuza:k,idadi:i,category:cat,isMuhimu:muhimu,niMafuta:false,kipimo:kipimoKidogo,kipimoKidogo:kipimoKidogo,kipimoKikubwa:kipimoKikubwa,idadiKwaKikubwa:idadiKwaKikubwa}); save(); var kubwaHesabu=Math.floor(i*100/idadiKwaKikubwa)/100; alert(j+' imeongezwa! '+i+' '+kipimoKidogo+' = '+kipimoKikubwa+' '+kubwaHesabu); } document.getElementById('jina').value=""; document.getElementById('nunua').value=""; document.getElementById('kuza').value=""; document.getElementById('idadi').value=""; document.getElementById('beiZaMafuta').value=""; document.getElementById('beiZaMafutaPreview').innerHTML=""; document.getElementById('niMafutaCheck').checked=false; badiliFomuMafuta(); hesabuGuniaFomu(); hesabuMafutaFomu(); }
+function ongezaBidhaa(){ var j=document.getElementById('jina').value.trim(); var n=+document.getElementById('nunua').value; var k=+document.getElementById('kuza').value; var i=+document.getElementById('idadi').value; var cat=document.getElementById('categoryBidhaa').value||"NAFAKA"; var muhimu=document.getElementById('wekaMuhimuCheck').checked;
+
+var niMafuta=document.getElementById('niMafutaCheck').checked || j.toLowerCase().includes('mafuta');
+
+ if(!j||!n||!k) return alert('Jaza jina na bei'); if(niMafuta){ var millsKwaLita=+document.getElementById('millsKwaLita').value||0; var litaKwaNdoo=+document.getElementById('litaKwaNdoo').value||0; if(!millsKwaLita||!litaKwaNdoo) return alert('Jaza MILLS ngapi = LITA 1 na LITA ngapi = NDOO 1');
+
+  var beiZaMafuta=safishaBeiZaMafuta(document.getElementById('beiZaMafuta').value); if(beiZaMafuta.length==0) return alert('Weka BEI ZA MAFUTA - mfano 1000,1500,2000'); bidhaa.push({jina:j,nunua:n,kuza:k,idadi:i,category:cat,isMuhimu:muhimu,niMafuta:true,kipimo:"MILLS",kipimoKidogo:"MILLS",kipimoKikubwa:"NDOO",millsKwaLita:millsKwaLita,litaKwaNdoo:litaKwaNdoo,beiZaMafuta:beiZaMafuta,idadiKwaKikubwa:millsKwaLita*litaKwaNdoo}); save(); alert(j+' imeongezwa! '+i+' MILLS = LITA '+(Math.floor(i*100/millsKwaLita)/100)+' = NDOO '+(Math.floor(i*100/(millsKwaLita*litaKwaNdoo))/100)+' | Bei: '+beiZaMafuta.join(', '));
+
+  } else { var kipimoKidogo=(document.getElementById('kipimoKidogo').value||"").trim().toUpperCase(); var kipimoKikubwa=(document.getElementById('kipimoKikubwa').value||"").trim().toUpperCase(); var idadiKwaKikubwa=+document.getElementById('idadiKwaKikubwa').value||0; if(!kipimoKidogo||!kipimoKikubwa||!idadiKwaKikubwa) return alert('Jaza Kipimo Kidogo, Kikubwa na Idadi ya vidogo = 1 kikubwa'); var beiZaBidhaa=safishaBeiZaMafuta(document.getElementById('beiZaMafuta').value); bidhaa.push({jina:j,nunua:n,kuza:k,idadi:i,category:cat,isMuhimu:muhimu,niMafuta:false,kipimo:kipimoKidogo,kipimoKidogo:kipimoKidogo,kipimoKikubwa:kipimoKikubwa,idadiKwaKikubwa:idadiKwaKikubwa,beiZaMafuta:beiZaBidhaa,beiZaBidhaa:beiZaBidhaa});
+
+
+   save(); var kubwaHesabu=Math.floor(i*100/idadiKwaKikubwa)/100; alert(j+' imeongezwa! '+i+' '+kipimoKidogo+' = '+kipimoKikubwa+' '+kubwaHesabu); } document.getElementById('jina').value=""; document.getElementById('nunua').value=""; document.getElementById('kuza').value=""; document.getElementById('idadi').value=""; document.getElementById('beiZaMafuta').value=""; document.getElementById('beiZaMafutaPreview').innerHTML=""; document.getElementById('niMafutaCheck').checked=false; badiliFomuMafuta(); hesabuGuniaFomu(); hesabuMafutaFomu(); }
 function futaBidhaa(i){ if(!confirm('Ufute?'))return; bidhaa.splice(i,1); save(); }
-function futaZilizoisha(){ bidhaa=bidhaa.filter(function(b){return b.idadi>0}); save(); }
-function uzaKweli(){ if(hakunaBidhaa()) return alert('Chagua bidhaa!'); var b=bidhaa[bidhaaIliyochaguliwaIdx]; var calc; if(niMafutaBidhaa(b)){ calc=hesabuMafuta(); if(!calc) return alert('Bonyeza BEI kwanza!'); if(b.idadi<calc.idadi) return alert('Stock haitoshi! MILLS zilizobaki: '+b.idadi); } else { if(b.idadi<pataIdadi()) return alert('Stock haitoshi!'); calc=hesabuPunguzo(); } b.idadi=Math.round((b.idadi-calc.idadi)*1000)/1000; if(b.idadi<0) b.idadi=0; mauzo.push({jina:b.jina+" ("+calc.jinaIdadi+")",idadi:calc.idadi,jumla:calc.jumlaMpya,faida:calc.faidaMpya,tarehe:new Date().toDateString(),saa:new Date().toLocaleTimeString(),iso:toISO(new Date()),saa:new Date().toLocaleTimeString(),punguzo:calc.punguzo,bei:calc.beiMpya,category:pataCategoryYaBidhaa(b),muuzaji:jinaMuuzaji||"?"}); save(); bidhaaIliyochaguliwaIdx=-1; onyeshaBidhaaGrid(); fungaPanelZote(); fichaVitendoJuu(); safishaPunguzo(); document.getElementById('msgUza').innerHTML="✅ Umeuza! "+b.jina+" "+calc.jinaIdadi+" - "+calc.jumlaMpya.toLocaleString()+"/= | Faida: "+calc.faidaMpya.toLocaleString()+"/= | Baki: "+formatStock(b); }
+function futaZilizoisha(){ bidhaa=bidhaa.filter(function(b){return b.idadi>0}); save();
+ }
+function uzaKweli(){
+  if(hakunaBidhaa()) return alert('Chagua bidhaa!');
+  var b=bidhaa[bidhaaIliyochaguliwaIdx];
+  var calc;
+  if(niKuuzaKwaBei(b)){
+    calc=hesabuMafuta();
+    if(!calc || calc.idadi==null || calc.idadi<=0) return alert('Bonyeza BEI kwanza!');
+  } else {
+    if(b.idadi<pataIdadi()) return alert('Stock haitoshi!');
+    calc=hesabuPunguzo();
+    if(!calc || calc.idadi==null || calc.idadi<=0) return alert('Weka idadi!');
+  }
+  b.idadi=Math.round((b.idadi-calc.idadi)*1000)/1000;
+  if(b.idadi<0) b.idadi=0;
+  mauzo.push({jina:b.jina+" ("+calc.jinaIdadi+")",idadi:calc.idadi,jumla:calc.jumlaMpya,faida:calc.faidaMpya,tarehe:new Date().toDateString(),saa:new Date().toLocaleTimeString(),iso:toISO(new Date()),punguzo:calc.punguzo,bei:calc.beiMpya,category:pataCategoryYaBidhaa(b),muuzaji:jinaMuuzaji||"?"});
+  save();
+  bidhaaIliyochaguliwaIdx=-1;
+  onyeshaBidhaaGrid();
+  fungaPanelZote();
+  fichaVitendoJuu();
+  safishaPunguzo();
+  document.getElementById('msgUza').innerHTML="✅ Umeuza! "+b.jina+" "+calc.jinaIdadi+" - "+calc.jumlaMpya.toLocaleString()+"/= | Faida: "+calc.faidaMpya.toLocaleString()+"/= | Baki: "+formatStock(b);
+}
+
+
+
 function ongezaMatumizi(){ var aina=document.getElementById('ainaMatumizi').value; var s=document.getElementById('sababu').value; var k=+document.getElementById('kiasiMatumizi').value; if(!k) return alert('Weka kiasi'); matumizi.push({aina:aina,sababu:s,kiasi:k,tarehe:new Date().toDateString(),iso:toISO(new Date()),muuzaji:jinaMuuzaji||"?"}); save(); }
-function ongezaDeni(){ var jina=document.getElementById('jinaMteja').value; var tarehe=document.getElementById('tareheDeni').value||toISO(new Date()); var bd=document.getElementById('bidhaaDeni').value; var jumla=+document.getElementById('jumlaDeni').value; var namba=document.getElementById('nambaDeni').value; if(!jina||!jumla) return alert('Weka jina na jumla'); madeni.push({jina:jina,tarehe:tarehe,iso:tarehe,bidhaa:bd,jumla:jumla,amelipa:0,namba:namba,malipo:[]}); save(); }
-function lipaDeni(){ var idx=document.getElementById('selDeni').value; var kiasi=+document.getElementById('kiasiLipa').value; var tarehe=document.getElementById('tareheLipa').value||toISO(new Date()); var d=madeni[idx]; if(!d) return; d.amelipa+=kiasi; d.malipo.push({kiasi:kiasi,tarehe:tarehe,iso:tarehe}); save(); document.getElementById('msgDeni').innerHTML=d.jina+" amelipa "+kiasi+"/="; }
+
+function ongezaDeni(){
+  var jina=document.getElementById('jinaMteja').value.trim().toUpperCase();
+  var tarehe=document.getElementById('tareheDeni').value||toISO(new Date());
+  var bd=document.getElementById('bidhaaDeni').value.trim().toUpperCase();
+  var jumla=+document.getElementById('jumlaDeni').value;
+  var namba=document.getElementById('nambaDeni').value;
+  if(!jina||!jumla) return alert('Weka jina na jumla');
+  madeni.push({jina:jina,tarehe:tarehe,iso:tarehe,bidhaa:bd,jumla:jumla,amelipa:0,namba:namba,malipo:[],_id:'d_'+jina+'|'+jumla+'|'+tarehe+'|'+Date.now(),_updated:Date.now()});
+  save();
+  onyeshaMadeni();
+  document.getElementById('jinaMteja').value="";
+  document.getElementById('bidhaaDeni').value="";
+  document.getElementById('jumlaDeni').value="";
+  document.getElementById('nambaDeni').value="";
+  alert('Deni la '+jina+' - '+jumla.toLocaleString()+'/= limehifadhiwa!');
+}
+
+function onyeshaMadeni(){
+  var selD=document.getElementById('selDeni');
+  var od=document.getElementById('orodhaMadeni');
+  if(!od) return;
+  if(selD) selD.innerHTML="";
+  od.innerHTML="";
+  if(!madeni || madeni.length==0){
+    od.innerHTML="<small>Hakuna wadaiwa</small>";
+    var jb=document.getElementById('jumlaMadeniBox');
+    if(jb) jb.innerHTML="Jumla Madaiwa: 0/=";
+    return;
+  }
+  // SEARCH - chukua jina anayotafuta
+  var neno=document.getElementById('tafutaMadeni');
+  var tafuta=neno ? neno.value.trim().toUpperCase() : "";
+  var jumlaYote=0, amelipaYote=0;
+  // Hesabu jumla kwa wote - hata kama umetafuta
+  madeni.forEach(function(d){ jumlaYote+=(+d.jumla||0); amelipaYote+=(+d.amelipa||0); });
+  madeni.forEach(function(d,i){
+    // Kama umeandika jina - onesha yule tu
+    if(tafuta && (d.jina||"").toUpperCase().indexOf(tafuta)==-1) return;
+    jumlaYote+=(+d.jumla||0); amelipaYote+=(+d.amelipa||0);
+    if(selD){
+      var o=document.createElement('option');
+      o.value=i; o.text=d.jina+" - Baki "+(d.jumla-d.amelipa).toLocaleString()+"/=";
+      selD.appendChild(o);
+    }
+     // MIAMALA YA MALIPO - kila alicholipa
+    var htmlMalipo="";
+    if(d.malipo && d.malipo.length>0){
+      htmlMalipo="<div style='background:#F1F8E9;border-left:3px solid #1A7A3A;padding:5px 8px;margin-top:5px;border-radius:4px'><b style='font-size:11px;color:#1A7A3A'>💰 MIAMALA YA MALIPO ("+d.malipo.length+"):</b>";
+      d.malipo.forEach(function(mp, mi){
+        var tMp=mp.tarehe||mp.iso||"-";
+        htmlMalipo+="<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px dashed #ccc'><span>"+(mi+1)+". "+tMp+"</span><b>+"+(+mp.kiasi||0).toLocaleString()+"/=</b></div>";
+      });
+      htmlMalipo+="<div style='display:flex;justify-content:space-between;font-size:12px;font-weight:bold;padding-top:3px'><span>Jumla Amelipa:</span><span>"+(+d.amelipa||0).toLocaleString()+"/=</span></div></div>";
+    } else {
+      htmlMalipo="<div style='font-size:11px;color:#999;margin-top:4px'>Hajawahi kulipa - Bado anadaiwa "+(d.jumla-d.amelipa).toLocaleString()+"/=</div>";
+    }
+    var row=document.createElement('div'); row.className='item';
+    row.style.display="block";
+    row.innerHTML="<div style='display:flex;justify-content:space-between'><span><b>"+d.jina+"</b><br><small>"+d.tarehe+" | "+(d.bidhaa||"")+"<br>Deni: "+(+d.jumla||0).toLocaleString()+"/= | Amelipa: "+(+d.amelipa||0).toLocaleString()+"/=</small></span><span style='text-align:right'><b style='color:#d32f2f'>Baki: "+(d.jumla-d.amelipa).toLocaleString()+"/=</b><br><button onclick='futaDeni("+i+")' style='width:auto;padding:5px 10px;background:#d32f2f;margin-top:4px;font-size:12px'>🗑️ FUTA</button></span></div>"+htmlMalipo;
+    od.appendChild(row);
+  });
+    if(od.innerHTML.trim()==""){
+    od.innerHTML="<small>Hakuna mteja anayefanana na '<b>"+tafuta+"</b>'</small>";
+  }
+  var jb2=document.getElementById('jumlaMadeniBox');
+  if(jb2) jb2.innerHTML="Jumla Madaiwa: "+jumlaYote.toLocaleString()+"/= | Amelipa: "+amelipaYote.toLocaleString()+"/= | Baki: "+(jumlaYote-amelipaYote).toLocaleString()+"/=";
+  var rm=document.getElementById('ripotiMadeni');
+  if(rm) rm.innerHTML="Madeni: "+madeni.length;
+}
+function lipaDeni(){ var idx=document.getElementById('selDeni').value; var kiasi=+document.getElementById('kiasiLipa').value; var tarehe=document.getElementById('tareheLipa').value||toISO(new Date()); var d=madeni[idx]; if(!d) return; d.amelipa+=kiasi; d.malipo.push({kiasi:kiasi,tarehe:tarehe,iso:tarehe}); save(); onyeshaMadeni(); document.getElementById('msgDeni').innerHTML=d.jina+" amelipa "+kiasi+"/="; }
 function futaMauzo(i){ if(!confirm('Ufute mauzo haya? Stock itarudi kama uliuza kimakosa.')) return; var m=mauzo[i]; if(m){ var jinaSafi=m.jina.split(' (')[0].trim().toLowerCase(); for(var k=0;k<bidhaa.length;k++){ if(bidhaa[k].jina.toLowerCase()==jinaSafi){ bidhaa[k].idadi=Math.round((bidhaa[k].idadi + (m.idadi||0))*1000)/1000; if(bidhaa[k]._updated!=null) bidhaa[k]._updated=Date.now(); break; } } } mauzo.splice(i,1); save(); }
-function futaDeni(i){ if(!confirm('Ufute?'))return; madeni.splice(i,1); save(); }
+function futaDeni(i){
+  if(!confirm('Ufute deni la '+madeni[i].jina+'?')) return;
+  madeni.splice(i,1);
+  save();
+  onyeshaMadeni();
+}
 function futaMauzo(i){ if(!confirm('Ufute?'))return; mauzo.splice(i,1); save(); }
 function futaZote(){ if(!confirm('FUTA KILA KITU?')) return; bidhaa=[]; mauzo=[]; matumizi=[]; madeni=[]; save(); location.reload(); }
 function hesabuRipoti(mauzoF, matumiziF, malipoF, label){ ripotiMauzoSasa=mauzoF; ripotiLabelSasa=label; fungaViewRipoti(); var jM=mauzoF.reduce(function(a,b){return a+b.jumla},0); var jF=mauzoF.reduce(function(a,b){return a+b.faida},0); var jT=matumiziF.reduce(function(a,b){return a+b.kiasi},0); var kwaCat={}; mauzoF.forEach(function(m){ var cat=pataCategoryYaMauzo(m); if(!kwaCat[cat]) kwaCat[cat]=0; kwaCat[cat]+=m.jumla; }); var htmlCat=""; Object.keys(kwaCat).forEach(function(cat){ htmlCat+="<div class='catKadi'><b>"+cat+"</b> - "+kwaCat[cat].toLocaleString()+"/=<br><button onclick=\"viewRipotiCategory('"+cat+"')\" style='background:#1565C0'>👁️ VIEW</button></div>"; }); document.getElementById('ripotiWikiMwezi').innerHTML="<h3>"+label+"</h3>Mauzo: "+jM.toLocaleString()+"/=<br>Faida: "+jF.toLocaleString()+"/=<br>Matumizi: "+jT.toLocaleString()+"/=<br><b>FAIDA SAFI: "+(jF-jT).toLocaleString()+"/=</b>"; document.getElementById('ripotiCategoryKubwa').innerHTML="<h3>MAUZO KWA CATEGORY</h3>"+htmlCat; }
@@ -744,19 +1535,20 @@ function printRipoti(){ window.location.href="sms:?body="+encodeURIComponent(ten
 
 function render(){ try{
   renderCategoryBar(); renderCategorySelect(); renderCategoryList();
+
   var grid=document.getElementById('bidhaaGridUza');
+  if(!grid) return;
   var juU=document.getElementById('mafutaJuu').style.display=="block" || document.getElementById('idadiJuu').style.display=="block";
   grid.innerHTML="";
 
-  // ===== 1. MUHIMU MBELE - CATEGORY TU =====
+  // 1. UZA MWANZO - CATEGORY TU
   if(categoryIliyochaguliwa=="MUHIMU" && !nenoLaSearch && !categoryKutokaMuhimu){
     grid.classList.add('muhimuGrid');
     categories.forEach(function(cat){
-      var idadi = bidhaa.filter(function(b){ return pataCategoryYaBidhaa(b)==cat; }).length;
       var btn=document.createElement('button');
-            btn.className='categoryCardMuhimu cat-'+cat;
+      btn.className='categoryCardMuhimu cat-'+cat;
       btn.onclick=function(){ funguaCategoryKutokaMuhimu(cat); };
-            var picha="mchele.png";
+      var picha="mchele.png";
       if(cat=="MAFUTA") picha="mosafi.png";
       else if(cat=="NAFAKA") picha="mchele.png";
       else if(cat=="SABUNI") picha="royal.png";
@@ -766,12 +1558,10 @@ function render(){ try{
       grid.appendChild(btn);
     });
     if(juU) grid.style.display="none"; else grid.style.display="grid";
-    var orodha=document.getElementById('orodha');
-    if(orodha) orodha.innerHTML="<h4>Chagua Category - Bidhaa ("+bidhaa.length+")</h4>";
     return;
   }
 
-  // ===== 2. NDANI YA CATEGORY - ONYESHA BIDHAA ZAKE =====
+  // 2. NDANI YA CATEGORY - BIDHAA ZAKE
   grid.classList.remove('muhimuGrid');
   var list;
   if(nenoLaSearch){
@@ -782,7 +1572,7 @@ function render(){ try{
     list=bidhaa.map(function(b,idx){return {b:b,idx:idx}}).filter(function(x){ if(categoryIliyochaguliwa=="MUHIMU") return niMuhimu(x.b); return pataCategoryYaBidhaa(x.b)==categoryIliyochaguliwa; });
   }
 
-  // ===== 3. BUTTON YA RUDI - Kwanza, kabla ya bidhaa, ili isifutwe =====
+  // Button ya RUDI
   if(categoryKutokaMuhimu && !nenoLaSearch){
     var btnRudi=document.createElement('button');
     btnRudi.className='btnRudiCategory';
@@ -796,7 +1586,7 @@ function render(){ try{
     grid.appendChild(title);
   }
 
-  // ===== 4. BIDHAA - Kama zamani yako =====
+  // 3. BIDHAA - Button za kuuza
   if(list.length==0){
     var divHakuna=document.createElement('div');
     divHakuna.style.gridColumn="1/-1"; divHakuna.style.textAlign="center";
@@ -809,45 +1599,34 @@ function render(){ try{
       btn.className='bidhaaBtn'+(b.idadi<=0?' isha':'');
       btn.onclick=function(){ chaguaBidhaa(x.idx); };
       if(niMafutaBidhaa(b)){
-        btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= kwa MILLS 1 | Baki "+formatStock(b)+"<br>MILLS / LITA / NDOO | Bei: "+pataBeiZaMafuta(b).join(', ')+"</small>";
+        btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= kwa "+pataKipimoKidogo(b)+" 1 | Baki "+formatStock(b)+"<br>"+pataKipimoKidogo(b)+" / "+pataKipimoKikubwa(b)+" | Bei: "+pataBeiZaBidhaa(b).join(', ')+"</small>";
       } else {
         btn.innerHTML="<b>"+b.jina+"</b><small>"+b.kuza.toLocaleString()+"/= | Baki "+formatStock(b)+"<br>"+pataKipimoKidogo(b)+" / "+pataKipimoKikubwa(b)+"</small>";
       }
       grid.appendChild(btn);
     });
   }
+
   if(juU) grid.style.display="none"; else grid.style.display="grid";
 
-  var orodha2=document.getElementById('orodha');
-  if(orodha2){
-    orodha2.innerHTML="<h4>Bidhaa ("+bidhaa.length+")</h4>";
-    // ===== MPYA - Rudisha orodha ya BIDHAA page - EDIT / FUTA =====
-    bidhaa.forEach(function(b,i){
-      var div=document.createElement('div'); div.className='item';
-      if(niMafutaBidhaa(b)){
-        div.innerHTML="<span><b>"+b.jina+" 🛢️</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= kwa MILLS 1 | Nunua "+b.nunua+"/= kwa MILLS 1<br><span class='stockLine'>MILLS "+pataMillsKwaLita(b)+" = LITA 1 | LITA "+pataLitaKwaNdoo(b)+" = NDOO 1<br>BEI: "+pataBeiZaMafuta(b).join(', ')+"</span></small></span><span><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>";
-      } else {
-        div.innerHTML="<span><b>"+b.jina+"</b><br><small>Baki "+formatStock(b)+" | Uza "+b.kuza+"/= kwa "+pataKipimoKidogo(b)+"<br><span class='stockLine'>"+pataKipimoKidogo(b)+" "+pataIdadiKwaKikubwa(b)+" = "+pataKipimoKikubwa(b)+" 1</span></small></span><span><button style='width:auto;padding:5px;background:#1565C0' onclick='funguaEditBidhaa("+i+")'>EDIT</button><button style='width:auto;padding:5px;background:red' onclick='futaBidhaa("+i+")'>FUTA</button></span>";
-      }
-      orodha2.appendChild(div);
-    });
-  }
-  // ===== HAPA NDIPO CODE YA MAUZO / MATUMIZI / MADENI INAYOFUATA - IBaki hapo hapo, sasa iko NDANI ya render() tena =====
- var om=document.getElementById('orodhaMauzo'); om.innerHTML=""; 
+  // Orodha za chini - Mauzo / Matumizi / Madeni - ziache kama zilivyokuwa kwenye code yako
+  var om=document.getElementById('orodhaMauzo'); if(om){ om.innerHTML=""; var jM=0,jF=0; mauzo.slice().reverse().forEach(function(m,idxRev){ var i=mauzo.length-1-idxRev; jM+=m.jumla; jF+=m.faida; var d=document.createElement('div'); d.className='item'; d.innerHTML="<span><b>"+m.jina+"</b><br><small>"+m.tarehe+" "+(m.saa||"")+" | Muuzaji: "+(m.muuzaji||"-")+" | Faida "+m.faida.toLocaleString()+"/=</small></span><span><b>"+m.jumla.toLocaleString()+"/=</b><br><button onclick='futaMauzo("+i+")' style='width:auto;padding:5px 10px;background:#d32f2f;margin-top:4px;font-size:12px'>🗑️ FUTA</button></span>"; om.appendChild(d); }); document.getElementById('jumlaMauzoMoja').innerHTML="JUMLA: "+jM.toLocaleString()+"/= | FAIDA: "+jF.toLocaleString()+"/="; }
+  onyeshaKikapu(); sasishaButtonZaUza(); sasishaRudiChini(); sasishaStatusAuto();
+}catch(e){ console.log(e); } }
 
- var jM=0,jF=0; mauzo.slice().reverse().forEach(function(m,idxRev){ var i=mauzo.length-1-idxRev; jM+=m.jumla; jF+=m.faida; var d=document.createElement('div'); d.className='item'; d.innerHTML="<span><b>"+m.jina+"</b><br><small>"+m.tarehe+" "+(m.saa||"")+" | Muuzaji: "+(m.muuzaji||"-")+" | Faida "+m.faida.toLocaleString()+"/=</small></span><span><b>"+m.jumla.toLocaleString()+"/=</b><br><button onclick='futaMauzo("+i+")' style='width:auto;padding:5px 10px;background:#d32f2f;margin-top:4px;font-size:12px'>🗑️ FUTA</button></span>"; om.appendChild(d); }); 
 
- document.getElementById('jumlaMauzoMoja').innerHTML="JUMLA: "+jM.toLocaleString()+"/= | FAIDA: "+jF.toLocaleString()+"/="; var groups={}; matumizi.forEach(function(m){groups[m.aina]=(groups[m.aina]||0)+m.kiasi;}); var mc=document.getElementById('mchanganuoMatumizi'); mc.innerHTML=""; for(var k in groups){ mc.innerHTML+="<div class='item'><span>"+k+"</span><b>"+groups[k].toLocaleString()+"/=</b></div>"; } var selD=document.getElementById('selDeni'); selD.innerHTML=""; var od=document.getElementById('orodhaMadeni'); od.innerHTML=""; madeni.forEach(function(d,i){ var o=document.createElement('option'); o.value=i; o.text=d.jina+" - Baki "+(d.jumla-d.amelipa).toLocaleString()+"/="; selD.appendChild(o); var row=document.createElement('div'); row.className='item'; row.innerHTML="<span><b>"+d.jina+"</b><br><small>"+d.tarehe+" | "+(d.bidhaa||"")+"</small></span><span><b>"+(d.jumla-d.amelipa).toLocaleString()+"/=</b></span>"; od.appendChild(row); }); var jMM=mauzo.reduce(function(a,b){return a+b.jumla},0); var jFF=mauzo.reduce(function(a,b){return a+b.faida},0); var jTT=matumizi.reduce(function(a,b){return a+b.kiasi},0); document.getElementById('ripotiText').innerHTML="Jumla Mauzo: "+jMM.toLocaleString()+"/=<br>Faida Safi: "+(jFF-jTT).toLocaleString()+"/="; document.getElementById('ripotiMadeni').innerHTML="Madeni: "+madeni.length; onyeshaKikapu(); sasishaButtonZaUza(); sasishaRudiChini(); sasishaStatusAuto(); }catch(e){ console.log(e); } }
 if(jinaMuuzaji){ document.getElementById('jinaMuuzaji').value=jinaMuuzaji; document.getElementById('jinaMuuzajiLabel').innerText="Muuzaji: "+jinaMuuzaji; }
 pakiaLocal();
 if(imeunganishwa){ sikilizaFirebase(); } else { render(); }
-render(); ripotiLeo(); show('uza'); sasishaStatusAuto(); hesabuGuniaFomu(); hesabuMafutaFomu();
+render(); onyeshaMadeni(); ripotiLeo(); show('uza'); sasishaStatusAuto();
+hesabuGuniaFomu(); hesabuMafutaFomu();
 </script>
 <script>
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 // ===== PENDING - MPYA - KAMA KIKAPU - HAPA TU =====
 let pendingList = [];
-try{ pendingList = JSON.parse(localStorage.getItem('mangi_v4_pending')||'[]'); }catch(e){ pendingList=[]; }
+try{ pendingList = JSON.parse(localStorage.getItem('mangi_v4_pending')||'[]'); }catch(e){ pendingList=[];
+ }
 let pendingIliyofunguliwa = -1; // Ni mteja gani tumemfungua sasa
 
 function hifadhiPending(){
