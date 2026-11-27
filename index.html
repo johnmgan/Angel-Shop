@@ -254,7 +254,11 @@ small{color:#666}
 <!-- ===== PENDING - MFUPI - WEKA PENDING MOJA KWA MOJA ===== -->
 <div id="pendingJinaBox" style="display:none;background:#FFF3E0;border:2px solid #EF6C00;border-radius:10px;padding:8px;margin-top:6px">
   <b>⏳ PENDING - WEKA MOJA KWA MOJA</b>
-  <input id="jinaPending" placeholder="Jina la Mteja - SI LAZIMA - mfano JUMA" style="margin-top:6px">
+  <input id="jinaPending" placeholder="Jina la Mteja - SI LAZIMA - mfano JUMA" style="margin-top:6px" oninput="hifadhiJinaPending()">
+  <div style="display:flex;gap:4px;margin-top:4px">
+    <small style="flex:1;color:#666">Jina linashikiliwa - hubadilishwi hadi ubonyeze SAFISHA</small>
+    <button onclick="safishaJinaPending()" style="width:auto;padding:4px 8px;background:#666;font-size:11px">❌ SAFISHA JINA</button>
+  </div>
   <div style="display:flex;gap:4px;margin-top:6px">
     <button onclick="wekaPendingMojaKwaMoja()" style="background:#EF6C00;flex:1">⏳ WEKA PENDING</button>
     <button onclick="document.getElementById('pendingJinaBox').style.display='none'" style="background:#d32f2f;flex:1">❌ GHAIRI</button>
@@ -841,7 +845,7 @@ function lipaDeniYangu(i){
     if(kiasi>baki){ alert('Kiasi kimezidi deni! Baki ni '+baki.toLocaleString()+'/='); return; }
     var maelezo=prompt('Maelezo - mfano: Nimempa CASH - (si lazima)')||"";
     var tarehe=prompt('Tarehe - mfano 2026-11-26 (acha wazi = leo)', toISO(new Date()))||toISO(new Date());
-    m.malipo.push({kiasi:kiasi, njia:'FEDHA', tarehe:tarehe, maelezo:maelezo});
+m.malipo.push({kiasi:kiasi, njia:'FEDHA', tarehe:tarehe, maelezo:maelezo, bakiBaada:(baki-kiasi)});
     m.imelipwa=imelipwa+kiasi;
     m._updated=Date.now();
     save();
@@ -875,8 +879,9 @@ function lipaDeniYanguKwaJina(jinaCode){
     var bakiDeni=m.jumla-im;
     if(bakiDeni<=0) continue;
     var lipaHapa=Math.min(bakiDeni, bado);
-    m.malipo.push({kiasi:lipaHapa, njia:'FEDHA', tarehe:tarehe, maelezo:maelezo});
-    m.imelipwa=im+lipaHapa;
+
+m.malipo.push({kiasi:lipaHapa, njia:'FEDHA', tarehe:tarehe, maelezo:maelezo, bakiBaada:(baki - kiasi + (bado - lipaHapa)) - 0 + (bado - lipaHapa) - (bado - lipaHapa) + (baki - (kiasi - (bado - lipaHapa)))});
+
     m._updated=Date.now();
     bado-=lipaHapa;
   }
@@ -1112,13 +1117,50 @@ function onyeshaMadeniYangu(){
       var mwanzo=(ukMiamala-1)*10;
       var mwisho=Math.min(malipoYote.length, mwanzo+10);
       // Baki kabla ya page hii - ili Baki ionyeshwe sahihi hata Page 2 na 3
-      var bakiBaada=jumlaKubwa;
-      for(var bi=0; bi<mwanzo; bi++) bakiBaada-= (+malipoYote[bi].kiasi||0);
+             // BAKI YA KILA MUAMALA - hesabu kwa mpangilio wa tarehe
+      // Deni likija baadaye haligusi Baki ya malipo ya nyuma
+      var matukio=[];
+      g.entries.forEach(function(e){
+        matukio.push({aina:'deni', tarehe:e.m.tarehe||e.m.iso||"0000", jumla:+e.m.jumla||0});
+        (e.m.malipo||[]).forEach(function(p, pIdx){
+          matukio.push({aina:'malipo', tarehe:p.tarehe||p.iso||e.m.tarehe||"0000", kiasi:+p.kiasi||0, entryIdx:e.i, malipoIdx:pIdx, njia:p.njia, maelezo:p.maelezo});
+        });
+        if((e.m.malipo||[]).length==0 && +e.m.imelipwa>0){
+          matukio.push({aina:'malipo', tarehe:e.m.tarehe||"0000", kiasi:+e.m.imelipwa||0, entryIdx:e.i, malipoIdx:-1, njia:'FEDHA', maelezo:'Malipo ya zamani'});
+        }
+      });
+      // Panga kwa tarehe - deni la zamani kwanza, malipo yake baadaye
+      matukio.sort(function(a,b){
+        if(a.tarehe<b.tarehe) return -1;
+        if(a.tarehe>b.tarehe) return 1;
+        if(a.aina==b.aina) return 0;
+    
+       return a.aina=='malipo' ? -1 : 1;
+
+      });
+      var bakiMuda=0;
+            // BAKI YA KILA DENI KIVYAKE - sio jumla ya mtu
+      // Deni 10,000 - 2,000 = 8,000 - deni jingine haligusi hili
+      var bakiKwaMalipo={};
+      g.entries.forEach(function(e){
+        var bakiDeniHili=+e.m.jumla||0;
+        (e.m.malipo||[]).forEach(function(p, pIdx){
+          bakiDeniHili-=(+p.kiasi||0);
+          bakiKwaMalipo[e.i+"_"+pIdx]=bakiDeniHili;
+        });
+        if((e.m.malipo||[]).length==0 && +e.m.imelipwa>0){
+          bakiKwaMalipo[e.i+"_-1"]=(+e.m.jumla||0)-(+e.m.imelipwa||0);
+        }
+      });
+
       htmlMalipo="<div style='background:#FFF3E0;padding:6px;border-radius:6px;margin-top:6px'><b>📜 MIAMALA YA MALIPO - Page "+ukMiamala+" / "+jumlaPagesMiamala+" ("+malipoYote.length+" yote):</b><br>";
       for(var mi=mwanzo; mi<mwisho; mi++){
         var p=malipoYote[mi];
-        bakiBaada=bakiBaada-(+p.kiasi||0);
-        htmlMalipo+="<div style='background:white;padding:5px;margin:3px 0;border-radius:5px;display:flex;justify-content:space-between;align-items:center;gap:4px'><span>"+(mi+1)+". "+(+p.kiasi||0).toLocaleString()+"/= - "+(p.njia||'FEDHA')+" - "+(p.tarehe||"")+" "+(p.maelezo?" - "+p.maelezo:"")+"</span><span><b>Baki: "+bakiBaada.toLocaleString()+"/=</b> <button onclick='futaMalipoYangu("+p.entryIdx+","+p.malipoIdx+")' style='width:auto;padding:3px 7px;background:#d32f2f;font-size:11px'>🗑️ FUTA</button></span></div>";
+         var bakiHuu=bakiKwaMalipo[p.entryIdx+"_"+p.malipoIdx];
+        if(bakiHuu==null && p.bakiBaada!=null) bakiHuu=+p.bakiBaada;
+        if(bakiHuu==null) bakiHuu=(+p.kiasi||0)*-1;
+        if(bakiHuu==null) bakiHuu=baki;
+        htmlMalipo+="<div style='background:white;padding:5px;margin:3px 0;border-radius:5px;display:flex;justify-content:space-between;align-items:center;gap:4px'><span>"+(mi+1)+". "+(+p.kiasi||0).toLocaleString()+"/= - "+(p.njia||'FEDHA')+" - "+(p.tarehe||"")+" "+(p.maelezo?" - "+p.maelezo:"")+" - <b>Baki: "+bakiHuu.toLocaleString()+"/=</b></span><span><button onclick='futaMalipoYangu("+p.entryIdx+","+p.malipoIdx+")' style='width:auto;padding:3px 7px;background:#d32f2f;font-size:11px'>🗑️ FUTA</button></span></div>";
       }
       // Namba za page za miamala - chini kulia ndani ya kadi
       if(jumlaPagesMiamala>1){
@@ -1695,7 +1737,7 @@ if(!jina){
     alert('✅ Imeongezwa kwenye PENDING ya '+jina+'! Sasa ana bidhaa '+pendingList[idxMteja].bidhaa.length);
   } else {
     pendingList.push({jina:jina, tarehe:new Date().toDateString(), muuzaji:jinaMuuzaji||"?", bidhaa:[itemMpya]});
-    alert('✅ '+jina+' amewekwa PENDING!');
+
   }
 
   // 4. HATUPUNGUZI STOCK hapa - kwa sababu hajalipa bado. Stock itapungua siku atakapolipa / tutakapomuuza
@@ -1990,57 +2032,57 @@ function futaPendingMteja(){
 // ===== PENDING MFUPI - WEKA PENDING MOJA KWA MOJA - MPYA =====
 // Hii inachukua nafasi ya ADD PENDING + WEKA PENDING zote mbili
 function wekaPendingMojaKwaMoja(){
-  ruhusuJinaPendingKubaki(); // Hii ni WEKA PENDING - jina halifutwi
-  if(typeof hakunaBidhaa==='function' && hakunaBidhaa()) return alert('Chagua bidhaa kwanza!');
+  try{
+    var elJina=document.getElementById('jinaPending');
+    if(!elJina) return alert('Input ya jinaPending haikupatikana!');
+    var jina=elJina.value.trim().toUpperCase();
+    var niMtejaBilaJina=false;
+    if(!jina){
+      var namba=pendingList.length+1;
+      jina="MTEJA "+namba;
+      while(pendingList.some(function(p){ return p.jina===jina; })){ namba++; jina="MTEJA "+namba; }
+      niMtejaBilaJina=true;
+      elJina.value=jina;
+    }
+    hifadhiJinaPending();
 
-  // Jina si lazima - kama hana jina tunampa MTEJA 1, MTEJA 2...
-  var jina = document.getElementById('jinaPending').value.trim().toUpperCase();
-  var niMtejaBilaJina = false;
-  if(!jina){
-    var namba = pendingList.length + 1;
-    jina = "MTEJA " + namba;
-    while(pendingList.some(function(p){ return p.jina===jina; })){ namba++; jina = "MTEJA " + namba; }
-    niMtejaBilaJina = true;
-    document.getElementById('jinaPending').value = jina;
-  }
+    // Kama hakuna bidhaa iliyochaguliwa - sema, usinyamaze
+    if(typeof hakunaBidhaa==='function' && hakunaBidhaa()) return alert('Chagua bidhaa kwanza!');
+    var b=null;
+    try{ b=bidhaaIliyochaguliwa(); }catch(e){ b=null; }
+    if(!b) return alert('Chagua bidhaa kwanza! (hakuna bidhaa iliyochaguliwa)');
 
-  var calc = null;
-  if(typeof niMafutaIliyochaguliwa==='function' && niMafutaIliyochaguliwa()){
-    calc = hesabuMafuta();
-  } else {
-    calc = hesabuPunguzo();
-  }
-  if(!calc) return alert('Bonyeza BEI kwanza!');
+    var calc=null;
+    if(typeof niMafutaIliyochaguliwa==='function' && niMafutaIliyochaguliwa()){
+      calc=hesabuMafuta();
+    } else {
+      calc=hesabuPunguzo();
+    }
+    if(!calc) return alert('Bonyeza BEI kwanza!');
 
-  var b = bidhaaIliyochaguliwa();
-  var itemMpya = {jina:b.jina, jinaIdadi:calc.jinaIdadi, idadi:calc.idadi, jumla:calc.jumlaMpya, faida:calc.faidaMpya, bei:calc.beiMpya, category:pataCategoryYaBidhaa(b), idxBidhaa:bidhaaIliyochaguliwaIdx};
+    var itemMpya={jina:b.jina, jinaIdadi:calc.jinaIdadi, idadi:calc.idadi, jumla:calc.jumlaMpya, faida:calc.faidaMpya, bei:calc.beiMpya, category:(typeof pataCategoryYaBidhaa==='function'?pataCategoryYaBidhaa(b):""), idxBidhaa:bidhaaIliyochaguliwaIdx};
 
-  // Kama jina lipo tayari (mfano JOHN), ongeza humo humo - usimuumbe mpya
-  // Kama ni MTEJA bila jina, kila WEKA PENDING ni mteja mpya - wasichanganyike
-  var idxMteja = -1;
-  if(!niMtejaBilaJina){
-    for(var i=0;i<pendingList.length;i++){ if(pendingList[i].jina===jina) idxMteja=i; }
-  }
-
-  if(idxMteja>=0){
-    pendingList[idxMteja].bidhaa.push(itemMpya);
-    alert('✅ Imeongezwa kwenye PENDING ya '+jina+'! Sasa ana bidhaa '+pendingList[idxMteja].bidhaa.length);
-  } else {
-    pendingList.push({jina:jina, tarehe:new Date().toDateString(), muuzaji:jinaMuuzaji||"?", bidhaa:[itemMpya]});
-    alert('✅ '+jina+' amewekwa PENDING! Bidhaa 1');
-  }
-
+    var idxMteja=-1;
+    if(!niMtejaBilaJina){
+      for(var i=0;i<pendingList.length;i++){ if(pendingList[i].jina===jina) idxMteja=i; }
+    }
+    if(idxMteja>=0){
+      pendingList[idxMteja].bidhaa.push(itemMpya);
+      alert('✅ Imeongezwa kwenye PENDING ya '+jina+'! Sasa ana bidhaa '+pendingList[idxMteja].bidhaa.length);
+    } else {
+      pendingList.push({jina:jina, tarehe:new Date().toDateString(), muuzaji:(typeof jinaMuuzaji!=="undefined"?jinaMuuzaji:"?"), bidhaa:[itemMpya]});
+    }
     hifadhiPending();
-  onyeshaPending();
-  // Jina linabaki hapa - kwa sababu unaweza kutaka kuongeza bidhaa nyingine ya JOHN huyo huyo
-  // Lakini ukiclick button nyingine yoyote (UZA, CHENJI, PUNGUZA, RUDI...) - linarudi blank yenyewe
-  // ===== MUHIMU - PENDING INABAKI OPEN ili uongeze nyingine haraka =====
-  // Hatufungi box - tunarudi kwenye bidhaa ili uchague nyingine, halafu WEKA PENDING tena
-  if(typeof rudiKwenyeBidhaa==='function') rudiKwenyeBidhaa();
-  document.getElementById('pendingJinaBox').style.display='block';
-  // Jina linabaki - ili usiandike tena kwa mteja huyo huyo
+    onyeshaPending();
+    if(typeof rudiKwenyeBidhaa==='function') rudiKwenyeBidhaa();
+    document.getElementById('pendingJinaBox').style.display='block';
+    // Jina linabaki - usilifute
+    rudishaJinaPending();
+  }catch(e){
+    alert('KOSA WEKA PENDING: '+e.message);
+    console.log(e);
+  }
 }
-
 // Hii ndiyo button ya PENDING kwenye vitendoBarJuu inapaswa kuita - inafungua box fupi
 function funguaPendingMuda(){
   var box = document.getElementById('pendingJinaBox');
@@ -2051,57 +2093,33 @@ function funguaPendingMuda(){
 }
 function fungaPendingMuda(){
   document.getElementById('pendingJinaBox').style.display='none';
+  hifadhiJinaPending();
+}
+// ===== PENDING - JINA LINASHIKILIWA BY DEFAULT =====
+// Jina halifutwi na button yoyote - linabaki hadi ubonyeze SAFISHA JINA au ubadilishe mwenyewe
+// Linahifadhiwa hata ukifunga app - ukirudi unamkuta JUMA yule yule
+function hifadhiJinaPending(){
+  try{ localStorage.setItem('mangi_pending_jina', document.getElementById('jinaPending').value||""); }catch(e){}
+}
+function rudishaJinaPending(){
+  try{
+    var j=localStorage.getItem('mangi_pending_jina')||"";
+    var el=document.getElementById('jinaPending');
+    if(el && j) el.value=j;
+  }catch(e){}
+}
+function safishaJinaPending(){
   document.getElementById('jinaPending').value="";
+  try{ localStorage.removeItem('mangi_pending_jina'); }catch(e){}
+  document.getElementById('jinaPending').focus();
 }
-// ===== PENDING - JINA LIRUDI BLANK UKICLICK BUTTON NYINGINE - MPYA =====
-// Kanuni: Jina lishikiliwe na WEKA PENDING tu. Button nyingine yoyote ikibonyezwa, jina linafutika.
-
-let jinaPendingLimeshika = false; // Tumeandika jina na bado hatujabonyeza WEKA PENDING?
-
-// 1. Ukibonyeza WEKA PENDING - jina linakubaliwa, halifutwi na huu mfumo
-function ruhusuJinaPendingKubaki(){
-  jinaPendingLimeshika = true;
-}
-
-// 2. Ukibonyeza button nyingine yoyote - jina linarudi blank
-document.addEventListener('click', function(e){
-  var inputJina = document.getElementById('jinaPending');
-  if(!inputJina) return;
-  // Kama box la PENDING halijafunguliwa, hakuna cha kufuta
-  var box = document.getElementById('pendingJinaBox');
-  if(!box || box.style.display==='none') return;
-  // Kama umeclick ndani ya input ya jina yenyewe - usifute
-  if(e.target===inputJina) return;
-  // Kama umeclick WEKA PENDING - usifute, ndiyo inayotakiwa kubeba jina
-  if(e.target.closest('button') && e.target.closest('button').getAttribute('onclick') && e.target.closest('button').getAttribute('onclick').includes('wekaPendingMojaKwaMoja')) return;
-  // Kama umeclick button ya kufunga PENDING yenyewe (GHAIRI / X) - usifute hapa, itafutwa na funga yake
-  if(e.target.closest('button') && e.target.closest('button').getAttribute('onclick') && e.target.closest('button').getAttribute('onclick').includes('pendingJinaBox')) return;
-
-  // ===== HAPA NDIPO - UMECLICK BUTTON NYINGINE - JINA LINARUDI BLANK =====
-  // Lakini tu kama jina lilikuwa limeandikwa na bado hujaweka PENDING
-  if(inputJina.value.trim()!==""){
-    // Kama umeclick button ya kuchagua bidhaa (bidhaa yenyewe) - usifute bado, kwa sababu unataka kuweka PENDING ya hiyo bidhaa
-    // Tunafuta tu kama ni button za vitendo - UZA, CHENJI, PUNGUZA, KIKAPU, RUDI, PENDING nyingine, n.k.
-    var btn = e.target.closest('button');
-    if(btn){
-      var txt = (btn.innerText||"").toUpperCase();
-      var onclickTxt = btn.getAttribute('onclick')||"";
-      // Orodha ya button zinazofuta jina - zote mbali na WEKA PENDING
-      var niButtonYaVitendo = txt.includes('UZA') || txt.includes('CHENJI') || txt.includes('PUNGUZA') || txt.includes('KIKAPU') || txt.includes('RUDI') || txt.includes('FUTA') || txt.includes('BADILI') || txt.includes('ONGEZA') || onclickTxt.includes('rudiKwenyeBidhaa') || onclickTxt.includes('funguaMini') || onclickTxt.includes('uzaKikapu') || onclickTxt.includes('uzaKweli') || onclickTxt.includes('funguaPending');
-      if(niButtonYaVitendo){
-        inputJina.value = "";
-        // Kama ulikuwa umeandika JOHN ukabonyeza UZA - JOHN anafutika, hana PENDING tena
-      }
-    }
-  }
-}, true);
-
-// 3. Kama umeandika jina ukatoka kwenye box la PENDING bila kuweka - nalo linarudi blank
-// Hii inahakikisha ukirudi baadae, unakuta blank, sio JOHN wa zamani
 function fungaPendingMuda(){
+  // Haufuti jina - unalifunga tu box, jina linabaki kwa mara nyingine
   document.getElementById('pendingJinaBox').style.display='none';
-  document.getElementById('jinaPending').value="";
+  hifadhiJinaPending();
 }
+// Weka hii mara moja ukifungua app - kwenye chini kabisa ya script yako:
+// rudishaJinaPending();
 
 // ===== MUHIMU - FUNGUA CATEGORY / RUDI - MPYA =====
 function funguaCategoryKutokaMuhimu(cat){
